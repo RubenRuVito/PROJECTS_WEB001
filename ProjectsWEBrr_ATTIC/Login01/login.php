@@ -7,19 +7,32 @@ include_once 'funciones.php';
 $email = addslashes(strip_tags($_POST['inputEmail']));
 $pass = addslashes(strip_tags($_POST['inputPassword']));
 
-echo 'email: '.$email.' pass: '.$pass;
+/*echo 'email: '.$email.' pass: '.$pass;
 
 $patronPass = '#^[A-Za-z0-9]{8}$#';
-$patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';
+$patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';*/
 
 $validacion = validacionLogin($email,$pass);
-
 echo $validacion;
 
-$userYpass = array( //array bidimensional con usuarios registrados y sus password.
-	array('ruben@galobi.com','000000a1'),
-	array('pepe@galobi.com','000000a2')
-	);
+if($validacion===1){
+	header('location: index01.php?error=1');//error del patron, lo tratamos en el index01.
+	exit();
+}elseif($validacion===0){
+
+	$registrado = comprobarUsuario($email,$pass);
+	echo $registrado;
+
+	if($registrado===0){ // =0 registrado, =1 No registrado.
+			session_start();
+			$_SESSION['usuario']=$email;
+			header('location: index02.php');
+			exit();
+		}elseif($registrado===1){
+			header('location: index01.php?error=2');//error de usuario no registrado, lo tratamos en el index01.
+			exit();
+		}
+}
 
 /*for($fila=0;$fila<count($userYpass);$fila++){
 
