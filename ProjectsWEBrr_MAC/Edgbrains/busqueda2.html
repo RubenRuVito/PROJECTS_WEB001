@@ -1,0 +1,66 @@
+<html>
+<?php
+error_reporting(E_ALL & ~E_NOTICE); 
+#Conectamos con la base de datos edgbrain
+
+ $conexion = new mysql_connect('edgbrain.com:3306','dioxinet2','do79py8o')
+
+	or die ("Fallo en el establecimiento de la conexion");
+    echo '$conexion';
+	#Seleccionamos la base de datos a utilizar
+	mysql_select_db('edg_dbadmi',$conexion)
+	
+	or die("Error en la seleccion de la base de datos");
+?>
+</head>
+<body>
+<form id="form1" action="src/clases/conexiondb3.php" method="post">
+	<!-- <SELECT NAME="cate" SIZE=1 onChange=""> 
+	<OPTION <?php if(!isset($_POST['cate']) || strcmp($_POST['cate'], 'Todos')==0){echo "selected "; } ?> VALUE="Todos">Todas las categor��as</OPTION>
+	<OPTION <?php if(strcmp($_POST['cate'], 'nombreCategoria1')==0){ echo "selected "; } ?>VALUE="nombreCategoria1">categor��a 1</OPTION>
+	<OPTION <?php if(strcmp($_POST['cate'], 'nombreCategoria2')==0){ echo "selected "; } ?>VALUE="nombreCategoria2">categor��a 2</OPTION>
+	</SELECT>  -->
+	<input type="submit" value="Buscar"/>
+</form>
+<?php
+
+$result = mysql_query ("SELECT ID_USUARIO,ID_ALUMNO,ID_CURSO_SOLICITADO FROM CV_SOLICITUD_CURSO_VERANO WHERE ID_USUARIO='290'")
+or die("Error en la consulta SQL");
+
+#Codigo para incluir filtros:
+#Guardamos la variable enviada por POST#
+/*
+if(!isset($_POST['cate'])  || strcmp($_POST['cate'],'todas')==0 ){//Si aun no se ha usado el combo box o se ha seleccionado , muestra todos los resultados
+
+	$result = mysql_query ("SELECT ID_USUARIO,ID_ALUMNO,ID_CURSO_SOLICITADO FROM CV_SOLICITUD_CURSO_VERANO WHERE ID_USUARIO='290'")
+	or die("Error en la consulta SQL");
+}
+else{  //Si se ha seleccionado alguna de las demas categorias, hace el filtro.
+	$cat=$_POST['cate'];
+	$result = mysql_query ("select * from productos where categoria = '$cat'" )
+	or die("Error en la consulta SQL");
+}*/
+
+?>
+
+<table>
+
+<?php
+#Mostramos los resultados obtenidos dentro de una tabla
+while( $row = mysql_fetch_array ( $result )) {
+?>
+   <tr>
+      <td><?php echo $row["ID_USUARIO"]; ?></td>
+      <td><?php echo $row["ID_ALUMNO"]; ?></td>
+      <td><?php echo $row["ID_CURSO_SOLICITADO"]; ?></td>
+   <tr>
+   
+<?php } ?>
+</table>
+</body>
+
+</html>
+<?php
+#Cerramos la conexion con la base de datos
+mysql_close($conexion);
+?>
