@@ -1,7 +1,7 @@
-<?php 
+<?php //Funciones utiles.
 
 function validacionLogin($e,$p){
-	$patronPass = '#^[A-Za-z0-9]{8}$#';
+	$patronPass = '#^[A-Za-z0-9]{8,20}$#';
 	$patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';
  	
  	echo 'email: '.$e.' pass: '.$p;
@@ -23,7 +23,7 @@ function comprobarUsuario($e,$p){
 	);
 	$registrado=1;
 	for($filas=0;$filas<count($userYpass);$filas++){
-		if($userYpass[$filas][0]===$e && $userYpass[$filas][1]){
+		if($userYpass[$filas][0]===$e && $userYpass[$filas][1]===$p){
 			$registrado=0;
 		}
 	}
@@ -34,11 +34,12 @@ function comprobarUsuario($e,$p){
 	}
 }
 
-function logout(){
+/*function logout(){
 	session_start();
 	session_destroy();
 	header('location: index01.php');
 	exit();
-}
+}*/
+
 
 ?>
