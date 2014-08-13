@@ -21,6 +21,7 @@ switch($validacionreg){
 	case 2: $registro = registroUsuario($nombre,$apellidos,$nick,$email,$pass1);
 			if($registro===0) header('location: index01.php?erroreg=2');//la inserción(INSERT INTO..) en la bbdd01(usuarios) ha ido OK
 			if($registro===1) header('location: index01.php?erroreg=3');//KO en BBDD.
+			exit();
 			break;
 }
 

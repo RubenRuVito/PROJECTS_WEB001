@@ -104,13 +104,19 @@ if(isset($_SESSION['usuario'])){
 				switch($_GET['erroreg']){
 					case 0: echo '<div class="alert alert-danger" role="alert">Confirmación de Password Incorrecta!!</div>';
 							break;
-					case 1: echo '<div class="alert alert-danger" role="alert">Datos de Registro No cumplen los Patrones!![Ayuda:....]</div>';
+					case 1: echo '<div class="alert alert-danger" role="alert">';
+							echo 'Los Datos de Registro No cumplen los Patrones!![Ayuda:....]';
+							echo '<a href="index01.php">Aceptar y Corregir</a>';
+							echo '</div>';
 							break;
 					case 2: echo '<div class="alert alert-danger" role="alert">Usuario registrado.</div>';
 							break;
 					case 3: echo '<div class="alert alert-danger" role="alert">Error en BBDD, inténtelo más tarde.</div>';
 							break;
 				}
+				//sleep("5");
+				//header('location: index01.php');
+				//exit();
 			}
 		  ?>
 	  </div>
