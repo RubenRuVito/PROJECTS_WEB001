@@ -12,7 +12,7 @@ function desconectarbd01($con){
 	$con->close();
 }
 
-function loginUser($e,$p){
+function loginUser($e,$p){ //Función para logearse a tavés de la bbdd by rr.
 	$cone = conectarbd01();
 
 	$registrado=1;
@@ -66,12 +66,26 @@ function loginUser($e,$p){
 function loginUser2($e,$p){ //Sistema de login con BBDD explicada en la Clase 19 de Pccarrier.
 
 	$registrado=1;
-	$cone = conectarbd01();
-	$result = $cone->query("SELECT * FROM usuarios WHERE email='$e' AND pasword='$p'");
+	$conex = conectarbd01();
+	$result = $conex->query("SELECT * FROM usuarios WHERE email='$e' AND pasword='$p'");
 	if($result->num_rows > 0){
 		$registrado=0;
 	}
 	return $registrado;
+	$conex->close();
+}
+
+function registroUsuario($nom,$ape,$nic,$e,$p){ //Alta de usuario en la bbdd(bbdd01/usuarios)..
+	$registroOK=1;
+	$conex = conectarbd01();
+	$resultconf = $conex->query("SET NAMES 'utf8'");//Siempre antes de insertar en la bbdd textos con posibles acentos o "ñ".
+	$result = $conex->query("INSERT INTO usuarios (id_user,nombre,apellidos,nick,email,pasword) VALUES (NULL,'$nom','$ape','$nic','$e','$p');");
+
+	if($result){
+		$registroOK=0;
+	}
+	return $registroOK;
+	$conex->close();	 
 }
 
 ?>

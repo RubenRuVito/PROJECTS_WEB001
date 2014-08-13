@@ -34,6 +34,25 @@ function comprobarUsuario($e,$p){
 	}
 }
 
+function validacionesRegistro($nom,$ape,$nic,$e,$p1,$p2){
+	$patronPass = '#^[A-Za-z0-9]{8,20}$#';//Pass minimo 8carac max 20carac, Mayus, minus y numeros, No carac estraños ni . , _ - /....
+	$patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';// Email Cualquier caracter a-z +@+ a-z +.+ 2cara minimo.
+	$patronNom = '#^[A-ZÑÇÁÉÍÓÚ][a-zA-ZñÑçÇáéíóúüÁÉÍÓÚÜ\ ]{2,20}$#';//Nombre  1ªMayus, permiten espacios hasta 30caracteres
+	$patronApe = '#^[A-ZÑÇÁÉÍÓÚ][a-zA-ZñÑçÇáéíóúüÁÉÍÓÚÜ\ ]{2,35}$#';//Appellidos  1ªMayus, permiten espacios hasta 40caracteres
+	$patronNick = '/^[0-9a-AzZñÑçÇáéíóúüÁÉÍÓÚÜ\_]{3,15}$/';//Nick todas las letra y numeros y "_"(solo)Caracteres extraños NO.
+
+	if($p1!==$p2) return 0;
+
+ 	if(preg_match($patronPass, $p1) && preg_match($patronPass, $p2) && preg_match($patronEmail, $e) && preg_match($patronNom, $nom) && preg_match($patronApe, $ape) && preg_match($patronNick, $nic)){//función para validar el patrón
+	 	//echo 'Todos los datos del registro cumplen los patrones..';
+	 	return 2;
+	}else{
+		//echo 'Algun dato del registro no cumple los patrones..';
+		return 1;
+	}
+
+}
+
 /*function logout(){
 	session_start();
 	session_destroy();
