@@ -8,6 +8,10 @@ include_once 'funcionesdb.php';
 $email = addslashes(strip_tags($_POST['inputEmail']));
 $pass = addslashes(strip_tags($_POST['inputPassword']));
 
+//$pass = base64_encode(sha1(md5($pass)));//cifrar la pass introducida x el usuario xa utilizarlo
+										//con seguridad entre el servidor y las pag del proyecto.
+										//***Hay que cifrarlo tanto al guardar el dato en la bbdd,
+										//como para luego consultarlo..
 /*echo 'email: '.$email.' pass: '.$pass;
 
 $patronPass = '#^[A-Za-z0-9]{8}$#';

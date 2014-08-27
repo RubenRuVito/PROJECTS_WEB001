@@ -109,10 +109,16 @@ if(isset($_SESSION['usuario'])){
 							echo '<a href="index01.php">Aceptar y Corregir</a>';
 							echo '</div>';
 							break;
-					case 2: echo '<div class="alert alert-danger" role="alert">Usuario registrado.</div>';
+					case 2: echo '<div class="alert alert-danger" role="alert">Usuario Pre-registrado.Consulte su email para activar su usuario.</div>';
 							break;
 					case 3: echo '<div class="alert alert-danger" role="alert">Error en BBDD, inténtelo más tarde.</div>';
 							break;
+					case 4: echo '<div class="alert alert-danger" role="alert">Usuario ya registrado, o pendiente de activar usuario a través de email de confirmación de alta.</div>';
+							break;
+					case 5: echo '<div class="alert alert-danger" role="alert">Usuario registrado.</div>';
+							break;
+					case 6: echo '<div class="alert alert-danger" role="alert">Error en BBDD, inténtelo más tarde.</div>';
+							break;		
 				}
 				//sleep("5");
 				//header('location: index01.php');

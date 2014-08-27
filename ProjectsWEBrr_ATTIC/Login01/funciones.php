@@ -35,11 +35,13 @@ function comprobarUsuario($e,$p){
 }
 
 function validacionesRegistro($nom,$ape,$nic,$e,$p1,$p2){
+	//echo $nom;
 	$patronPass = '#^[A-Za-z0-9]{8,20}$#';//Pass minimo 8carac max 20carac, Mayus, minus y numeros, No carac estraños ni . , _ - /....
 	$patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';// Email Cualquier caracter a-z +@+ a-z +.+ 2cara minimo.
 	$patronNom = '#^[A-ZÑÇÁÉÍÓÚ][a-zA-ZñÑçÇáéíóúüÁÉÍÓÚÜ\ ]{2,20}$#';//Nombre  1ªMayus, permiten espacios hasta 30caracteres
 	$patronApe = '#^[A-ZÑÇÁÉÍÓÚ][a-zA-ZñÑçÇáéíóúüÁÉÍÓÚÜ\ ]{2,35}$#';//Appellidos  1ªMayus, permiten espacios hasta 40caracteres
-	$patronNick = '/^[0-9a-AzZñÑçÇáéíóúüÁÉÍÓÚÜ\_]{3,15}$/';//Nick todas las letra y numeros y "_"(solo)Caracteres extraños NO.
+	//$patronNick = '/^[0-9a-AzZñÑçÇáéíóúüÁÉÍÓÚÜ\_]{3,15}$/';//Nick todas las letra y numeros y "_"(solo)Caracteres extraños NO.
+	$patronNick = '#^[a-zA-Z0-9\_\-]{3,15}$#';
 
 	if($p1!==$p2) return 0;
 
