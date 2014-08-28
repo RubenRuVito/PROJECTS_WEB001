@@ -1,4 +1,4 @@
-<?php
+S<?php
 
 $patronPass = '#^[A-Za-z0-9]{8,20}$#';//Pass minimo 8carac max 20carac, Mayus, minus y numeros, No carac estraños ni . , _ - /....
 $patronEmail = '/^[a-zA-Z0-9\_\-\.]+@[a-z0-9\-]+\.[a-z]{2,4}$/i';// Email Cualquier caracter a-z +@+ a-z +.+ 2cara minimo.
