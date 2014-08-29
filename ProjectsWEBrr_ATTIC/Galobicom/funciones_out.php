@@ -4,18 +4,19 @@ function cargarCabecera($titulo){
 	<!-- código Html para visualizar en navegador -->
 	<!DOCTYPE html>
 	<html>
-	<head><title>Marcadores - <?php echo $titulo; ?></title>
+	<head><title>Galobicom - <?php echo $titulo; ?></title>
 		<meta charset="utf-8">
+		<link rel="shortcut icon" href="img/radiohead.ico">
 		<!-- Incluiyendo archivos CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="css/miestilo.css">
 		<!-- incluyendo archivos Java Script -->
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container" style="background-color: #6E6E6E; border-radius: 10px;">
 
 <?php
 cargarBarraNav(); //poniendola aqui, no la tendrias que invocar en el fichero index.php
@@ -37,21 +38,23 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 ?>
 
 <!-- Código html que interpretara el navegador del usuario (sacado de la pg de bootstrap/css y adaptado).-->
+	<!-- <br style="line-height: 1px;"/> -->
+	<br>
 	<nav class="navbar navbar-inverse" role="navigation">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".bs-example-navbar-collapse-1">
 	        <span class="sr-only">Toggle navigation</span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="index.php">Marcadores</a>
+	      <a class="navbar-brand" href="index.php">Galobicom</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <div class="collapse navbar-collapse bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <!--<li class="active"><a href="#">Link</a></li> -->
 	        <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
@@ -127,7 +130,7 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		  			</div>
 		  			<div class="form-group">
 		    			<div class="col-sm-1 col-sm-10">
-		      				<button type="submit" class="btn btn-info">Sign In</button>
+		      				<button type="submit" class="btn btn-info" disabled>Sign In</button>
 		    			</div>
 		  			</div>
 		  		</form>
