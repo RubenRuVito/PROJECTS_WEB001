@@ -1,0 +1,21 @@
+/*Hoja de estilos en cascada propis "miestilo.css".
+- Incluirle un fondo(canvas),body,background dinamico tipo(Matrix)*/
+@font-face 
+{
+  font-family: 'MatrixCode';
+  src: url("matrix code nfi.otf") format("opentype");
+}
+html, body
+{
+background: #000;	
+margin: 0;
+padding: 0;
+overflow-x: hidden;
+overflow-y: hidden;
+}
+canvas { font-family: 'MatrixCode'; }
+p
+{
+	 font-family: 'MatrixCode';
+	 color: #fff;
+}
