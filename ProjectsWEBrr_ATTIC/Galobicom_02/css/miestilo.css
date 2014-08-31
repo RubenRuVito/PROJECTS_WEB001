@@ -5,16 +5,16 @@
   font-family: 'MatrixCode';
   src: url("matrix code nfi.otf") format("opentype");
 }
-html, body
+.matrix html, body
 {
 background: #000;	
 margin: 0;
 padding: 0;
-overflow-x: hidden;
-overflow-y: hidden;
+/*overflow-x: hidden;
+overflow-y: hidden;*/
 }
 canvas { font-family: 'MatrixCode'; }
-p
+.matrix p
 {
 	 font-family: 'MatrixCode';
 	 color: #fff;

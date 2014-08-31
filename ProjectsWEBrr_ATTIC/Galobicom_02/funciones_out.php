@@ -1,4 +1,7 @@
 <?php
+//FUNCIONES PARA CREAR LA PARTE VISUAL DE LA WEB(por partes)(para no escribir el mismo código varias
+//veces, como en el caso de las cabeceras y pies de página).
+session_start();
 function cargarCabecera($titulo){
 ?>
 	<!-- código Html para visualizar en navegador -->
@@ -30,6 +33,8 @@ function cargarPie(){
 				<div class="col-md-12 text-center"><small>Copyright &copy - Galobicom 2014</small></div>
 			</div>
 		</div>
+	  <!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	  <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 	</body>
 	</html>
 
@@ -61,9 +66,9 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	        <!--<li class="active"><a href="#">Link</a></li> -->
 	        <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
 	        <li class="dropdown">
-	        	<a href="#menu" class="dropdown-toggle" data-toggle="dropdown">Utilidades <span class="caret"></a>
+	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Utilidades <span class="caret"></a>
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
-	        		<li><a style="color: #777;" href="#menu01">Blog <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="indexga.php">Blog <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu02">Events <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu04">Juegos <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
@@ -73,20 +78,32 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<?php 
-	      		if(isset($_SESSION['usuario'])){
+	      		if(isset($_SESSION['nom'])){
 	      	?>
-	      	<li><a href="XXXX1">Cerrar Sesión</a></li>
+	      	<!--<li><br><p style="color: #777;"><?php echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></p></li> -->
+	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li>
+	      	<li><a href="logout.php">Cerrar Sesión</a></li>
 	      	<?php
 	      		}else{
 	      	?>
-			<form class="navbar-form form-inline" role="login" name="login" action="XXXXX2" method="post">
+			<form class="navbar-form form-inline" role="login" name="login" action="login.php" method="post">
 			  <div class="form-group">
-			    <input type="text" class="form-control input-sm" placeholder="Email" name="email">
+			    <input type="text" class="form-control input-sm" placeholder="Email" name="inputEmail">
 			  </div>
 			  <div class="form-group">
-			    <input type="password" class="form-control input-sm" placeholder="Password" name="pass">
+			    <input type="password" class="form-control input-sm" placeholder="Password" name="inputPassword">
 			  </div>
 			  <button type="submit" class="btn btn-success btn-sm">Login</button>
+			  <?php 
+				if(isset($_GET['error'])){
+					switch($_GET['error']){
+						case 1: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 5px;">Datos de Login incorrectos!!</div>';
+								break;
+						case 2: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 5px;">Usuario NO registrado.</div>';
+								break;
+					}
+				}
+			  ?>
 			</form>
 			<?php
 				}
@@ -140,11 +157,25 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		  					<input type="password" class="form-control" maxlength="20" name="inputPasswordReg2" placeholder="Confirma Password">
 		  				</div>
 		  			</div>
+		  			<?php 
+	      				if(isset($_SESSION['nom'])){
+	      			?>
 		  			<div class="form-group">
 		    			<div class="col-sm-1 col-sm-10">
 		      				<button type="submit" class="btn btn-info" disabled>Sign In</button>
 		    			</div>
 		  			</div>
+		  			<?php 
+		  				}else{
+		  			?>
+		  			<div class="form-group">
+		    			<div class="col-sm-1 col-sm-10">
+		      				<button type="submit" class="btn btn-info">Sign In</button>
+		    			</div>
+		  			</div>
+		  			<?php
+		  				}
+		  			?>
 		  		</form>
 		</div>
 	</div>
