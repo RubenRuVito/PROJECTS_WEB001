@@ -7,10 +7,17 @@ $patronApe = '#^[A-ZÑÇÁÉÍÓÚ][a-zA-ZñÑçÇáéíóúüÁÉÍÓÚÜ\ ]{2,
 //$patronNick = '/^[0-9a-AzZñÑçÇáéíóúüÁÉÍÓÚÜ\_]{3,15}$/';//Nick todas las letra y numeros y "_"(solo)Caracteres extraños NO.
 $patronNick = '#^[a-zA-Z0-9\_\-]{3,15}$#';
 
+$patronEmail2 = '/^[a-zA-Z0-9\_\-\.]+@+(gmail|hotmail|yahoo)+\.(com|es)$/i';
+
 $nombre ='Prueba Uno';
 $ape = 'Apellidos PruebaUno';
 $nic = 'prueba_01';
 $email = 'raibandj@hotmail.com';
+
+$email1 = 'ruben@hotail.com';
+$email2 = 'ruben.ga@hotmail.com';
+$email3 = 'ruben.ga.al@hotmail.com';
+
 $pas = 'prueba01';
 
 if(preg_match($patronNom, $nombre)){//función para validar el patrón
@@ -37,13 +44,35 @@ if(preg_match($patronEmail, $email)){
 	echo 'el email NO cumple el patrón2..';
 }
 echo '<br>';
+if(preg_match($patronEmail2, $email1)){
+	echo 'el email1 cumple el patrón2..';
+}else{
+	echo 'el email1 NO cumple el patrón2..';
+	echo preg_match($patronEmail2, $email1);
+}
+echo '<br>';
+if(preg_match($patronEmail2, $email2)){
+	echo 'el email2 cumple el patrón2..';
+	echo preg_match($patronEmail2, $email2);
+}else{
+	echo 'el email2 NO cumple el patrón2..';
+}
+echo '<br>';
+if(preg_match($patronEmail2, $email3)){
+	echo 'el email3 cumple el patrón2..';
+}else{
+	echo 'el email3 NO cumple el patrón2..';
+}
+echo '<br>';
 if(preg_match($patronPass, $pas)){
 	echo 'el pasword cumple el patrón2..';
 }else{
 	echo 'el pasword NO cumple el patrón2..';
 }
-
-envioEmailRegistro($nombre,$ape,$email,$pas);
+echo '<br>';
+$fechaHora = date('Y-m-d');
+echo $fechaHora;
+//envioEmailRegistro($nombre,$ape,$email,$pas);
 
 function envioEmailRegistro($nombre,$apellidos,$email,$codigoAlta){
 	$from = 'rubenruvito@gmail.com';

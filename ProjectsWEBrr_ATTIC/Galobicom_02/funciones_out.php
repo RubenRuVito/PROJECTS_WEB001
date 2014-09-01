@@ -97,9 +97,11 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 			  <?php 
 				if(isset($_GET['error'])){
 					switch($_GET['error']){
-						case 1: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 5px;">Datos de Login incorrectos!!</div>';
+						case 1: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+									  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Datos de Login incorrectos.</div>';
 								break;
-						case 2: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 5px;">Usuario NO registrado.</div>';
+						case 2: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+									  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Usuario NO registrado.</div>';
 								break;
 					}
 				}

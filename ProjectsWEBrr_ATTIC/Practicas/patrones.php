@@ -55,6 +55,9 @@ IDENTIFICAFORM => array(
 "texto Latín-B" => array(
     "patron" => "^[ -ɏ]*$",
     "mensaje" => "El texto debe contener caracteres permitidos hasta Latín extendido B (u0020-u024F)")
+
+"Patron para emails de dominios especificos"
+    preg_match("([A-Za-z0-9]{3,8}+@+(gmail|hotmail|yahoo)+\.(com|com.ar)+)",$email)
 );*/
 
 $patron1 = '#^[A-F]{3}[0-9]{4}[A-F]{3}$#';
