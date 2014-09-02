@@ -1,15 +1,19 @@
 <?php 
 //Página principoal, típco index con diseño bootstrap3.
-require 'funciones.php';
+require_once 'funciones.php';
 //session_start();
 cargarCabecera('Inicio');
 //cargarBarraNav(); lo invocamos al final de la funcion de cargarCabecera en el fichero de "funciones_out.php"
 
 if(isset($_GET['mns'])){
 	switch($_GET['mns']){
-		case '0a': cargarAlerts('success','Bienvenido!!');
+		case '0a': cargarAlerts('success','Estas Dentro!..Bienvenido!!');
 				break;
 		case '1a': cargarAlerts('danger','Usuario NO registrado');
+				break;
+		case '1b': cargarAlerts('danger','Hacking!?No grácias!Usuario NO registrado..regístrate hijoPuta!');
+				break;
+		case '2a': cargarAlerts('warning','Sesión cerrada');
 				break;
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 //Script de Login.
-require 'funciones.php';
+require_once 'funciones.php';
 
 $e = addslashes(strip_tags($_POST['inputEmail']));
 $p = addslashes(strip_tags($_POST['inputPass']));

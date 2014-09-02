@@ -1,13 +1,13 @@
 <?php
-require_once 'funciones_db.php';
+require_once 'funciones.php';
+//session_start();
 
-session_start();
 function cargarCabecera($titulo){
 ?>
 	<!-- código Html para visualizar en navegador -->
 	<!DOCTYPE html>
 	<html>
-	<head><title>Marcadores - <?php echo $titulo; ?></title>
+	<head><title>Favoritos- <?php echo $titulo; ?></title>
 		<meta charset="utf-8">
 		<!-- Incluiyendo archivos CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -83,7 +83,7 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	        <li class="dropdown">
 	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></a>
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
-	        		<li><a style="color: #777;" href="#menu01">A <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="formRegistro.php">A <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu02">B <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu03">C <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu04">D <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
@@ -194,11 +194,25 @@ function cargarFormRegistroCorto(){//formulario de registro para el alta de usua
 		  				<input type="password" class="form-control" maxlength="20" name="inputPassReg2" placeholder="Vuelve a ingresar el Password">
 		  			</div>
 		  	</div>
+		  	<?php
+		  		if(!isset($_SESSION['id'])){
+		  	?>
 		  	<div class="form-group">
 		    		<div class="col-sm-1 col-sm-10">
 		      			<button type="submit" class="btn btn-info">Sign In</button>
 		    		</div>
 		  	</div>
+		  	<?php 
+		  		}else{
+		  	?>
+		  	<div class="form-group">
+		    		<div class="col-sm-1 col-sm-10">
+		      			<button type="submit" class="btn btn-info" disabled>Sign In</button>
+		    		</div>
+		  	</div>
+		  	<?php
+		  		}
+		  	?>
 		</form>
 	</div>
 	<div class="row"></div>
@@ -209,14 +223,16 @@ function cargarFormRegistroCorto(){//formulario de registro para el alta de usua
 function cargarFavoritos(){
 	$iduser = $_SESSION['id'];
 	$conexion = conectarDB01();
-	$consulta = $conexion->query("SELECT * FROM links WHERE id_user='$iduser'; ");
+	$configDatos = $conexion->query("SET NAMES 'utf8';");//Realizar esta instrucción siempre antes de recuperar,modificar,crear registros en las tablas(entidades).
+	$consulta = $conexion->query("SELECT * FROM links WHERE id_user2='$iduser'; ");
 	if($consulta->num_rows == 0){
-		cargarAlerts('warning','No existen favoritos almacenado en la bbdd');
+		cargarAlerts('warning','No tienes favoritos almacenados en la bbdd');
 	}else{
 			echo '<table class="table table-striped">';
 		while($link = $consulta->fetch_assoc()){
 			echo '<tr>';
-			echo '<td>'.$link['url'].'</td>';
+			echo '<td><a href="'.$link['url'].'" target="_blank">'.$link['url'].'</a></td>';//Muestra las url como un link y si las pulsas se abren en otra pestaña(_blank).
+			echo '<td class="text-right"><a href="borrarFavorito.php?idl='.$link['id_link'].'" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></td>';
 			echo '</tr>';
 		}
 			echo '</table>';

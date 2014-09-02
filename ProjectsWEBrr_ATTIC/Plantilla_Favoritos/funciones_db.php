@@ -1,5 +1,6 @@
 <?php
 //Funciones o métodos para interactuar con las tablas de la base de datos.
+require_once 'funciones.php';
 
 function conectarDB01(){
 	$conexion = new mysqli('localhost','root_ruben01','ruben01','db_pruebas');
@@ -22,7 +23,7 @@ function login($e,$p){
 	if($consulta->num_rows > 0){//comprobamos si la consulta a obtenido registros(quiere decir que el usuario esta registrado).
 		//$registro = mysqli_fetch_assoc($consulta);
 		$registro = $consulta->fetch_assoc();//recogemos el registro en un array.
-		session_start();//levantamos la session y creamos algunas variables de session.
+		//session_start();//levantamos la session y creamos algunas variables de session.
 		$_SESSION['email'] = $registro['email'];
 		$_SESSION['fecAlta'] = $registro['fec_alta'];
 		$_SESSION['id'] = $registro['id_user'];

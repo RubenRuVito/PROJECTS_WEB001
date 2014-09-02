@@ -1,12 +1,12 @@
 <?php
 //Formulario para el registro y alta en la tabla "users" de la base de datos "db_pruebas". 
-require 'funciones.php';
+require_once 'funciones.php';
+//session_start(); No lo invocamos xq ya lo hacemos en el archivo de funciones.php
 
-session_start();
-if(!isset($_SESSION['email'])){
+/*if(!isset($_SESSION['email'])){
 	header('location: index.php?mns=1a');
 	exit();
-}
+}*/
 
 cargarCabecera('Crear Cuenta');
 //cargarFormRegistro();

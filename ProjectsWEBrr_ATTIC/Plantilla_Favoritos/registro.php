@@ -1,6 +1,6 @@
 <?php 
 //Script de registro o alta de usuario en la base de datos "db_pruebas" en la tabla "users".
-require 'funciones.php';
+require_once 'funciones.php';
 
 $e = addslashes(strip_tags($_POST['inputEmailReg']));
 $p1 = addslashes(strip_tags($_POST['inputPassReg1']));
