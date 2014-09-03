@@ -11,9 +11,9 @@ function conectarDB01(){
 	return $conexion;
 }
 
-function desconectarBD($conex){
+function desconectarDB($conex){
 	$conex->close();
-	exit();
+	//exit();
 }
 
 function login($e,$p){

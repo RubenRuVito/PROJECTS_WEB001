@@ -42,6 +42,8 @@ if(isset($_GET['mnsf'])){
 </div> -->
 <p>&nbsp;</p>
 <?php
-cargarFavoritos();
+$numRegistrosBloque = 5; //numero máximo de elementos que la página web va a mostrar por paginación.
+cargarFavoritos($numRegistrosBloque);
+cargarPaginacion($numRegistrosBloque);
 cargarPie();
 ?>

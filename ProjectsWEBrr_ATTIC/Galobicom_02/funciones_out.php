@@ -19,7 +19,7 @@ function cargarCabecera($titulo){
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/matrixtext.js"></script>
 	</head>
-	<body onload="init();">
+	<body onload="init();" style="background-color: black;">
 		<div class="container" style="background-color: black; border-radius: 10px;">
 		  <!--<canvas id="theMatrix" width="1150" height="200"></canvas> -->
 
@@ -66,12 +66,13 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	        <!--<li class="active"><a href="#">Link</a></li> -->
 	        <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
 	        <li class="dropdown">
-	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Utilidades <span class="caret"></a>
+	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Zonas <span class="caret"></a>
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
-	        		<li><a style="color: #777;" href="indexga.php">Blog <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu02">Events <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="indexga.php">BloGA <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu02">Real Galobo F.C. <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu04">Juegos <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu04">Juegos GA!<small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        	</ul>
 	        </li>
@@ -80,8 +81,9 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	      	<?php 
 	      		if(isset($_SESSION['nom'])){
 	      	?>
-	      	<!--<li><br><p style="color: #777;"><?php echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></p></li> -->
-	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li>
+	      	<!-- <li><br><p style="color: #777;"><?php echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></p></li> -->
+	      	<!-- <li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li> -->
+	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nic'];?></a></li>
 	      	<li><a href="logout.php">Cerrar Sesión</a></li>
 	      	<?php
 	      		}else{
@@ -120,8 +122,8 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 ?>
 	<br>
 	<div class="row">
-		<h2>Crear Cuenta:</h2>
-		<div class="col-md-6 navbar-inverse jumbotron" style="border-radius: 10px;">
+		<h2 style="color: white">Crear Cuenta:</h2>
+		<div class="col-md-6 navbar-white jumbotron" style="border-radius: 10px;">
 			<form class="form-horizontal" role="form" name="form" action="registrodb.php" method="post">
 		  			<div class="form-group">
 		    			<label for="inputNombreReg" class="col-sm-2 control-label" style="color: black">Nombre:</label>
@@ -154,9 +156,9 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		    			</div>
 		    		</div>
 		    		<div class="form-group">
-		    			<label for="inputPasswordReg2" class="col-sm-2 control-label" style="color: black">Confirma Password:</label>
+		    			<label for="inputPasswordReg2" class="col-sm-2 control-label" style="color: black">Confirmar Password:</label>
 		    			<div class="col-sm-10">
-		  					<input type="password" class="form-control" maxlength="20" name="inputPasswordReg2" placeholder="Confirma Password">
+		  					<input type="password" class="form-control" maxlength="20" name="inputPasswordReg2" placeholder="Confirmación de Password">
 		  				</div>
 		  			</div>
 		  			<?php 
