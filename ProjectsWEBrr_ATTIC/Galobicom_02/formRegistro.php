@@ -1,5 +1,5 @@
 <?php
-include 'funciones.php';
+require 'funciones.php';
 
 cargarCabecera('Crear Cuenta');
 cargarFormRegistro();

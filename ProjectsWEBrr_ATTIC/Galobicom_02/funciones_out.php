@@ -1,7 +1,9 @@
 <?php
 //FUNCIONES PARA CREAR LA PARTE VISUAL DE LA WEB(por partes)(para no escribir el mismo código varias
 //veces, como en el caso de las cabeceras y pies de página).
-session_start();
+require_once 'funciones.php';
+//session_start();
+
 function cargarCabecera($titulo){
 ?>
 	<!-- código Html para visualizar en navegador -->
@@ -25,6 +27,30 @@ function cargarCabecera($titulo){
 
 <?php
 cargarBarraNav(); //poniendola aqui, no la tendrias que invocar en el fichero index.php
+}
+
+function cargarAlerts($tipo,$tam,$mensaje){
+	if($tam != ''){
+		$tam='-'.$tam; //vacio=grande "sm=pequeño".
+    }  
+      switch($tipo){
+      	case 'success':
+      		$clase = 'alert'.$tam.' alert-success alert-dismissible';
+      		break;
+      	case 'warning':
+      		$clase = 'alert'.$tam.' alert-warning alert-dismissible';
+      		break;
+      	case 'danger':
+      		$clase = 'alert'.$tam.' alert-danger alert-dismissible';
+      		break;
+      }
+?>
+		<div class="<?php echo $clase; ?>" role="alert">
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <strong>Atención!</strong> <?php echo $mensaje; ?>.
+		</div>
+	
+<?php
 }
 
 function cargarPie(){
@@ -79,7 +105,7 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<?php 
-	      		if(isset($_SESSION['nom'])){
+	      		if(isset($_SESSION['id'])){
 	      	?>
 	      	<!-- <li><br><p style="color: #777;"><?php echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></p></li> -->
 	      	<!-- <li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li> -->
@@ -97,21 +123,22 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 			  </div>
 			  <button type="submit" class="btn btn-success btn-sm">Login</button>
 			  <?php 
-				if(isset($_GET['error'])){
-					switch($_GET['error']){
-						case 1: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
-									  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Datos de Login incorrectos.</div>';
+				if(isset($_GET['mnsl'])){
+					switch($_GET['mnsl']){
+						case 1: //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+								//	  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Datos de Login incorrectos.</div>';
+								cargarAlerts('warning','sm','Datos de Login incorrectos.');
 								break;
-						case 2: echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
-									  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Usuario NO registrado.</div>';
+						case 2: //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+								//	  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Usuario NO registrado.</div>';
+								cargarAlerts('danger','sm','Usuario NO registrado.');
 								break;
 					}
 				}
-			  ?>
+			   }
+			  ?> 
+			  
 			</form>
-			<?php
-				}
-			?>
 		   </ul>
 		  </div>
 		 </nav>
@@ -124,7 +151,7 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 	<div class="row">
 		<h2 style="color: white">Crear Cuenta:</h2>
 		<div class="col-md-6 navbar-white jumbotron" style="border-radius: 10px;">
-			<form class="form-horizontal" role="form" name="form" action="registrodb.php" method="post">
+			<form class="form-horizontal" role="form" name="form" action="registro.php" method="post">
 		  			<div class="form-group">
 		    			<label for="inputNombreReg" class="col-sm-2 control-label" style="color: black">Nombre:</label>
 		    			<div class="col-sm-10">
@@ -162,7 +189,7 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		  				</div>
 		  			</div>
 		  			<?php 
-	      				if(isset($_SESSION['nom'])){
+	      				if(isset($_SESSION['id'])){//si estas logeado o no boton habilitado o no. 
 	      			?>
 		  			<div class="form-group">
 		    			<div class="col-sm-1 col-sm-10">
@@ -174,7 +201,7 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		  			?>
 		  			<div class="form-group">
 		    			<div class="col-sm-1 col-sm-10">
-		      				<button type="submit" class="btn btn-info">Sign In</button>
+		      				<button type="submit" class="btn btn-info" disabled>Sign In</button>
 		    			</div>
 		  			</div>
 		  			<?php

@@ -1,6 +1,6 @@
 <?php
 //CÓDIGO PHP PARA LOGEARSE CONTRA LA BBDD.
-include 'funciones.php';
+require_once 'funciones.php';
 
 //$email = $_POST['inputEmail'];
 //$pass = $_POST['inputPassword'];
@@ -18,7 +18,7 @@ $validacion = validacionLogin($email,$pass);// en "funciones_val.php".
 echo $validacion;
 
 if($validacion===1){
-	header('location: index.php?error=1');//error del patron, lo tratamos en el index01.
+	header('location: index.php?mnsl=1');//error del patron, lo tratamos en el index01.
 	exit();
 }elseif($validacion===0){
 
@@ -31,7 +31,7 @@ if($validacion===1){
 			header('location: indexga.php');
 			exit();
 		}elseif($registrado===1){
-			header('location: index.php?error=2');//error de usuario no registrado, lo tratamos en el index01.
+			header('location: index.php?mnsl=2');//error de usuario no registrado, lo tratamos en el index01.
 			exit();
 		}
 }

@@ -1,8 +1,8 @@
 <?php
 //Pagina comun para cada usuario, el index de los galobicos
-include 'funciones.php';
-
-session_start(); // con el error 2.
+require_once 'funciones.php';
+//session_start();
+// con el error 2.
 if(!isset($_SESSION['nom'])){
 	header('location: index.php?error=2');
 	exit();
