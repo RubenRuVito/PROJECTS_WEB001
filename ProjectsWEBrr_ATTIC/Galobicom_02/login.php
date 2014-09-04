@@ -32,7 +32,7 @@ if($validacion===1){
     }
 }elseif($validacion===0){
 
-	$registrado = loginUser2($email,$pass);// en "funciones_db.php"
+	$registrado = loginUser($email,sha1($pass));// en "funciones_db.php"
 	echo $registrado;
 
 	if($registrado===0){ // =0 registrado, =1 No registrado.

@@ -25,7 +25,7 @@ function cargarCabecera($titulo,$pag){ //Método que recoge el título y la pagi
 		<script type="text/javascript" src="js/matrixtext.js"></script>
 	</head>
 	<body onload="init();" style="background-color: black;">
-		<div class="container" style="background-color: black; border-radius: 10px;">
+		<div class="container-fluid" style="background-color: black; border-radius: 10px;">
 		  <!--<canvas id="theMatrix" width="1150" height="200"></canvas> -->
 
 <?php
