@@ -1,10 +1,13 @@
 <?php
 //FUNCIONES PARA CREAR LA PARTE VISUAL DE LA WEB(por partes)(para no escribir el mismo código varias
 //veces, como en el caso de las cabeceras y pies de página).
+//variable $pag --> indica en que ventana se encuentra el usuario y en su caso la barra fija NAVBAR.
+// =1 --> index.php  =2 --> formRegistro.php
+
 require_once 'funciones.php';
 //session_start();
 
-function cargarCabecera($titulo){
+function cargarCabecera($titulo,$pag){ //Método que recoge el título y la pagina en donde se encuentra la Barra NAVBAR
 ?>
 	<!-- código Html para visualizar en navegador -->
 	<!DOCTYPE html>
@@ -26,7 +29,7 @@ function cargarCabecera($titulo){
 		  <!--<canvas id="theMatrix" width="1150" height="200"></canvas> -->
 
 <?php
-cargarBarraNav(); //poniendola aqui, no la tendrias que invocar en el fichero index.php
+cargarBarraNav($pag); //poniendola aqui, no la tendrias que invocar en el fichero index.php
 }
 
 function cargarAlerts($tipo,$tam,$mensaje){
@@ -67,7 +70,7 @@ function cargarPie(){
 <?php
 }
 
-function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del navegador.(contendra un sistema de login)
+function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior del navegador.(contendra un sistema de login)
 ?>
 
 <!-- Código html que interpretara el navegador del usuario (sacado de la pg de bootstrap/css y adaptado).-->
@@ -94,7 +97,7 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	        <li class="dropdown">
 	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Zonas <span class="caret"></a>
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
-	        		<li><a style="color: #777;" href="indexga.php">BloGA <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="indexga.php?p=<?php echo $pag; ?>">BloGA <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu02">Real Galobo F.C. <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
@@ -111,10 +114,18 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 	      	<!-- <li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li> -->
 	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nic'];?></a></li>
 	      	<li><a href="logout.php">Cerrar Sesión</a></li>
+	      	<li class="navbar-brand">
 	      	<?php
+	      			if(isset($_GET['mnsl'])){
+						switch($_GET['mnsl']){
+							case '0a': cargarAlerts('success','sm','Estás Dentro!..Bienvenido!!');
+										break;
+						}
+					}
 	      		}else{
-	      	?>
-			<form class="navbar-form form-inline" role="login" name="login" action="login.php" method="post">
+	      	?> <!-- Envio en el formulario de variables por post y get (SORPRENDENTEMENTE SE PUEDE COMBINAR) "login.php?p=<?php echo $pag; ?>". -->
+			</li>
+			<form class="navbar-form form-inline" role="login" name="login" action="login.php?p=<?php echo $pag; ?>" method="post">
 			  <div class="form-group">
 			    <input type="text" class="form-control input-sm" placeholder="Email" name="inputEmail">
 			  </div>
@@ -123,18 +134,25 @@ function cargarBarraNav(){ //Barra tipica de las pg Web en la parte superior del
 			  </div>
 			  <button type="submit" class="btn btn-success btn-sm">Login</button>
 			  <?php 
-				if(isset($_GET['mnsl'])){
-					switch($_GET['mnsl']){
-						case 1: //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
-								//	  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Datos de Login incorrectos.</div>';
-								cargarAlerts('warning','sm','Datos de Login incorrectos.');
-								break;
-						case 2: //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
-								//	  <span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Usuario NO registrado.</div>';
-								cargarAlerts('danger','sm','Usuario NO registrado.');
-								break;
+					if(isset($_GET['mnsl'])){
+						switch($_GET['mnsl']){
+							case '0a': cargarAlerts('success','sm','Estás Dentro!..Bienvenido!!');
+									break;
+							case '0b': cargarAlerts('success','sm','Estás Fuera!..Sesión cerrada');
+									break;
+							case '1a': //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+									  //<span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Usuario NO registrado.</div>';
+									cargarAlerts('danger','sm','Usuario NO registrado');
+									break;
+							case '1b': cargarAlerts('danger','sm','Hacking!?No grácias!Usuario NO registrado..regístrate hijoPuta!');
+									break;
+
+							case '2a': //echo '<br></br><div class="alert-md alert-danger" role="alert" style="border-radius: 3px;"><button type="button" class="close" data-dismiss="alert">
+									   //<span aria-hidden="true">&times;</span></button><strong>Atención!</strong> Datos de Login incorrectos.</div>';
+									cargarAlerts('warning','sm','Datos de Login incorrectos.');
+									break;
+						}
 					}
-				}
 			   }
 			  ?> 
 			  
@@ -201,7 +219,7 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 		  			?>
 		  			<div class="form-group">
 		    			<div class="col-sm-1 col-sm-10">
-		      				<button type="submit" class="btn btn-info" disabled>Sign In</button>
+		      				<button type="submit" class="btn btn-info">Sign In</button>
 		    			</div>
 		  			</div>
 		  			<?php

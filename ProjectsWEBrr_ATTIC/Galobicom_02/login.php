@@ -7,6 +7,8 @@ require_once 'funciones.php';
 
 $email = addslashes(strip_tags($_POST['inputEmail']));
 $pass = addslashes(strip_tags($_POST['inputPassword']));
+//$p = addslashes(strip_tags($_POST['pagina']));
+
 
 //$pass = base64_encode(sha1(md5($pass)));//cifrar la pass introducida x el usuario xa utilizarlo
 										//con seguridad entre el servidor y las pag del proyecto.
@@ -18,8 +20,16 @@ $validacion = validacionLogin($email,$pass);// en "funciones_val.php".
 echo $validacion;
 
 if($validacion===1){
-	header('location: index.php?mnsl=1');//error del patron, lo tratamos en el index01.
-	exit();
+	//header('location: index.php?mnsl=2a');//error del patron, lo tratamos en el index01.
+	//exit();
+	switch($_GET['p']){//controlamos la navegación a la hora de mostrar mensajes al usuario en la barra NAVBAR común.
+        case 1: header('location: index.php?mnsl=2a');
+	            exit();
+        case 2: header('location: formRegistro.php?mnsl=2a');
+                exit();
+        case 3: header('location: index.php?mnsl=1a');
+                exit();
+    }
 }elseif($validacion===0){
 
 	$registrado = loginUser2($email,$pass);// en "funciones_db.php"
@@ -28,10 +38,18 @@ if($validacion===1){
 	if($registrado===0){ // =0 registrado, =1 No registrado.
 			/*session_start();
 			$_SESSION['usuario']=$email;*/
-			header('location: indexga.php');
-			exit();
+			//header('location: indexga.php');
+			//exit();
+			switch($_GET['p']){//controlamos la navegación a la hora de mostrar mensajes al usuario en la barra NAVBAR común.
+		        case 1: header('location: index.php?mnsl=0a');
+			            exit();
+		        case 2: header('location: formRegistro.php?mnsl=0a');
+		                exit();
+		        case 3: header('location: index.php?mnsl=1a');
+		                exit();
+		    }
 		}elseif($registrado===1){
-			header('location: index.php?mnsl=2');//error de usuario no registrado, lo tratamos en el index01.
+			header('location: index.php?mnsl=1a');//error de usuario no registrado, lo tratamos en el index01.
 			exit();
 		}
 }

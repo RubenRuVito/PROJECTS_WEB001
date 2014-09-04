@@ -1,7 +1,7 @@
 <?php 
 require_once 'funciones.php';
 
-cargarCabecera('Inicio');
+cargarCabecera('Inicio',1);
 //cargarBarraNav(); lo invocamos al final de la fincion de cargarCabecera en el fichero de "funciones_out.php"
 ?>
 	<canvas id="theMatrix" width="1140" height="200"></canvas>

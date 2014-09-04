@@ -3,9 +3,15 @@
 require_once 'funciones.php';
 //session_start();
 // con el error 2.
-if(!isset($_SESSION['nom'])){
-	header('location: index.php?error=2');
-	exit();
+if(!isset($_SESSION['id'])){
+    switch($_GET['p']){//controlamos la navegación a la hora de mostrar mensajes al usuario en la barra NAVBAR común.
+        case 1: header('location: index.php?mnsl=1a');
+	            exit();
+        case 2: header('location: formRegistro.php?mnsl=1a');
+                exit();
+        case 3: header('location: index.php?mnsl=1a');
+                exit();
+    }
 }
 //echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';
 cargarCabecera('Hola! Galob@!');
