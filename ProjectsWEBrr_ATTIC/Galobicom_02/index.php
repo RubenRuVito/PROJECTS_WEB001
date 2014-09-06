@@ -4,7 +4,7 @@ require_once 'funciones.php';
 cargarCabecera('Inicio',1);
 //cargarBarraNav(); lo invocamos al final de la fincion de cargarCabecera en el fichero de "funciones_out.php"
 ?>
-	<canvas id="theMatrix" width="1140" height="200"></canvas>
+	<canvas class="container-fluid" id="theMatrix" width="1205" height="200"></canvas>
 <?php
 	if(!isset($_SESSION['id'])){
 ?>
@@ -17,7 +17,7 @@ cargarCabecera('Inicio',1);
 <?php
 	}else{
 ?>
-	<div class="jumbotron">
+	<div class="container-fluid jumbotron" style="border-radius: 10px;">
 		<h1>Datos de Usuario:</h1>
 	 	<h2><?php echo '<strong>Nombre Completo:</strong> '.$_SESSION['nom'].' '.$_SESSION['ape'];?></h2>
 	  	<h2><?php echo '<strong>Nick:</strong> '.$_SESSION['nic'].' <strong>E-mail:</strong> '.$_SESSION['email'];?></h2>

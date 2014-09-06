@@ -4,20 +4,18 @@ require_once 'funciones.php';
 //session_start();
 // con el error 2.
 if(!isset($_SESSION['id'])){
-    switch($_GET['p']){//controlamos la navegación a la hora de mostrar mensajes al usuario en la barra NAVBAR común.
-        case 1: header('location: index.php?mnsl=1a');
+    switch($_GET['p']){//controlamos la navegación a la hora de mostrar mensajes al usuario en la barra NAVBAR común, en la ventana correspondiente
+        case 1: header('location: index.php?mnsl=1a');//En principio Solamente para las paginas en donde no estemos logueados(index y formRegistro..)
 	            exit();
         case 2: header('location: formRegistro.php?mnsl=1a');
-                exit();
-        case 3: header('location: index.php?mnsl=1a');
                 exit();
     }
 }
 //echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';
-cargarCabecera('Hola! Galob@!');
+cargarCabecera('Hola! Galob@!',3);
 ?>
    <br>		
-   <div class="row">
+   <div class="container">
 
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
