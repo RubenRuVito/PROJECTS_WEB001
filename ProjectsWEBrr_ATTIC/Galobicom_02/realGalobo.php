@@ -17,14 +17,14 @@ if(!isset($_SESSION['id'])){
 cargarCabecera('Hola! Galob@!',4);
 ?>
    <br><br>		
-   <div class="container-fluid"> 
-            <div class="head">
-            <div class="well" style="background: #A00303;">
-                <h1 class="text-center" style="color: black; font-size: 90px; font-family: roman;"><img src="img/ball_small.jpg"><strong>Real Galobo C.F.</strong><img src="img/ball_small.jpg"></h1>
-            </div>
-            </div>
+   <div class="container-left"> 
+            
+                <div class="well" style="background: #A00303;">
+                    <h1 class="text-center" style="color: black; font-size: 110px; font-family: Cursive;"><img src="img/ball_small.jpg"><strong>Real Galobo C.F.</strong><img src="img/ball_small.jpg"></h1>
+                </div>
+            
             <!-- Blog Post Content Column -->
-            <div class="col-lg-4 navbar well">
+            <div class="col-md-4 well">
 
                 <!-- Blog Post -->
 
@@ -115,11 +115,12 @@ cargarCabecera('Hola! Galob@!',4);
 
             </div>
 
-            <div class="col-lg-5">
-                <div class="container-inline well">
+            <div class="col-md-6 well">
+                <div class="table-responsive well">
                     <label for="inputPasswordReg2" class="control-label">Clasificación:</label>
-                    <table class="" style="" border="" width="">
+                    <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
+                        <thead>
                         <tr>
                         <th>Posición</th>
                         <th>Equipo:    </th>
@@ -131,9 +132,11 @@ cargarCabecera('Hola! Galob@!',4);
                         <th>GF:</th>
                         <th>GC:</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">Real Galobo C.F.</td>
                         <td class="text-center">0</td>
                         <td>0</td>
                         <td>0</td>
@@ -144,7 +147,7 @@ cargarCabecera('Hola! Galob@!',4);
                         </tr>
                          </tr>
                         <tr>
-                        <td class="text-center">0</td>
+                        <td class="text-center">2</td>
                         <td class="text-center">0</td>
                         <td class="text-center">0</td>
                         <td>0</td>
@@ -154,11 +157,12 @@ cargarCabecera('Hola! Galob@!',4);
                         <td>0</td>
                         <td>0</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
-            
-                <div class="container-inline well">
-                    <label for="inputPasswordReg2" class="control-label">Resultados por Jornada:</label>
+
+                <div class="table-responsive well">
+                    <label for="inputPasswordReg2" class="control-label">Resultados por jornadas:</label>
                     <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>
@@ -167,7 +171,41 @@ cargarCabecera('Hola! Galob@!',4);
                                         <option>5</option>
                     </select>
                     <br>
-                    <table class="" style="" border="" width="">
+                    <table class="table table-striped table-bordered table-hover" style="" border="" width="">
+                   <!-- <table class="table table-responsive table-striped table-bordered"> -->
+                        <tr>
+                        <th>Jornada</th>
+                        <th>Equipo A</th>
+                        <th>Equipo B</th>
+                        <th>Resultado</th>
+                        </tr>
+                        <tr>
+                        <td class="text-center">1</td>
+                        <td>Real Galobo C.F.</td>
+                        <td>Los de Siempre C.F.</td>
+                        <td class="text-center">5-0</td>
+                        </tr>
+                         </tr>
+                        <tr>
+                        <td class="text-center">1</td>
+                        <td>Mi Nabo de Kiev C.F.</td>
+                        <td>Real Galobo C.F.</td>
+                        <td class="text-center">0-5</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="table-responsive well">
+                    <label for="inputPasswordReg2" class="control-label">Resultados por Equipos:</label>
+                    <select class="form-control">
+                                        <option>EquipoA</option>
+                                        <option>EquipoB</option>
+                                        <option>EquipoC</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                    </select>
+                    <br>
+                    <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
                         <tr>
                         <th>Jornada</th>
@@ -190,7 +228,8 @@ cargarCabecera('Hola! Galob@!',4);
                         </tr>
                     </table>
                 </div>
-                 <div class="well">
+
+                <div class="well">
                     <h3><strong>Postear Noticia:</strong></h3>
                     <form role="form">
                         <div class="form-group">
@@ -216,13 +255,13 @@ cargarCabecera('Hola! Galob@!',4);
 
             <!-- Blog Sidebar Widgets Column -->
             
-            <div class="col-md-3">
+            <div class="col-md-2 well">
 
                 <!-- Blog Search Well -->
                 <div class="well">
-                    <h4>Buscar Noticia:</h4>
+                    <h4>quiniela si o no Realizada, con enlace para administrar:</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control">
+                        
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -233,14 +272,14 @@ cargarCabecera('Hola! Galob@!',4);
                 </div>
 
                 <div class="well">
-                    <h2>Introducir Resultados de la jornada:[xx]</h2>
+                    <p>Introducir Resultados de la jornada:[xx]</p>
                     <div class="row">
                         <form class="form-horizontal" role="form" name="form" action="registro.php" method="post">
                             <div class="form-group">
                                 <div class="col-sm-10">
                                     <label for="inputPasswordReg2" class="control-label">Jornada número</label>
                                 </div>   
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                     <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>
@@ -254,9 +293,9 @@ cargarCabecera('Hola! Galob@!',4);
                                 <div class="col-sm-10">
                                     <label for="inputPasswordReg2" class="control-label">Equipo A:</label>
                                 </div>   
-                                <div class="col-sm-10">
+                                <div class="col-sm-12">
                                     <select class="form-control">
-                                        <option>1</option>
+                                        <option>kfgmnklsdfgnlkdsfnldksnkldsngkldsngkldsngkldnsfgklndsklfgndsklf</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
@@ -268,7 +307,7 @@ cargarCabecera('Hola! Galob@!',4);
                                 <div class="col-sm-10">
                                     <label for="inputPasswordReg2" class="control-label">Equipo B:</label>
                                 </div>   
-                                <div class="col-sm-10">
+                                <div class="col-sm-12">
                                     <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>
@@ -282,7 +321,7 @@ cargarCabecera('Hola! Galob@!',4);
                                 <div class="col-sm-10">
                                     <label for="inputPasswordReg2" class="control-label">Goles equipo A:</label>
                                 </div>   
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                     <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>
@@ -296,7 +335,7 @@ cargarCabecera('Hola! Galob@!',4);
                                 <div class="col-sm-10">
                                     <label for="inputPasswordReg2" class="control-label">Goles equipo B:</label>
                                 </div>   
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                     <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>

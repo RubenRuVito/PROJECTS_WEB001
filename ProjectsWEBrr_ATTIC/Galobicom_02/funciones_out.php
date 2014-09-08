@@ -25,7 +25,7 @@ function cargarCabecera($titulo,$pag){ //Método que recoge el título y la pagi
 		<script type="text/javascript" src="js/matrixtext.js"></script>
 	</head>
 	<body onload="init();" style="background-color: black;">
-		<div class="container-fluid" style="background-color: black; border-radius: 10px;">
+		<div class="container" style="background-color: black; border-radius: 10px;">
 		  <!--<canvas id="theMatrix" width="1150" height="200"></canvas> -->
 
 <?php
@@ -47,8 +47,8 @@ function cargarAlerts($tipo,$tam,$mensaje){
       		$clase = 'alert'.$tam.' alert-danger alert-dismissible';
       		break;
       }
-?>
-		<div class="<?php echo $clase; ?>" role="alert">
+?>		
+		<div class="row <?php echo $clase; ?>" role="alert">
 		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		  <strong>Atención!</strong> <?php echo $mensaje; ?>.
 		</div>
@@ -114,14 +114,16 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	      	<!-- <li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li> -->
 	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nic'];?></a></li>
 	      	<li><a href="logout.php">Cerrar Sesión</a></li>
-	      	<li class="navbar-brand">
+	      	
 	      	<?php
+	      	echo '<li class="navbar-brand">';
 	      			if(isset($_GET['mnsl'])){
 						switch($_GET['mnsl']){
 							case '0a': cargarAlerts('success','sm','Estás Dentro!..Bienvenido!!');
 										break;
 						}
 					}
+			echo '</li>';
 	      		}else{
 	      	?> <!-- Envio en el formulario de variables por post y get (SORPRENDENTEMENTE SE PUEDE COMBINAR) "login.php?p=<?php echo $pag; ?>". -->
 			</li>
