@@ -48,7 +48,7 @@ function cargarAlerts($tipo,$tam,$mensaje){
       		break;
       }
 ?>		
-		<div class="row <?php echo $clase; ?>" role="alert">
+		<div class="<?php echo $clase; ?>" role="alert">
 		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		  <strong>Atención!</strong> <?php echo $mensaje; ?>.
 		</div>
@@ -233,4 +233,80 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 
 <?php
 }
+
+function cargarTablaClasificacion(){
+	$conect = conectarDB01();
+	$resultconf = $conect->query("SET NAMES 'utf8'");
+	$consulta = $conect->query("SELECT * FROM equipos ORDER BY puntos DESC;");
+	desconectarDB01($conect);
+	if($consulta){
+		$posicion=1;
+		while($registro = mysqli_fetch_assoc($consulta)){	
+?>	
+			<tr>
+                <td class="text-center"><?php echo $posicion; ?></td>
+                <td class="text-center"><?php echo $registro['nom_equipo']; ?></td>
+                <td class="text-center"><?php echo $registro['puntos']; ?></td>
+                <td class="text-center"><?php echo $registro['jugados']; ?></td>
+                <td class="text-center"><?php echo $registro['ganados']; ?></td>
+                <td class="text-center"><?php echo $registro['empatados']; ?></td>
+                <td class="text-center"><?php echo $registro['perdidos']; ?></td>
+                <td class="text-center"><?php echo $registro['gol_favor']; ?></td>
+                <td class="text-center"><?php echo $registro['gol_contra']; ?></td>
+            </tr>
+<?php
+		$posicion++;
+		} 
+	}else{
+		cargarAlerts('warning','sm','Error en Base de datos(db)');
+	}
+
+}
+
+function generaComboEquipos(){
+	$conect = conectarDB01();
+	$resultconf = $conect->query("SET NAMES 'utf8'");
+	$consulta = $conect->query("SELECT id_equipo, nom_equipo FROM equipos ORDER BY nom_equipo; ");
+	desconectarDB01($conect);
+	//echo "<select name='centros' id='centros' onChange='cargaContenido(this.id)' multiple data-rel='chosen'>";
+	//echo "<option value='0'>Elige</option>";
+		echo "<select class='form-control'>";
+	if($consulta){
+			echo "<option value='0'>Elige Equipo</option>";
+		while($registro = mysqli_fetch_assoc($consulta))
+		{
+			echo "<option value='".$registro['id_equipo']."'>".$registro['nom_equipo']."</option>";
+		}
+		echo "</select>";
+		echo "<button type='submit' class='btn btn-info'>Aceptar</button>";
+	}else{
+		/*echo "<option value='0'>"<?php cargarAlerts('warning','sm','Error en Base de datos(db)'); ?>"</option>";*/
+		//cargarAlerts('warning','sm','Error en Base de datos(db)');
+		echo "<option value='0' style='background: red;'>Error en Base de datos</option>";
+	}
+	
+}
+
+function generaComboJornadas(){
+	$conect = conectarDB01();
+	$resultconf = $conect->query("SET NAMES 'utf8'");
+	$consulta = $conect->query("SELECT distinct jornada FROM resultados; ");
+
+		echo "<select class='form-control' onchange='valorSelectJornadas(this)'>";
+	if($consulta){
+			echo "<option value='0'>Elige Jornada</option>";
+		while($registro = mysqli_fetch_assoc($consulta))
+		{
+			echo "<option value='".$registro['jornada']."'>".$registro['jornada']."</option>";
+		}
+		echo "</select>";
+		echo "<button type='submit' class='btn btn-info'>Aceptar</button>";
+	}else{
+		/*echo "<option value='0'>"<?php cargarAlerts('warning','sm','Error en Base de datos(db)'); ?>"</option>";*/
+		//cargarAlerts('warning','sm','Error en Base de datos(db)');
+		echo "<option value='0' style='background: red;'>Error en Base de datos</option>";
+	}
+}
+
+
 ?>

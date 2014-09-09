@@ -4,9 +4,11 @@ require_once 'funciones.php';
 cargarCabecera('Inicio',1);
 //cargarBarraNav(); lo invocamos al final de la fincion de cargarCabecera en el fichero de "funciones_out.php"
 ?> 
-	<div class="row">
-		<canvas class="container" id="theMatrix" width="" height="50"></canvas>
-	</div>
+	<script type="text/javascript">
+ 		document.writeln("<p>"+screen.width+" x "+screen.height+"</p>");// Resolución del Navegador y personalizamos el Canvas.
+ 		document.writeln("<canvas class='row container' id='theMatrix' width="+screen.width+" height='+200+'></canvas>");
+ 	</script>
+
 <?php
 	if(!isset($_SESSION['id'])){
 ?>

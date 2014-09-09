@@ -121,56 +121,46 @@ cargarCabecera('Hola! Galob@!',4);
                     <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
                         <thead>
-                        <tr>
-                        <th>Posición</th>
-                        <th>Equipo:    </th>
-                        <th>Puntos:</th>
-                        <th>PJ:</th>
-                        <th>PG:</th>
-                        <th>PE:</th>
-                        <th>PP:</th>
-                        <th>GF:</th>
-                        <th>GC:</th>
-                        </tr>
+                            <tr>
+                                <th class="text-center">Pos:</th>
+                                <th class="text-center">Equipo:</th>
+                                <th class="text-center">Puntos:</th>
+                                <th class="text-center">PJ:</th>
+                                <th class="text-center">PG:</th>
+                                <th class="text-center">PE:</th>
+                                <th class="text-center">PP:</th>
+                                <th class="text-center">GF:</th>
+                                <th class="text-center">GC:</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">Real Galobo C.F.</td>
-                        <td class="text-center">0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        </tr>
-                         </tr>
-                        <tr>
-                        <td class="text-center">2</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        </tr>
+
+<?php cargarTablaClasificacion(); ?>                    
+
                         </tbody>
                     </table>
                 </div>
 
                 <div class="table-responsive well">
+                    
                     <label for="inputPasswordReg2" class="control-label">Resultados por jornadas:</label>
-                    <select class="form-control">
+
+<?php generaComboJornadas(); ?>                  
+<script type="text/javascript">
+ function valorSelectJornadas(valseljor){
+    <?php $valseljor=valseljor; ?>
+ }
+
+</script>
+                    <!-- <select class="form-control">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
                                         <option>5</option>
-                    </select>
-                    <br>
+                    </select> 
+                    <button type="submit" class="btn btn-info">Aceptar</button> -->
+                    <br></br>
                     <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
                         <tr>
@@ -197,14 +187,18 @@ cargarCabecera('Hola! Galob@!',4);
 
                 <div class="table-responsive well">
                     <label for="inputPasswordReg2" class="control-label">Resultados por Equipos:</label>
-                    <select class="form-control">
+
+<?php  generaComboEquipos(); ?>
+
+                    <!-- <select class="form-control">
                                         <option>EquipoA</option>
                                         <option>EquipoB</option>
                                         <option>EquipoC</option>
                                         <option>4</option>
                                         <option>5</option>
-                    </select>
-                    <br>
+                    </select> 
+                    <button type="submit" class="btn btn-info">Aceptar</button> -->
+                    <br></br>
                     <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
                         <tr>
@@ -266,7 +260,7 @@ cargarCabecera('Hola! Galob@!',4);
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        </span>
+                        
                     </div>
                     <!-- /.input-group -->
                 </div>
@@ -354,8 +348,8 @@ cargarCabecera('Hola! Galob@!',4);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-1 col-sm-10">
-                                    <button type="submit" class="btn btn-info">Aceptar.</button>
+                                <div class="col-sm-offset-3">
+                                    <button type="submit" class="btn btn-info">Aceptar</button>
                                 </div>
                             </div>
                         </form>
