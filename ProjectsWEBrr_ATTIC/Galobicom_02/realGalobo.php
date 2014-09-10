@@ -141,47 +141,57 @@ cargarCabecera('Hola! Galob@!',4);
                     </table>
                 </div>
 
+           <!-- <div class="table-responsive well"> -->
                 <div class="table-responsive well">
-                    
                     <label for="inputPasswordReg2" class="control-label">Resultados por jornadas:</label>
 
 <?php generaComboJornadas(); ?>                  
 <script type="text/javascript">
- function valorSelectJornadas(valseljor){
-    <?php $valseljor=valseljor; ?>
+ function valorSelectJornadas(){
+    var comboJor = document.getElementById('jornada');
+    var valueComboJor = comboJor.value;
  }
-
+ 
+ $(document).ready(function(){   
+ $("#jornadas").change(function(){ //  click(function(){
+            
+            var funcionJor = 0;
+            var valueJor = $("#jornadas").val();
+            //alert(funcionJor);
+            //alert(valueJor);
+            if(valueJor!=0){
+                $.ajax({
+                    type: "post",   
+                    url: "funciones_out2.php",
+                    dataType: "html",
+                    data: {funcionJor: funcionJor, valueJor: valueJor},
+                    success: function(datosTabla){
+                        $("#tablaResultadosJor").html(datosTabla);
+                    },
+                    error: function(){
+                        alert("Error al cargar datos..");
+                    }
+                });
+            }else{
+                alert("Selecciona un número tontako!!");
+            }
+  });
+ });
 </script>
-                    <!-- <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                    </select> 
-                    <button type="submit" class="btn btn-info">Aceptar</button> -->
+
                     <br></br>
-                    <table class="table table-striped table-bordered table-hover" style="" border="" width="">
+                    <table id="" class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
-                        <tr>
-                        <th>Jornada</th>
-                        <th>Equipo A</th>
-                        <th>Equipo B</th>
-                        <th>Resultado</th>
-                        </tr>
-                        <tr>
-                        <td class="text-center">1</td>
-                        <td>Real Galobo C.F.</td>
-                        <td>Los de Siempre C.F.</td>
-                        <td class="text-center">5-0</td>
-                        </tr>
+                        <Thead>    
+                         <tr>
+                            <th class="text-center">Jornada</th>
+                            <th class="text-center">Equipo A</th>
+                            <th class="text-center">Equipo B</th>
+                            <th class="text-center">Resultado</th>
                          </tr>
-                        <tr>
-                        <td class="text-center">1</td>
-                        <td>Mi Nabo de Kiev C.F.</td>
-                        <td>Real Galobo C.F.</td>
-                        <td class="text-center">0-5</td>
-                        </tr>
+                        <tbody id="tablaResultadosJor">  
+                        
+                        </tbody>
                     </table>
                 </div>
 

@@ -292,7 +292,7 @@ function generaComboJornadas(){
 	$resultconf = $conect->query("SET NAMES 'utf8'");
 	$consulta = $conect->query("SELECT distinct jornada FROM resultados; ");
 
-		echo "<select class='form-control' onchange='valorSelectJornadas(this)'>";
+		echo "<select id='jornadas' class='form-control' onchange=''>";
 	if($consulta){
 			echo "<option value='0'>Elige Jornada</option>";
 		while($registro = mysqli_fetch_assoc($consulta))
