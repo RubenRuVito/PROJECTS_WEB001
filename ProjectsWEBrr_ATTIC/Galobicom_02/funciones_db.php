@@ -65,7 +65,7 @@ function registroUsuario($nom,$ape,$nic,$e,$p){
 }
 
 function altaUsuario($nom,$ape,$nic,$correo,$pas){
-	$fecActual = date('Y-m-d');
+	$fecActual = date('Y-m-d H:i:s');
 	$nivelAcceso = 'buquido';
 	$conex = conectarDB01();
 	$resultconf = $conex->query("SET NAMES 'utf8'");

@@ -24,57 +24,45 @@ cargarCabecera('Hola! Galob@!',4);
                 </div>
             
             <!-- Blog Post Content Column -->
-            <div class="col-md-4 well">
+            <div id="TablonNoti" class="col-md-4 well">
 
-                <!-- Blog Post -->
+<?php 
+$maxelempag = 1; //Numero de elementos por pagina, POR EL MOMENTO FALLA CON MAS DE 2, A LA HORA DE GUARDAR LOS COMENTARIOS EN LA NOTICIA CORRECTA.
+cargarNoticiasRG($maxelempag); 
+cargarPaginacion($maxelempag);
+?>
+<script type="text/javascript">
 
-                <!-- Title -->
-                <h2>Título de la Noticia..</h2>
-                
-                <!-- Author -->
-                <p class="lead">
-                    by <a href="#">Ruvito_O</a>
-                </p>
+$(document).ready(function(){
+$("#btnFormMens").click(function(){
 
-                
+            var funPost = 3; //Función en "funciones_out2.php" para guardar el comment realizado en una noticia en concreto.
+            var texcom = $("#textComent").val(); // recoge el valor del contenido de la etiqueta o elemento referenciado x su id.
+            var idNoti = $("#formCom").attr("value"); //CAda form para incluir un comentario tiene en su "value" el id de la noticia que se esta comentando.          
+            alert(idNoti);                            //*** recoger valor del atributo de un elemento html.  
 
-                <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+            if(texcom != ""){
+                $.ajax({
+                    type: "post",
+                    url: "funciones_out2.php",
+                    data: {funcion: funPost, comentario: texcom, idNoticia: idNoti},
+                    success: function(mensaje){
+                        $("#alertMens").html(mensaje);
+                        //$("#TablonNoti").html();
+                    },
+                    error: function(){
+                        alert("Error al retornar datos..");
+                    }
+                });
+                window.location = "realGalobo.php?npag=<?php if(isset($_GET['npag'])){ echo $_GET['npag'];} ?>";
+            }else{
+                alert("comentario vacio.");
+            }
+ });
+ });
+</script>
 
-                <hr>
-
-                <!-- Preview Image -->
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-
-                <hr>
-
-                <!-- Post Content -->
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
-
-                <hr>
-
-                <!-- Blog Comments -->
-
-                <!-- Comments Form -->
-                <div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-
-                <hr>
-
-                <!-- Posted Comments -->
-
-                <!-- Comment -->
+                <!-- Comment 
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -84,20 +72,7 @@ cargarCabecera('Hola! Galob@!',4);
                             <small>August 25, 2014 at 9:30 PM</small>
                         </h4>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
-
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment -->
+                        <!-- Nested Comment 
                         <div class="media">
                             <a class="pull-left" href="#">
                                 <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -109,9 +84,10 @@ cargarCabecera('Hola! Galob@!',4);
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                             </div>
                         </div>
-                        <!-- End Nested Comment -->
+                        <!-- End Nested Comment 
                     </div>
-                </div>
+                </div> -->
+
 
             </div>
 
@@ -145,29 +121,26 @@ cargarCabecera('Hola! Galob@!',4);
                 <div class="table-responsive well">
                     <label for="inputPasswordReg2" class="control-label">Resultados por jornadas:</label>
 
-<?php generaComboJornadas(); ?>                  
+<?php generaComboJornadas(); ?>  
+
 <script type="text/javascript">
- function valorSelectJornadas(){
-    var comboJor = document.getElementById('jornada');
-    var valueComboJor = comboJor.value;
- }
  
- $(document).ready(function(){   
- $("#jornadas").change(function(){ //  click(function(){
+ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un elemento.
+ $("#combJornadas").change(function(){   
             
-            var funcionJor = 0;
-            var valueJor = $("#jornadas").val();
+            var funJor = 0; //opción que le vamos a pasar al archivo php para saber q función realizar.
+            var valJor = $("#combJornadas").val(); //value del elemento select seleccionado, el cual enviaremos al archivo php.
             //alert(funcionJor);
             //alert(valueJor);
-            if(valueJor!=0){
-                $.ajax({
+            if(valJor!=0){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
+                $.ajax({ //Funcion ajax para la cual configuramos sus parámetros para indicarle el que,como queremos que realice y donde redireccionar.
                     type: "post",   
-                    url: "funciones_out2.php",
+                    url: "funciones_out2.php",    //Entrada del AJAX,configu de parámetros y donde redireccionar y que valores enviar.
                     dataType: "html",
-                    data: {funcionJor: funcionJor, valueJor: valueJor},
-                    success: function(datosTabla){
-                        $("#tablaResultadosJor").html(datosTabla);
-                    },
+                    data: {funcion: funJor, value: valJor},
+                    success: function(datosTabla){   //Salida del AJAX, lo que "escupe" el archivo al que hemos redireccionado, y
+                        $("#tablaResultadosJor").html(datosTabla); // le indicamos donde queremos que lo "escupa", indicandole 
+                    },                                      // el "id" del atributo o etiqueta en el que queremos que pinte la Salida.
                     error: function(){
                         alert("Error al cargar datos..");
                     }
@@ -175,20 +148,22 @@ cargarCabecera('Hola! Galob@!',4);
             }else{
                 alert("Selecciona un número tontako!!");
             }
-  });
+ });
  });
 </script>
 
-                    <br></br>
+                    <br>
                     <table id="" class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
-                        <Thead>    
+                        <thead>    
                          <tr>
                             <th class="text-center">Jornada</th>
                             <th class="text-center">Equipo A</th>
                             <th class="text-center">Equipo B</th>
                             <th class="text-center">Resultado</th>
+                            <th class="text-center">Fecha y Hora</th>
                          </tr>
+                        </thead> 
                         <tbody id="tablaResultadosJor">  
                         
                         </tbody>
@@ -200,59 +175,285 @@ cargarCabecera('Hola! Galob@!',4);
 
 <?php  generaComboEquipos(); ?>
 
-                    <!-- <select class="form-control">
-                                        <option>EquipoA</option>
-                                        <option>EquipoB</option>
-                                        <option>EquipoC</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                    </select> 
-                    <button type="submit" class="btn btn-info">Aceptar</button> -->
-                    <br></br>
+<script type="text/javascript">
+ 
+ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un atributo.
+ $("#combEquipos01").change(function(){   
+            
+            var funEqui = 1; //opción que le vamos a pasar al archivo php para indicarle q función realizar.
+            var valEqui = $("#combEquipos01").val(); //value del elemento select seleccionado, el cual enviaremos al archivo php.
+            //alert(funcionJor);
+            //alert(valueJor);
+            if(valEqui!=0){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
+                $.ajax({ //Funcion ajax para la cual configuramos sus parámetros para indicarle el que,como queremos que realice y donde redireccionar.
+                    type: "post",   
+                    url: "funciones_out2.php",    //Entrada del AJAX,configu de parámetros y donde redireccionar y que valores enviar.
+                    dataType: "html",
+                    data: {funcion: funEqui, value: valEqui},
+                    success: function(datosTabla){   //Salida del AJAX, lo que "escupe" el archivo al que hemos redireccionado, y
+                        $("#tablaResultadosEqui").html(datosTabla); // le indicamos donde queremos que lo "escupa", indicandole 
+                    },                                      // el "id" del atributo o etiqueta en el que queremos que pinte la Salida.
+                    error: function(){
+                        alert("Error al cargar datos..");
+                    }
+                });
+            }else{
+                alert("Selecciona un número tontako!!");
+            }
+ });
+
+$("#btnFormNoti").click(function(){
+
+            var funPost = 2;
+            var tit = $("#titulo").val();
+            var cont = $("#contenido").val();
+            var limg = $("#linkimg").val();
+            var lenla = $("#linkEnla").val();
+
+            if(tit != "" && cont != ""){
+                $.ajax({
+                    type: "post",
+                    url: "funciones_out2.php",
+                    data: {funcion: funPost, titulo: tit, contenido: cont, linkimg: limg, linkEnla: lenla},
+                    success: function(mensaje){
+                        $("#alertNoti").html(mensaje);
+                        
+                    },
+                    error: function(){
+                        alert("Error AJAX, al retornar datos..");
+                    }
+                });
+                window.location = "realGalobo.php";
+            }else{
+                alert("titulo y contenido obligatorios..");
+            }
+ });
+ });
+</script>
+                    
+                    <br>
                     <table class="table table-striped table-bordered table-hover" style="" border="" width="">
                    <!-- <table class="table table-responsive table-striped table-bordered"> -->
-                        <tr>
-                        <th>Jornada</th>
-                        <th>Equipo A</th>
-                        <th>Equipo B</th>
-                        <th>Resultado</th>
-                        </tr>
-                        <tr>
-                        <td class="text-center">1</td>
-                        <td>Real Galobo C.F.</td>
-                        <td>Los de Siempre C.F.</td>
-                        <td class="text-center">5-0</td>
-                        </tr>
+                        <thead>
+                         <tr>
+                            <th class="text-center">Jornada</th>
+                            <th class="text-center">Equipo A</th>
+                            <th class="text-center">Equipo B</th>
+                            <th class="text-center">Resultado</th>
                          </tr>
-                        <tr>
-                        <td class="text-center">2</td>
-                        <td>Mi Nabo de Kiev C.F.</td>
-                        <td>Real Galobo C.F.</td>
-                        <td class="text-center">0-5</td>
-                        </tr>
+                        </thead>
+                        <tbody id="tablaResultadosEqui">
+                        
+                        </tbody>
                     </table>
+                </div>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un atributo.
+    var codigoHtmlPintar = "<select id='golA' class='form-control' disabled>";
+        codigoHtmlPintar += "<option value='0'>0</option>";
+        codigoHtmlPintar += "</select>";
+ $("#combJorGuardar").change(function(){
+        var fun = 4;
+        var valJorGuar = $("#combJorGuardar").val();
+        alert(valJorGuar);
+        if(valJorGuar!=0){
+            $.ajax({
+                type: "post",
+                datatype: "html",
+                url: "funciones_out2.php",
+                data: {valueJor: valJorGuar, funcion: fun},
+                success: function(datosComboA){
+                    $("#combEquiAguar").html(datosComboA);
+                    $("#combEquiBguar").html(""); //Vaciar el 3combo "equipo B", ya q es dependiente del 2ºcombo y este del 1ºcombo.
+                    $("#divGolA").html(codigoHtmlPintar);
+                    $("#divGolB").html(codigoHtmlPintar);
+                },
+                error: function(){
+                    alert("Error AJAX, al retornar datos..");
+                }
+            });
+        }else{
+            $("#combEquiAguar").html("");
+            $("#combEquiBguar").html("");
+            $("#divGolA").html(codigoHtmlPintar);
+            $("#divGolB").html(codigoHtmlPintar);
+            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+        }
+ });
+
+ $("#combEquiAguar").change(function(){
+        var fun = 5;
+        var valEquiAguar = $("#combEquiAguar").val();
+        var valJorGuar = $("#combJorGuardar").val();
+        alert(valEquiAguar);
+        alert(valJorGuar);
+        if(valEquiAguar!=0){
+            $.ajax({
+                type: "post",
+                datatype: "html",
+                url: "funciones_out2.php",
+                data: {value: valEquiAguar, valueJor: valJorGuar, funcion: fun},
+                 success: function(datosComboB){
+                    $("#combEquiBguar").html(datosComboB);
+                    $("#divGolA").html(codigoHtmlPintar);
+                    $("#divGolB").html(codigoHtmlPintar);
+                },
+                error: function(){
+                    alert("Error AJAX, al retornar datos..");
+                }
+            });
+        }else{
+            $("#combEquiBguar").html("");
+            $("#divGolA").html(codigoHtmlPintar);
+            $("#divGolB").html(codigoHtmlPintar);
+            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+        }
+ });
+
+ $("#combEquiBguar").change(function(){
+        var valEquiB = $("#combEquiBguar").val();
+        if(valEquiB != 0){
+            var codigoHtmlPintarOK = "<select id='golA' class='form-control'>";
+                codigoHtmlPintarOK += "<option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
+                codigoHtmlPintarOK += "<option valie='3'>3</option><option valie='4'>4</option><option valie='5'>5</option>";
+                codigoHtmlPintarOK += "<option valie='6'>6</option><option valie='7'>7</option><option valie='8'>8</option>";
+                codigoHtmlPintarOK += "<option valie='9'>9</option><option valie='10'>10</option><option valie='11'>11</option>";
+                codigoHtmlPintarOK += "</select>";       
+            $("#divGolA").html(codigoHtmlPintarOK);
+            $("#divGolB").html(codigoHtmlPintarOK);
+        }else{
+            $("#divGolA").html(codigoHtmlPintar);
+            $("#divGolB").html(codigoHtmlPintar);
+            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+        }
+ });
+
+ $("#golA").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+
+
+ });
+ $("#golB").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+    
+ });
+
+
+ $("#btnGuardar").click(function(){ //hacer funcion en archivo php para guardar
+        var jor = $("#combJorGuardar").val();
+        var ideA = $("#").val();
+        var ideB = $("#").val();
+        var gA = $("#").val();
+        var gB = $("#").val();
+        var fecHor = $("#").val();
+
+
+ });
+});
+</script>
+
+                <div class="well">
+                    <p>Introducir Resultados de la jornada:[xx]</p>
+                    <div class="row">
+                        <form class="form-horizontal" role="form" name="form" action="" method="">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label for="" class="control-label">Jornada número:</label>
+                                </div>   
+                                <div id="" class="col-sm-6">
+
+<?php generaComboJornadasGuardarRG(); ?>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label for="" class="">Equipo A:</label>
+                                </div>   
+                                <div id="divSeleEquiA" class="col-sm-12">
+                                    <select id='combEquiAguar' class='form-control' onchange=''>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label for="" class="">Equipo B:</label>
+                                </div>   
+                                <div class="col-sm-12">
+                                    <select id='combEquiBguar' class="form-control">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label for="" class="">Goles equipo A:</label>
+                                </div> 
+                                <div class="col-sm-6">
+                                    <label for="" class="">Goles equipo B:</label>
+                                </div>   
+                                <div id="divGolA" class="col-sm-6">
+                                    <select id="golA" class="form-control" disabled>
+                                        <option value="0">0</option> <!-- <option value="1">1</option><option value="2">2</option>
+                                        <option valie="3">3</option><option valie="4">4</option><option valie="5">5</option>
+                                        <option valie="6">6</option><option valie="7">7</option><option valie="8">8</option>
+                                        <option valie="9">9</option><option valie="10">10</option><option valie="11">11</option> -->
+                                    </select>
+                                </div>
+                                <div id="divGolB" class="col-sm-6">
+                                    <select id="golB" class="form-control" disabled>
+                                        <option value="0">0</option> <!-- <option value="1">1</option><option value="2">2</option>
+                                        <option valie="3">3</option><option valie="4">4</option><option valie="5">5</option>
+                                        <option valie="6">6</option><option valie="7">7</option><option valie="8">8</option>
+                                        <option valie="9">9</option><option valie="10">10</option><option valie="11">11</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="">Fecha y hora del Encuentro:</label>
+                                    <input class="form-control" type="datetime-local" id="fechorapart"></input>
+                                </div>
+                            
+                                <br></br>
+                                <div class="col-sm-6">
+                                    <label for="" class="">Valor Quiniela:</label>
+                                    <label for="" id="quiniela" class="">1-X-2</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5">
+                                    <button type="button" id="btnGuardar" class="btn btn-info">Aceptar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="well">
                     <h3><strong>Postear Noticia:</strong></h3>
-                    <form role="form">
+                    <form role="form" id="formNoticiaRG">
                         <div class="form-group">
                             <label for="inputPasswordReg2" class="control-label">Título de la Noticia:</label>
-                            <input type="text" class="form-control" ></input>
+                            <input type="text" class="form-control" id="titulo" maxlength="80"></input>
                         </div>
                         <div class="form-group">
                             <label for="inputPasswordReg2" class="control-label">Redactar Noticia:</label>
-                            <textarea class="form-control" rows="4"></textarea>
+                            <textarea class="form-control" rows="4" id="contenido" maxlength="700"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="inputPasswordReg2" class="control-label">link de imagen:</label>
-                            <input type="text" class="form-control" ></input>
+                            <input type="text" class="form-control" id="linkimg" maxlength="250"></input>
                         </div>
                         <div class="form-group">
                             <label for="inputPasswordReg2" class="control-label">link enlace externo:</label>
-                            <input type="text" class="form-control" ></input>
+                            <input type="text" class="form-control" id="linkEnla" maxlength="250"></input>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" id="btnFormNoti" class="btn btn-primary">Postealó!</button>
+                        <div id="alertNoti"></div>
                     </form>
                 </div>
             </div>
