@@ -162,8 +162,9 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 			  
 			</form>
 		   </ul>
-		  </div>
-		 </nav>
+		</div>
+	 </div>
+	</nav>
 <?php
 }
 
