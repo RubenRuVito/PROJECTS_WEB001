@@ -272,9 +272,9 @@ function generaComboEquipos(){
 	desconectarDB01($conect);
 	//echo "<select name='centros' id='centros' onChange='cargaContenido(this.id)' multiple data-rel='chosen'>";
 	//echo "<option value='0'>Elige</option>";
-		echo "<select id='combEquipos01' class='form-control'>";
+		echo "<select id='combEquipos01' class='form-control' required>";
 	if($consulta){
-			echo "<option value='0'>Elige Equipo</option>";
+			echo "<option value=''>Elige Equipo</option>";
 		while($registro = mysqli_fetch_assoc($consulta))
 		{
 			echo "<option value='".$registro['id_equipo']."'>".$registro['nom_equipo']."</option>";
@@ -293,9 +293,9 @@ function generaComboJornadas(){ //Para generar la tabla resultados x jornada
 	$resultconf = $conect->query("SET NAMES 'utf8'");
 	$consulta = $conect->query("SELECT distinct jornada FROM resultados; ");
 	desconectarDB01($conect);
-		echo "<select id='combJornadas' class='form-control' onchange=''>";
+		echo "<select id='combJornadas' class='form-control' onchange='' required>";
 	if($consulta){
-			echo "<option value='0'>Elige Jornada</option>";
+			echo "<option value=''>Elige Jornada</option>";
 		while($registro = mysqli_fetch_assoc($consulta))
 		{
 			echo "<option value='".$registro['jornada']."'>".$registro['jornada']."</option>";
@@ -315,8 +315,8 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 	$consulta = $conect->query("SELECT count(DISTINCT jornada) as JornadasJugadas FROM resultados; ");
 	$registroCountJorJgadas = mysqli_fetch_assoc($consulta);
 	$numJornadasJugadas = $registroCountJorJgadas['JornadasJugadas'];
-			echo "<select id='combJorGuardar' class='form-control' onchange=''>";
-			echo "<option value='0'>Elige Jornada</option>";
+			echo "<select id='combJorGuardar' class='form-control' onchange='' required>";
+			echo "<option value=''>Elige Jornada</option>";
 	for($cntJor=1; $cntJor <= $numJornadasJugadas; $cntJor++){
 		$consultaResultados = $conect->query("SELECT * FROM resultados WHERE jornada='$cntJor'; ");
 		if($consultaResultados && $consulta){
@@ -337,7 +337,7 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 		}else{
 			/*echo "<option value='0'>"<?php cargarAlerts('warning','sm','Error en Base de datos(db)'); ?>"</option>";*/
 			//cargarAlerts('warning','sm','Error en Base de datos(db)');
-				echo "<option value='0' style='background: red;'>Error en Base de datos</option>";
+				echo "<option value='' style='background: red;'>Error en Base de datos</option>";
 		}
 	}
 				echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente</option>";
@@ -435,7 +435,7 @@ function cargarNoticiasRG($maxelem){ //Método para cargar las noticias y los me
 	desconectarDB01($conect);
 }
 
-function cargarMensajesNotiRG(){
+function cargarMensajesNotiRG(){ //LO CARGAMOS EN LA MISMA FUNCION QUE LAS NOTICIAS..
 
 }
 
@@ -461,7 +461,7 @@ function cargarPaginacion($maxelemp){
 			echo '<ul class="pagination">';
 	for($cnt = 1; $cnt <= $paginas; $cnt++){
 		if($cnt == $pagActual){ //Pintamos los botones de paginación, e inhabilitamos el botón del num de páginación en la que nos encontramos.
-			echo '<li class="disabled"><a href="">'.$cnt.'</a></li>';
+			echo '<li class="disabled"><a>'.$cnt.'<span class="sr-only">'.$cnt.'</span></a></li>';
 		}else{
 			echo '<li><a href="realGalobo.php?npag='.$cnt.'">'.$cnt.'</a></li>';
 		}

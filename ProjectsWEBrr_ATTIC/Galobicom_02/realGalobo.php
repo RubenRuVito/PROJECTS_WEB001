@@ -27,14 +27,14 @@ cargarCabecera('Hola! Galob@!',4);
             <div id="TablonNoti" class="col-md-4 well">
 
 <?php 
-$maxelempag = 1; //Numero de elementos por pagina, POR EL MOMENTO FALLA CON MAS DE 2, A LA HORA DE GUARDAR LOS COMENTARIOS EN LA NOTICIA CORRECTA.
-cargarNoticiasRG($maxelempag); 
+$maxelempag = 1; //Número de elementos por pagina, POR EL MOMENTO FALLA CON MAS DE 2, A LA HORA DE GUARDAR LOS COMENTARIOS EN LA NOTICIA CORRECTA.
+cargarNoticiasRG($maxelempag); //carga las noticias posteadas, y sus mensajes relacionados.
 cargarPaginacion($maxelempag);
 ?>
 <script type="text/javascript">
 
 $(document).ready(function(){
-$("#btnFormMens").click(function(){
+ $("#btnFormMens").click(function(){
 
             var funPost = 3; //Función en "funciones_out2.php" para guardar el comment realizado en una noticia en concreto.
             var texcom = $("#textComent").val(); // recoge el valor del contenido de la etiqueta o elemento referenciado x su id.
@@ -58,36 +58,9 @@ $("#btnFormMens").click(function(){
             }else{
                 alert("comentario vacio.");
             }
- });
+  });
  });
 </script>
-
-                <!-- Comment 
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment 
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">Nested Start Bootstrap
-                                    <small>August 25, 2014 at 9:30 PM</small>
-                                </h4>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-                        <!-- End Nested Comment 
-                    </div>
-                </div> -->
-
 
             </div>
 
@@ -126,13 +99,13 @@ $("#btnFormMens").click(function(){
 <script type="text/javascript">
  
  $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un elemento.
- $("#combJornadas").change(function(){   
+  $("#combJornadas").change(function(){   
             
             var funJor = 0; //opción que le vamos a pasar al archivo php para saber q función realizar.
             var valJor = $("#combJornadas").val(); //value del elemento select seleccionado, el cual enviaremos al archivo php.
             //alert(funcionJor);
             //alert(valueJor);
-            if(valJor!=0){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
+            if(valJor!=''){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
                 $.ajax({ //Funcion ajax para la cual configuramos sus parámetros para indicarle el que,como queremos que realice y donde redireccionar.
                     type: "post",   
                     url: "funciones_out2.php",    //Entrada del AJAX,configu de parámetros y donde redireccionar y que valores enviar.
@@ -145,10 +118,8 @@ $("#btnFormMens").click(function(){
                         alert("Error al cargar datos..");
                     }
                 });
-            }else{
-                alert("Selecciona un número tontako!!");
             }
- });
+  });
  });
 </script>
 
@@ -184,7 +155,7 @@ $("#btnFormMens").click(function(){
             var valEqui = $("#combEquipos01").val(); //value del elemento select seleccionado, el cual enviaremos al archivo php.
             //alert(funcionJor);
             //alert(valueJor);
-            if(valEqui!=0){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
+            if(valEqui!=''){ //si selecciona el value=0("Elige Jornada") no haga nada y le saque un mns al user.
                 $.ajax({ //Funcion ajax para la cual configuramos sus parámetros para indicarle el que,como queremos que realice y donde redireccionar.
                     type: "post",   
                     url: "funciones_out2.php",    //Entrada del AJAX,configu de parámetros y donde redireccionar y que valores enviar.
@@ -197,8 +168,6 @@ $("#btnFormMens").click(function(){
                         alert("Error al cargar datos..");
                     }
                 });
-            }else{
-                alert("Selecciona un número tontako!!");
             }
  });
 
@@ -223,9 +192,7 @@ $("#btnFormNoti").click(function(){
                         alert("Error AJAX, al retornar datos..");
                     }
                 });
-                window.location = "realGalobo.php";
-            }else{
-                alert("titulo y contenido obligatorios..");
+                window.location = "realGalobo.php"; //Posteas una Noticia recarga la pagina, y aparece tu noticia.
             }
  });
  });
@@ -253,14 +220,16 @@ $("#btnFormNoti").click(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un atributo.
-    var codigoHtmlPintar = "<select id='golA' class='form-control' disabled>";
-        codigoHtmlPintar += "<option value='0'>0</option>";
-        codigoHtmlPintar += "</select>";
+    var codigoHtmlPintarA = "<select id='golA' class='form-control' disabled>";
+        codigoHtmlPintarA += "<option value=''>Selecciona número de goles</option>";
+        codigoHtmlPintarA += "</select>";
+    var codigoHtmlPintarB = "<select id='golB' class='form-control' disabled>";
+        codigoHtmlPintarB += "<option value=''>Selecciona número de goles</option>";
+        codigoHtmlPintarB += "</select>";
  $("#combJorGuardar").change(function(){
         var fun = 4;
         var valJorGuar = $("#combJorGuardar").val();
-        alert(valJorGuar);
-        if(valJorGuar!=0){
+        if(valJorGuar!=''){
             $.ajax({
                 type: "post",
                 datatype: "html",
@@ -269,8 +238,8 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                 success: function(datosComboA){
                     $("#combEquiAguar").html(datosComboA);
                     $("#combEquiBguar").html(""); //Vaciar el 3combo "equipo B", ya q es dependiente del 2ºcombo y este del 1ºcombo.
-                    $("#divGolA").html(codigoHtmlPintar);
-                    $("#divGolB").html(codigoHtmlPintar);
+                    $("#divGolA").html(codigoHtmlPintarA);
+                    $("#divGolB").html(codigoHtmlPintarB);
                 },
                 error: function(){
                     alert("Error AJAX, al retornar datos..");
@@ -279,9 +248,9 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
         }else{
             $("#combEquiAguar").html("");
             $("#combEquiBguar").html("");
-            $("#divGolA").html(codigoHtmlPintar);
-            $("#divGolB").html(codigoHtmlPintar);
-            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+            $("#divGolA").html(codigoHtmlPintarA);
+            $("#divGolB").html(codigoHtmlPintarB);
+            $("#quiniela").html("<h2> 1-X-2</h2>");
         }
  });
 
@@ -289,9 +258,7 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
         var fun = 5;
         var valEquiAguar = $("#combEquiAguar").val();
         var valJorGuar = $("#combJorGuardar").val();
-        alert(valEquiAguar);
-        alert(valJorGuar);
-        if(valEquiAguar!=0){
+        if(valEquiAguar!=''){
             $.ajax({
                 type: "post",
                 datatype: "html",
@@ -299,8 +266,8 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                 data: {value: valEquiAguar, valueJor: valJorGuar, funcion: fun},
                  success: function(datosComboB){
                     $("#combEquiBguar").html(datosComboB);
-                    $("#divGolA").html(codigoHtmlPintar);
-                    $("#divGolB").html(codigoHtmlPintar);
+                    $("#divGolA").html(codigoHtmlPintarA);
+                    $("#divGolB").html(codigoHtmlPintarB);
                 },
                 error: function(){
                     alert("Error AJAX, al retornar datos..");
@@ -308,40 +275,84 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
             });
         }else{
             $("#combEquiBguar").html("");
-            $("#divGolA").html(codigoHtmlPintar);
-            $("#divGolB").html(codigoHtmlPintar);
-            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+            $("#divGolA").html(codigoHtmlPintarA);
+            $("#divGolB").html(codigoHtmlPintarB);
+            $("#quiniela").html("<h2> 1-X-2</h2>");
+            
         }
  });
 
  $("#combEquiBguar").change(function(){
-        var valEquiB = $("#combEquiBguar").val();
-        if(valEquiB != 0){
-            var codigoHtmlPintarOK = "<select id='golA' class='form-control'>";
-                codigoHtmlPintarOK += "<option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
-                codigoHtmlPintarOK += "<option valie='3'>3</option><option valie='4'>4</option><option valie='5'>5</option>";
-                codigoHtmlPintarOK += "<option valie='6'>6</option><option valie='7'>7</option><option valie='8'>8</option>";
-                codigoHtmlPintarOK += "<option valie='9'>9</option><option valie='10'>10</option><option valie='11'>11</option>";
-                codigoHtmlPintarOK += "</select>";       
-            $("#divGolA").html(codigoHtmlPintarOK);
-            $("#divGolB").html(codigoHtmlPintarOK);
+        var funcion = 6;
+        var idEquiB = $("#combEquiBguar").val();
+        var idEquiA = $("#combEquiAguar").val();
+        if(idEquiB != ''){
+            var codigoHtmlPintarOKA = "<select id='golA' class='form-control' required>";
+                codigoHtmlPintarOKA += "<option value=''>Selecciona número de goles.</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
+                codigoHtmlPintarOKA += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
+                codigoHtmlPintarOKA += "<option value='6'>6</option><option value='7'>7</option><option value='8'>8</option>";
+                codigoHtmlPintarOKA += "<option value='9'>9</option><option value='10'>10</option><option value='11'>11</option>";
+                codigoHtmlPintarOKA += "</select>";
+            var codigoHtmlPintarOKB = "<select id='golB' class='form-control' required>";
+                codigoHtmlPintarOKB += "<option value=''>Selecciona número de goles.</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
+                codigoHtmlPintarOKB += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
+                codigoHtmlPintarOKB += "<option value='6'>6</option><option value='7'>7</option><option value='8'>8</option>";
+                codigoHtmlPintarOKB += "<option value='9'>9</option><option value='10'>10</option><option value='11'>11</option>";
+                codigoHtmlPintarOKB += "</select>";       
+            $("#divGolA").html(codigoHtmlPintarOKA);
+            $("#divGolB").html(codigoHtmlPintarOKB);
         }else{
-            $("#divGolA").html(codigoHtmlPintar);
-            $("#divGolB").html(codigoHtmlPintar);
-            alert("prueba con otro elemento!!..venga tu puedes..o_O");
+            $("#divGolA").html(codigoHtmlPintarA);
+            $("#divGolB").html(codigoHtmlPintarB);
+            $("#quiniela").html("<h2> 1-X-2</h2>");
         }
+        $.ajax({
+            type: "post",
+            datatype: "html",
+            url: "funciones_out2.php",
+            data: {idB: idEquiB, idA: idEquiA, funcion: funcion},
+            success: function(datosFechaHora){
+                $("#divFecHora").html(datosFechaHora);
+            },
+            error: function(){
+                 alert("Error AJAX, al retornar datos..");
+            }
+        });
+
  });
 
- $("#golA").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
-
-
+ $("#divGolA").change(function(){      //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+        var a = $("#golA").val();
+        var b = $("#golB").val();
+        if(a!='' && b!=''){
+            if(a==b){
+                $("#quiniela").html("<h2>  [X]</h2>");
+            }else if(a<b){
+                $("#quiniela").html("<h2>  [2]</h2>");
+            }else{
+                $("#quiniela").html("<h2>  [1]</h2>");
+            }
+        }
+        
  });
- $("#golB").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
-    
+
+ $("#divGolB").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+        var a = $("#golA").val();
+        var b = $("#golB").val();
+        if(a!='' && b!=''){
+            if(a==b){
+                $("#quiniela").html("<h2>  [X]</h2>");
+            }else if(a<b){
+                $("#quiniela").html("<h2>  [2]</h2>");
+            }else{
+                $("#quiniela").html("<h2>  [1]</h2>");
+            }
+        }
+        
  });
 
 
- $("#btnGuardar").click(function(){ //hacer funcion en archivo php para guardar
+ $("#btnGuardarRes").click(function(){ //hacer funcion en archivo php para guardar
         var jor = $("#combJorGuardar").val();
         var ideA = $("#").val();
         var ideB = $("#").val();
@@ -352,15 +363,65 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
 
  });
 });
+
+function recogerValidarInfoPartido(){
+    var funcion = 7;
+    var numJor = $("#combJorGuardar").val();
+    var numJortext = $("#combJorGuardar option:selected").text(); //recuperas el texto del option seleccionado.
+    var numJorLast = $("#combJorGuardar option:last").val(); //recuperas el texto del ultimo option del select
+    var idEquiA = $("#combEquiAguar").val();
+    var idEquiB = $("#combEquiBguar").val();
+    var golA = $("#golB").val();
+    var golB = $("#golA").val();
+    var fecHora = $("#fechorapart").val(); // fecha recuperada del datetime-local de html5, con formato "yyyy-mm-ddThh:mm"
+    
+    alert("Jornada: "+numJor+"-"+numJortext+"-"+numJorLast+" idA: "+idEquiA+" idB: "+idEquiB+" GolA: "+golA+" GolB: "+golB);
+    alert(fecHora);
+    
+    var fha = new Date();
+    var dia = fha.getDate().toString();
+    if(dia.length == 1){ dia='0'+dia;}
+    var mes = (fha.getMonth())+1;// 1º al mes le sumamos 1 xq cero es "Enero". y lo Convirtiendo la fecha del sistema o actual en String para
+    if(mes.toString().length == 1){ mes='0'+mes;} // poder compararla con la fecha recuperada del datetime-local de html5.
+
+    var fecHoraActual = fha.getFullYear().toString()+"-"+mes+"-"+dia+"T"+fha.getHours().toString()+":"+fha.getMinutes().toString();
+    alert(fecHoraActual);
+    
+    if(numJortext.indexOf('incompleta')!= -1){ //significa q contiene la cadena..
+
+    }
+    if(fecHora > fecHoraActual){ 
+            $.ajax({
+                type: "post",
+                datatype: "html",
+                url: "funciones_out2.php",
+                data: {funcion: funcion, numJor: numJor, idA: idEquiA, idB: idEquiB, golA: golA, golB: golB, fecHora: fecHora},
+                success: function(datosComboB){  
+                 
+                },
+                error: function(){
+                    alert("Error AJAX, al retornar datos..");
+                }
+            });
+    }else{
+        alert("Selecciona un fecha futura..");
+        $("#mensajeValida").html("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><strong>Atención!</strong> La fecha es Pasada a la actual.</div>");
+    }
+
+    /*$(document).ready(function(){
+        
+    });*/
+}
 </script>
 
                 <div class="well">
-                    <p>Introducir Resultados de la jornada:[xx]</p>
+                    <h3>Aquí Empieza el Juego [Sistema Central] </h3> 
+                    <p class="text-left" style="font-family: architect;">- Introdución de los datos de la Jornada, configuración de la siguiente y de partidos aplazados :</p>
                     <div class="row">
-                        <form class="form-horizontal" role="form" name="form" action="" method="">
+                        <form class="form-horizontal" role="form" name="form" id="formGuardar" onsubmit="recogerValidarInfoPartido()" method="">
                             <div class="form-group">
                                 <div class="col-sm-10">
-                                    <label for="" class="control-label">Jornada número:</label>
+                                    <label for="" class="control-label">Número de la Jornada:</label>
                                 </div>   
                                 <div id="" class="col-sm-6">
 
@@ -370,20 +431,20 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-10">
-                                    <label for="" class="">Equipo A:</label>
+                                    <label for="" class="">Equipo Local:</label>
                                 </div>   
                                 <div id="divSeleEquiA" class="col-sm-12">
-                                    <select id='combEquiAguar' class='form-control' onchange=''>
+                                    <select id='combEquiAguar' class='form-control' onchange='' required>
                                         
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-10">
-                                    <label for="" class="">Equipo B:</label>
+                                    <label for="" class="">Equipo Visitante:</label>
                                 </div>   
                                 <div class="col-sm-12">
-                                    <select id='combEquiBguar' class="form-control">
+                                    <select id='combEquiBguar' class="form-control" required>
                                         
                                     </select>
                                 </div>
@@ -396,37 +457,33 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                                     <label for="" class="">Goles equipo B:</label>
                                 </div>   
                                 <div id="divGolA" class="col-sm-6">
-                                    <select id="golA" class="form-control" disabled>
-                                        <option value="0">0</option> <!-- <option value="1">1</option><option value="2">2</option>
-                                        <option valie="3">3</option><option valie="4">4</option><option valie="5">5</option>
-                                        <option valie="6">6</option><option valie="7">7</option><option valie="8">8</option>
-                                        <option valie="9">9</option><option valie="10">10</option><option valie="11">11</option> -->
+                                    <select id="golA" class="form-control" disabled> <!-- Select dinámico, x jquery -->
+                                        <option value=''>Selecciona número de goles</option>
                                     </select>
                                 </div>
                                 <div id="divGolB" class="col-sm-6">
-                                    <select id="golB" class="form-control" disabled>
-                                        <option value="0">0</option> <!-- <option value="1">1</option><option value="2">2</option>
-                                        <option valie="3">3</option><option valie="4">4</option><option valie="5">5</option>
-                                        <option valie="6">6</option><option valie="7">7</option><option valie="8">8</option>
-                                        <option valie="9">9</option><option valie="10">10</option><option valie="11">11</option> -->
+                                    <select id="golB" class="form-control" disabled> <!-- Select dinámico, x jquery -->
+                                        <option value=''>Selecciona número de goles</option> 
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-6">
+                                <div id="divFecHora" class="col-sm-6">
                                     <label class="">Fecha y hora del Encuentro:</label>
-                                    <input class="form-control" type="datetime-local" id="fechorapart"></input>
+                                    <input class="form-control" type="datetime-local" id="fechorapart" required></input>
                                 </div>
                             
-                                <br></br>
                                 <div class="col-sm-6">
-                                    <label for="" class="">Valor Quiniela:</label>
-                                    <label for="" id="quiniela" class="">1-X-2</label>
+                                    <label for="" class=""><br>Valor Quiniela:</label>
+                                    <label for="" id="quiniela" class="" value=""><h2> 1-X-2</h2></label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-5">
-                                    <button type="button" id="btnGuardar" class="btn btn-info">Aceptar</button>
+                                    <button type="submit" id="btnGuardarRes" class="btn btn-info">Aceptar</button>
+                                </div>
+                                <div id="mensajeValida" class="col-sm-offset-5">
+                                    
                                 </div>
                             </div>
                         </form>
@@ -437,22 +494,22 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                     <h3><strong>Postear Noticia:</strong></h3>
                     <form role="form" id="formNoticiaRG">
                         <div class="form-group">
-                            <label for="inputPasswordReg2" class="control-label">Título de la Noticia:</label>
-                            <input type="text" class="form-control" id="titulo" maxlength="80"></input>
+                            <label for="" class="control-label">Título de la Noticia:</label>
+                            <input type="text" class="form-control" id="titulo" maxlength="80" required></input>
                         </div>
                         <div class="form-group">
-                            <label for="inputPasswordReg2" class="control-label">Redactar Noticia:</label>
-                            <textarea class="form-control" rows="4" id="contenido" maxlength="700"></textarea>
+                            <label for="" class="control-label">Redactar Noticia:</label>
+                            <textarea class="form-control" rows="4" id="contenido" maxlength="700" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="inputPasswordReg2" class="control-label">link de imagen:</label>
+                            <label for="" class="control-label">link de imagen:</label>
                             <input type="text" class="form-control" id="linkimg" maxlength="250"></input>
                         </div>
                         <div class="form-group">
-                            <label for="inputPasswordReg2" class="control-label">link enlace externo:</label>
+                            <label for="" class="control-label">link enlace externo:</label>
                             <input type="text" class="form-control" id="linkEnla" maxlength="250"></input>
                         </div>
-                        <button type="button" id="btnFormNoti" class="btn btn-primary">Postealó!</button>
+                        <button type="submit" id="btnFormNoti" class="btn btn-primary">Postealó!</button>
                         <div id="alertNoti"></div>
                     </form>
                 </div>
@@ -474,97 +531,6 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                         
                     </div>
                     <!-- /.input-group -->
-                </div>
-
-                <div class="well">
-                    <p>Introducir Resultados de la jornada:[xx]</p>
-                    <div class="row">
-                        <form class="form-horizontal" role="form" name="form" action="registro.php" method="post">
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Jornada número</label>
-                                </div>   
-                                <div class="col-sm-6">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Equipo A:</label>
-                                </div>   
-                                <div class="col-sm-12">
-                                    <select class="form-control">
-                                        <option>kfgmnklsdfgnlkdsfnldksnkldsngkldsngkldsngkldnsfgklndsklfgndsklf</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Equipo B:</label>
-                                </div>   
-                                <div class="col-sm-12">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Goles equipo A:</label>
-                                </div>   
-                                <div class="col-sm-6">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Goles equipo B:</label>
-                                </div>   
-                                <div class="col-sm-6">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">Valor Quiniela:</label>
-                                </div>
-                                 <div class="col-sm-10">
-                                    <label for="inputPasswordReg2" class="control-label">1-X-2</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3">
-                                    <button type="submit" class="btn btn-info">Aceptar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
 
                 <!-- Blog Categories Well -->

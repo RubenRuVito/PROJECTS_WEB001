@@ -39,14 +39,18 @@ switch($queFuncion){
 			$opcionJornada = addslashes(strip_tags($_POST['valueJor']));//valor jornada
 			cargarComboEquipoB($opcionCombo,$opcionJornada);
 			break;
-	case 2: $numJor= addslashes(strip_tags($_POST['jornada']));
+	case 6: $idEquiA = addslashes(strip_tags($_POST['idA']));//id equipoA.
+			$idEquiB = addslashes(strip_tags($_POST['idB']));//id EquipoB.
+			informarFechaHora($idEquiA,$idEquiB);
+			break;
+	case 7: $numJor= addslashes(strip_tags($_POST['jornada']));
 			$idA = addslashes(strip_tags($_POST['idA']));
 			$idB = addslashes(strip_tags($_POST['idB']));
 			$golA = addslashes(strip_tags($_POST['golA']));
 			$golB = addslashes(strip_tags($_POST['golB']));
 			$fecHora = addslashes(strip_tags($_POST['fecHora']));
-			$quini = addslashes(strip_tags($_POST['linkEnla']));
-			guardarPartidoRG($numJor,$idA,$idB,$golA,$golB,$fecHora);//insert en la "tabla resultados".
+			//$quini = addslashes(strip_tags($_POST['linkEnla'])); LE PONEMOS EL VALOR APARTIR DE LOS GOLES DE CADA EQUIPO.
+			registrarPartidoRG($numJor,$idA,$idB,$golA,$golB,$fecHora);//insert en la "tabla resultados".
 			break;
 }
 
@@ -153,7 +157,7 @@ function cargarComboEquipoA($opcCom){
 		if($opcCom > $numJornadasJugadas){//selecciona "Jornada Siguente"(confeccionar la jornada siguiente)(tema Admin), x lo que se pintan todos los equipos.en el "comboA".
 			$consTodsEquipos = $conex->query("SELECT id_equipo,nom_equipo FROM equipos; ");
 				
-				echo "<option value='0'>Elige Equipo Local/casa.</option>";
+				echo "<option value=''>Elige Equipo Local/casa.</option>";
 			while($regResultado = mysqli_fetch_assoc($consTodsEquipos)){
 				echo "<option value='".$regResultado['id_equipo']."'>".$regResultado['nom_equipo']."</option>";
 			}
@@ -161,7 +165,7 @@ function cargarComboEquipoA($opcCom){
 		}else{ // elige una "jornada incompleta", puede ser que no se sepan los resultados(no se hayan publicado),se haya aplazado un partido,
 			$consPartiJor = $conex->query("SELECT * FROM resultados WHERE jornada='$opcCom'; ");
 						//echo "<select id='combEquiA' class='form-control' onchange=''>";
-						echo "<option value='0'>Elige Equipo Local/casa.</option>";
+						echo "<option value=''>Elige Equipo Local/casa.</option>";
 			while($regResultado = mysqli_fetch_assoc($consPartiJor)){
 				if($regResultado['gol_A'] == NULL && $regResultado['gol_B'] == NULL){ //tb valdría regResultado['quiniela'] != 'NULL';
 					$idfkequiA = $regResultado['idfk_equipoA'];
@@ -209,7 +213,7 @@ function cargarComboEquipoB($opcCom,$opcJor){
 			   		echo "<option value=''>".$contArrayI."</option>";
 			   		echo "<option value=''>".$contArrayZ."</option>"; */
 			$consTodsEquipos = $conex->query("SELECT id_equipo,nom_equipo FROM equipos; ");
-						echo "<option value='0'>Elige Equipo Visitante.</option>";
+						echo "<option value=''>Elige Equipo Visitante.</option>";
 			while($regPartEqui = mysqli_fetch_assoc($consTodsEquipos)){ //Vamos a comparar los id del array con los id de la tabla equipos, el que esta en el arra no se le pinta su nom en "comboB".
 					$flagPintar = 0; //bandera de si se pinta el nombre del equipo segun la logica siguiente..
 					for($cnt=0; $cnt < count($arayCompletados); $cnt++){
@@ -240,7 +244,7 @@ function cargarComboEquipoB($opcCom,$opcJor){
 			//echo "<option value=''>".$idEquiB."</option>";
 			$consEquipo = $conex->query("SELECT id_equipo,nom_equipo FROM equipos WHERE id_equipo='$idEquiB'; ");
 			$regEqui = mysqli_fetch_assoc($consEquipo);
-			echo "<option value='0'>Elige Equipo Visitante.</option>";
+			echo "<option value=''>Elige Equipo Visitante.</option>";
 			echo "<option value='".$regEqui['id_equipo']."'>".$regEqui['nom_equipo']."</option>";
 		}
 	}else{
@@ -250,8 +254,57 @@ function cargarComboEquipoB($opcCom,$opcJor){
 	desconectarDB01($conex);
 }
 
-function guardarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHora){
+function informarFechaHora($idEquipoA,$idEquipoB){
+	$conex = conectarDB01();
+	$resultconf = $conex->query("SET NAMES 'utf8'");
+	$consExiste = $conex->query("SELECT fec_hora FROM resultados WHERE idfk_equipoA='$idEquipoA' AND idfk_equipoB='$idEquipoB'; ");
+	if($consExiste){
+		if($consExiste->num_rows > 0){
+			$regPartido = mysqli_fetch_assoc($consExiste);
+			$fechaHora = $regPartido['fec_hora'];
+			if(!$fechaHora){ $fechaHora='No definidos.(Partido aplazado)';}
+			echo "<label class=''>Fecha y hora del Encuentro:</label>";
+            echo "<input class='form-control' type='text' id='fechorapart' placeholder='".$fechaHora."' disabled></input>";
+		}else{
+			echo "<label class=''>Fecha y hora del Encuentro:</label>";
+            echo "<input class='form-control' type='datetime-local' id='fechorapart'></input>";
+		}
+	}else{
+		echo '<br>';
+		cargarAlerts('danger','','Error en Base de datos(DB_ruvio01).Intentelo más tarde');
+	}
+	desconectarDB01($conex);
+}
 
+function registrarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHora){
+	if($golA == $golB){
+		$quiniela = 0;
+	}else if($golA < $golB){
+		$quiniela = 2;
+	}else{
+		$quiniela = 1;
+	}
+	
+	$conex = conectarDB01();
+	$resultconf = $conex->query("SET NAMES 'utf8'");
+	$consExiste = $conex->query("SELECT id_resultado FROM resultados WHERE idfk_equipoA='$idEquipoA' AND idfk_equipoB='$idEquipoB' AND jornada='$numJornada'; ");
+	if($consExiste){
+		if($consExiste->num_rows > 0){ //Significa que este partido ya esta registrado porque es un partido atrasado o esta configurado xasiguientes jornadas(UPDATE).
+			$regPartido = mysqli_fetch_assoc($consExiste);
+			$idPartidoRes = $regPartido['id_resultado'];
+			$update = $conx->query("UPDATE resultados SET gol_A='$golA', gol_B='$gol_B',quiniela='$quiniela' WHERE id_resultado='$idPartidoRes'; ");
+			if($update){
+				echo '<br>';
+				cargarAlerts('success','','Partido Actualizado Satisfactoriamente..');
+			}else{
+				echo '<br>';
+				cargarAlerts('danger','','Error en Base de datos(DB_ruvio01).Intentelo más tarde');
+			}
+
+		}else{
+
+		}
+	}
 
 }	
 
