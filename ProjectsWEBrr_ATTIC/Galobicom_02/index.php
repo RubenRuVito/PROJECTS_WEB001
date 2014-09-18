@@ -66,7 +66,7 @@ cargarCabecera('Inicio',1);
 	      <div class="caption">
 	        <h3>Galobas!!</h3>
 	        <p>Exquisita Zona restringida, de calidad y para los más exigentes; a la que solo podrás acceder cuando alcances 
-	        	el nivel de Mr.GA! que quiere decir Galán al acecho. Accede y enterate de como alcanzar tales niveles de privilegios</p>
+	        	el nivel de Mr.GA! que quiere decir Galán al Acecho. Registraté y enterate de como alcanzar tales niveles de privilegios y empezar a gozar</p>
 	        <p><a href="#galobas" class="btn btn-danger" role="button">Ir..</a></p>
 	      </div>
 	    </div>

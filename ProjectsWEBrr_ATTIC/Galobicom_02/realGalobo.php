@@ -220,15 +220,18 @@ $("#btnFormNoti").click(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un atributo.
-    var codigoHtmlPintarA = "<select id='golA' class='form-control' disabled>";
+    var codigoHtmlPintarA = "<label for='' class=''>Goles equipo Local:</label>"
+        codigoHtmlPintarA += "<select id='golA' class='form-control' disabled>";
         codigoHtmlPintarA += "<option value=''>Selecciona número de goles</option>";
         codigoHtmlPintarA += "</select>";
-    var codigoHtmlPintarB = "<select id='golB' class='form-control' disabled>";
+    var codigoHtmlPintarB = "<label for='' class=''>Goles equipo Visitante:</label>"
+        codigoHtmlPintarB += "<select id='golB' class='form-control' disabled>";
         codigoHtmlPintarB += "<option value=''>Selecciona número de goles</option>";
         codigoHtmlPintarB += "</select>";
  $("#combJorGuardar").change(function(){
         var fun = 4;
         var valJorGuar = $("#combJorGuardar").val();
+        alert(valJorGuar);
         if(valJorGuar!=''){
             $.ajax({
                 type: "post",
@@ -283,17 +286,19 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
  });
 
  $("#combEquiBguar").change(function(){
-        var funcion = 6;
+        
         var idEquiB = $("#combEquiBguar").val();
         var idEquiA = $("#combEquiAguar").val();
-        if(idEquiB != ''){
-            var codigoHtmlPintarOKA = "<select id='golA' class='form-control' required>";
+        var numJortext = $("#combJorGuardar option:selected").text(); //recuperas el texto del option seleccionado.
+        alert(numJortext);
+        if(idEquiB != '' && numJortext.indexOf('Configurar') == -1){ // queremos q se vaya al else si contiene la cadena siguiente (Jornada siguiente).
+            var codigoHtmlPintarOKA = "<label for='' class=''>Goles equipo Local:</label><select id='golA' class='form-control' required>";
                 codigoHtmlPintarOKA += "<option value=''>Selecciona número de goles.</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
                 codigoHtmlPintarOKA += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
                 codigoHtmlPintarOKA += "<option value='6'>6</option><option value='7'>7</option><option value='8'>8</option>";
                 codigoHtmlPintarOKA += "<option value='9'>9</option><option value='10'>10</option><option value='11'>11</option>";
                 codigoHtmlPintarOKA += "</select>";
-            var codigoHtmlPintarOKB = "<select id='golB' class='form-control' required>";
+            var codigoHtmlPintarOKB = "<label for='' class=''>Goles equipo Visitante:</label><select id='golB' class='form-control' required>";
                 codigoHtmlPintarOKB += "<option value=''>Selecciona número de goles.</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
                 codigoHtmlPintarOKB += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
                 codigoHtmlPintarOKB += "<option value='6'>6</option><option value='7'>7</option><option value='8'>8</option>";
@@ -306,6 +311,7 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
             $("#divGolB").html(codigoHtmlPintarB);
             $("#quiniela").html("<h2> 1-X-2</h2>");
         }
+        var funcion = 6;
         $.ajax({
             type: "post",
             datatype: "html",
@@ -371,8 +377,8 @@ function recogerValidarInfoPartido(){
     var numJorLast = $("#combJorGuardar option:last").val(); //recuperas el texto del ultimo option del select
     var idEquiA = $("#combEquiAguar").val();
     var idEquiB = $("#combEquiBguar").val();
-    var golA = $("#golB").val();
-    var golB = $("#golA").val();
+    var golA = $("#golA").val();
+    var golB = $("#golB").val();
     var fecHora = $("#fechorapart").val(); // fecha recuperada del datetime-local de html5, con formato "yyyy-mm-ddThh:mm"
     
     alert("Jornada: "+numJor+"-"+numJortext+"-"+numJorLast+" idA: "+idEquiA+" idB: "+idEquiB+" GolA: "+golA+" GolB: "+golB);
@@ -387,27 +393,42 @@ function recogerValidarInfoPartido(){
     var fecHoraActual = fha.getFullYear().toString()+"-"+mes+"-"+dia+"T"+fha.getHours().toString()+":"+fha.getMinutes().toString();
     alert(fecHoraActual);
     
-    if(numJortext.indexOf('incompleta')!= -1){ //significa q contiene la cadena..
-
-    }
-    if(fecHora > fecHoraActual){ 
-            $.ajax({
-                type: "post",
-                datatype: "html",
-                url: "funciones_out2.php",
-                data: {funcion: funcion, numJor: numJor, idA: idEquiA, idB: idEquiB, golA: golA, golB: golB, fecHora: fecHora},
-                success: function(datosComboB){  
-                 
-                },
-                error: function(){
-                    alert("Error AJAX, al retornar datos..");
-                }
-            });
+    if(numJortext.indexOf('Configurar')!= -1){ //significa q contiene la cadena..
+        if(fecHora > fecHoraActual){ 
+                $.ajax({
+                    type: "post",
+                    datatype: "html",
+                    url: "funciones_out2.php",
+                    data: {funcion: funcion, jornada: numJor, idA: idEquiA, idB: idEquiB, golA: golA, golB: golB, fecHora: fecHora},
+                    success: function(mensajeFun7){  
+                        $("#mensajeValida").html(mensajeFun7);
+                    },
+                    error: function(){
+                        alert("Error AJAX, al retornar datos..");
+                        $("#mensajeValida").html(mensajeFun7);
+                    }
+                });
+        }else{
+            alert("Selecciona un fecha futura..");
+            $("#mensajeValida").html("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><strong>Atención!</strong> La fecha es Pasada a la actual.</div>");
+        }
     }else{
-        alert("Selecciona un fecha futura..");
-        $("#mensajeValida").html("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><strong>Atención!</strong> La fecha es Pasada a la actual.</div>");
+        $.ajax({
+            type: "post",
+            datatype: "html",
+            url: "funciones_out2.php",
+            data: {funcion: funcion, jornada: numJor, idA: idEquiA, idB: idEquiB, golA: golA, golB: golB, fecHora: fecHora},
+            success: function(mensajeFun7){  
+                $("#mensajeValida").html(mensajeFun7);
+                       
+            },
+            error: function(){
+                alert("Error AJAX, al retornar datos..");
+            }
+        });
     }
-
+    setTimeout('return 0',400000000);
+    //sleep(4000);
     /*$(document).ready(function(){
         
     });*/
@@ -415,7 +436,7 @@ function recogerValidarInfoPartido(){
 </script>
 
                 <div class="well">
-                    <h3>Aquí Empieza el Juego [Sistema Central] </h3> 
+                    <h3> [Sistema Central de Datos] </h3> 
                     <p class="text-left" style="font-family: architect;">- Introdución de los datos de la Jornada, configuración de la siguiente y de partidos aplazados :</p>
                     <div class="row">
                         <form class="form-horizontal" role="form" name="form" id="formGuardar" onsubmit="recogerValidarInfoPartido()" method="">
@@ -450,18 +471,14 @@ function recogerValidarInfoPartido(){
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-6">
-                                    <label for="" class="">Goles equipo A:</label>
-                                </div> 
-                                <div class="col-sm-6">
-                                    <label for="" class="">Goles equipo B:</label>
-                                </div>   
                                 <div id="divGolA" class="col-sm-6">
+                                    <label for="" class="">Goles equipo Local:</label>
                                     <select id="golA" class="form-control" disabled> <!-- Select dinámico, x jquery -->
                                         <option value=''>Selecciona número de goles</option>
                                     </select>
                                 </div>
                                 <div id="divGolB" class="col-sm-6">
+                                    <label for="" class="">Goles equipo Visitante:</label>
                                     <select id="golB" class="form-control" disabled> <!-- Select dinámico, x jquery -->
                                         <option value=''>Selecciona número de goles</option> 
                                     </select>
@@ -479,10 +496,10 @@ function recogerValidarInfoPartido(){
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-5">
+                                <div class="col-sm-3">
                                     <button type="submit" id="btnGuardarRes" class="btn btn-info">Aceptar</button>
                                 </div>
-                                <div id="mensajeValida" class="col-sm-offset-5">
+                                <div id="mensajeValida" class="col-sm-9">
                                     
                                 </div>
                             </div>

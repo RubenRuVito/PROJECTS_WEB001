@@ -316,23 +316,53 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 	$consulta = $conect->query("SELECT count(DISTINCT jornada) as JornadasJugadas FROM resultados; ");
 	$registroCountJorJgadas = mysqli_fetch_assoc($consulta);
 	$numJornadasJugadas = $registroCountJorJgadas['JornadasJugadas'];
+	$consRegPartiPorJor = $conect->query("SELECT count(jornada) as partidosRegist FROM resultados WHERE jornada='$numJornadasJugadas'; ");
+	$registroCountPartPorJor = mysqli_fetch_assoc($consRegPartiPorJor);
+	$numPartiRegPorJor = $registroCountPartPorJor['partidosRegist'];
 			echo "<select id='combJorGuardar' class='form-control' onchange='' required>";
 			echo "<option value=''>Elige Jornada</option>";
+			echo "<option value=''>".$numJornadasJugadas."</option>";
+			echo "<option value=''>".$numPartiRegPorJor."</option>";
 	for($cntJor=1; $cntJor <= $numJornadasJugadas; $cntJor++){
 		$consultaResultados = $conect->query("SELECT * FROM resultados WHERE jornada='$cntJor'; ");
 		if($consultaResultados && $consulta){
-			$cntPartCompletados = 0;	
+			$cntPartCompletados = 0; $cntPartiRegistrados = 0;	
 		   	while($regResultado = mysqli_fetch_assoc($consultaResultados)){
 				if($regResultado['gol_A'] != NULL && $regResultado['gol_B'] != NULL){
-					$cntPartCompletados++; //Suma los partidos que estan completados..
+					$cntPartCompletados++; //Suma los partidos que estan completados golA y golb distintos de NULL.
+				}
+				$cntPartiRegistrados++;
+			}
+			if($cntPartCompletados == 3){
+				echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
+			}else{
+				if($cntJor == $numJornadasJugadas && $cntPartiRegistrados == 3){
+					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Configurada</option>";
+				}else{
+					if($cntPartiRegistrados<3){
+						echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Sin Configurar</option>";
+					}else{
+						echo "<option value='".$cntJor."'>".$cntJor." - incompleta</option>";
+					}
 				}
 			}
-			if($cntPartCompletados == 3){ //6->Significa que hay 12 euipos que se van a enfrentar en cada jornada,si hubiera un num impar de euipos 
-							   			  // habria un partido mas x jornada en este caso "7",que seria el descanso del quipo q le toque. 
-				echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>";
+			
+
+
+
+		 /* if($cntPartCompletados == 3){ //6->Significa que hay 12 euipos que se van a enfrentar en cada jornada,si hubiera un num impar de euipos 
+				if($cntJor == $numJornadasJugadas){  // habria un partido mas x jornada en este caso "7",que seria el descanso del quipo q le toque. 
+					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Configurada</option>"; //si se han registrado los partidos de la siguiente jornada.
+				}else{
+					echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
+				}
 			}else{
-				echo "<option value='".$cntJor."'>".$cntJor." - incompleta</option>";
-			}
+				if($cntJor == $numJornadasJugadas){
+					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente No Configurada</option>";
+				}else{
+					echo "<option value='".$cntJor."'>".$cntJor." - incompleta</option>";
+				}
+			} */
 				
 		//echo "<button type='submit' class='btn btn-info'>Aceptar</button>";
 		}else{
@@ -340,9 +370,16 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 			//cargarAlerts('warning','sm','Error en Base de datos(db)');
 				echo "<option value='' style='background: red;'>Error en Base de datos</option>";
 		}
-	}
-				echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente</option>";
-				echo "</select>";
+	}	//el cntador sale con numero de jornadas mas 1, x lo que hay q restarle 1 para hacer la siguiente comparacion..
+		//echo "<option value=''>".$cntJor."</option>";
+		//echo "<option value=''>".$numPartiRegPorJor."</option>";
+		$cntJor--;
+		if($cntJor == $numJornadasJugadas &&  $numPartiRegPorJor == 3){
+			$cntJor++;
+			echo "<option value='".$cntJor."'>".$cntJor." - Configurar Jornada siguiente</option>";
+		}
+			//echo "<option value=''>".$cntJor."</option>";
+			echo "</select>";
 }
 
 
@@ -370,11 +407,15 @@ function cargarNoticiasRG($maxelem){ //Método para cargar las noticias y los me
                 echo "<p><span class='glyphicon glyphicon-time'></span> ".$registroNoti['fec_publicado']."</p>";
                 echo "<hr style='border-top-color: black;'>";
 				//<!-- Preview Image -->
+				if($registroNoti['img_link'] != ''){
                 echo "<img class='img-responsive' src=".$registroNoti['img_link']." alt=''>";
                 echo "<hr style='border-top-color: black;'>";
+            	}
                 //<!-- Post Content -->
                 echo "<p class='lead'>".$registroNoti['contenido']."</p>";
+                if($registroNoti['ext_link'] != ''){
                 echo "<a class='media' href='".$registroNoti['ext_link']."'>Ir al Link.</a>";
+            	}
                 echo "<hr style='border-top-color: black;'>";
                 //<!-- Comments Form -->
                 //echo "<div class='small well'>";
