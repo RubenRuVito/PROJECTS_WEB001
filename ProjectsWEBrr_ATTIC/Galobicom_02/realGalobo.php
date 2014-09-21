@@ -29,7 +29,7 @@ cargarCabecera('Hola! Galob@!',4);
 <?php 
 $maxelempag = 1; //Número de elementos por pagina, POR EL MOMENTO FALLA CON MAS DE 2, A LA HORA DE GUARDAR LOS COMENTARIOS EN LA NOTICIA CORRECTA.
 cargarNoticiasRG($maxelempag); //carga las noticias posteadas, y sus mensajes relacionados.
-cargarPaginacion($maxelempag);
+cargarPaginacionNotiRG($maxelempag);
 ?>
 <script type="text/javascript">
 
@@ -54,9 +54,14 @@ $(document).ready(function(){
                         alert("Error al retornar datos..");
                     }
                 });
-                window.location = "realGalobo.php?npag=<?php if(isset($_GET['npag'])){ echo $_GET['npag'];} ?>";
+                window.location = "realGalobo.php?npag=<?php $npag=1; if(isset($_GET['npag'])){ echo $_GET['npag'];}else{ echo $npag; } ?>";
             }else{
-                alert("comentario vacio.");
+                //alert("comentario vacio.");
+                var mensComeVacio = "<div class='alert-sm alert-warning alert-dismissible' role='alert'>";
+                    mensComeVacio += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+                    mensComeVacio += "<strong>Atención!</strong>Comentario Vacio!..No seas vag@ ti@!.</div>";
+                                    
+                $("#alertMens").html(mensComeVacio);
             }
   });
  });
@@ -427,7 +432,7 @@ function recogerValidarInfoPartido(){
             }
         });
     }
-    setTimeout('return 0',400000000);
+    //setTimeout('return 0',400000000);
     //sleep(4000);
     /*$(document).ready(function(){
         
@@ -436,8 +441,8 @@ function recogerValidarInfoPartido(){
 </script>
 
                 <div class="well">
-                    <h3> [Sistema Central de Datos] </h3> 
-                    <p class="text-left" style="font-family: architect;">- Introdución de los datos de la Jornada, configuración de la siguiente y de partidos aplazados :</p>
+                    <h3> [Sistema Central - Introducción de Datos]</h3> 
+                    <p class="text-left" style="font-family: architect;">- Introdución de los datos de la Jornada, configuración de la siguiente y de partidos aplazados :[Only Admin..]</p>
                     <div class="row">
                         <form class="form-horizontal" role="form" name="form" id="formGuardar" onsubmit="recogerValidarInfoPartido()" method="">
                             <div class="form-group">

@@ -320,10 +320,12 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 	$registroCountPartPorJor = mysqli_fetch_assoc($consRegPartiPorJor);
 	$numPartiRegPorJor = $registroCountPartPorJor['partidosRegist'];
 			echo "<select id='combJorGuardar' class='form-control' onchange='' required>";
-			echo "<option value=''>Elige Jornada</option>";
-			echo "<option value=''>".$numJornadasJugadas."</option>";
-			echo "<option value=''>".$numPartiRegPorJor."</option>";
-	for($cntJor=1; $cntJor <= $numJornadasJugadas; $cntJor++){
+			echo "<option value='' disabled>Elige Jornada :</option>";
+		
+		/*	echo "<option value=''>".$numJornadasJugadas."</option>"; //DEBUG CASERO
+			echo "<option value=''>".$numPartiRegPorJor."</option>";  */
+	if($numJornadasJugadas != 0){
+	 for($cntJor=1; $cntJor <= $numJornadasJugadas; $cntJor++){
 		$consultaResultados = $conect->query("SELECT * FROM resultados WHERE jornada='$cntJor'; ");
 		if($consultaResultados && $consulta){
 			$cntPartCompletados = 0; $cntPartiRegistrados = 0;	
@@ -337,47 +339,32 @@ function generaComboJornadasGuardarRG(){ //combo del form "Registrar Resultados 
 				echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
 			}else{
 				if($cntJor == $numJornadasJugadas && $cntPartiRegistrados == 3){
-					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Configurada</option>";
+					echo "<option value='".$cntJor."'>".$cntJor." - Jornada Configurada</option>";
 				}else{
 					if($cntPartiRegistrados<3){
-						echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Sin Configurar</option>";
+						echo "<option value='".$cntJor."'>".$cntJor." - Jornada Siguiente Sin Configurar</option>";
 					}else{
-						echo "<option value='".$cntJor."'>".$cntJor." - incompleta</option>";
+						echo "<option value='".$cntJor."'>".$cntJor." - incompleta (Informar Resultados)</option>";
 					}
 				}
 			}
-			
-
-
-
-		 /* if($cntPartCompletados == 3){ //6->Significa que hay 12 euipos que se van a enfrentar en cada jornada,si hubiera un num impar de euipos 
-				if($cntJor == $numJornadasJugadas){  // habria un partido mas x jornada en este caso "7",que seria el descanso del quipo q le toque. 
-					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente Configurada</option>"; //si se han registrado los partidos de la siguiente jornada.
-				}else{
-					echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
-				}
-			}else{
-				if($cntJor == $numJornadasJugadas){
-					echo "<option value='".$cntJor."'>".$cntJor." - Jornada siguiente No Configurada</option>";
-				}else{
-					echo "<option value='".$cntJor."'>".$cntJor." - incompleta</option>";
-				}
-			} */
-				
-		//echo "<button type='submit' class='btn btn-info'>Aceptar</button>";
 		}else{
 			/*echo "<option value='0'>"<?php cargarAlerts('warning','sm','Error en Base de datos(db)'); ?>"</option>";*/
 			//cargarAlerts('warning','sm','Error en Base de datos(db)');
 				echo "<option value='' style='background: red;'>Error en Base de datos</option>";
 		}
-	}	//el cntador sale con numero de jornadas mas 1, x lo que hay q restarle 1 para hacer la siguiente comparacion..
-		//echo "<option value=''>".$cntJor."</option>";
+	 }	//el cntador sale con numero de jornadas mas 1, x lo que hay q restarle 1 para hacer la siguiente comparacion..
+		//echo "<option value=''>".$cntJor."</option>";				//DEBUG CASERO
 		//echo "<option value=''>".$numPartiRegPorJor."</option>";
 		$cntJor--;
 		if($cntJor == $numJornadasJugadas &&  $numPartiRegPorJor == 3){
 			$cntJor++;
-			echo "<option value='".$cntJor."'>".$cntJor." - Configurar Jornada siguiente</option>";
+			echo "<option value='".$cntJor."'>".$cntJor." - Configurar Jornada Siguiente</option>";
 		}
+	}else{
+		$cntJor=1; //LA tabla resultados de la base de datos, esta vacia.
+		echo "<option value='".$cntJor."'>".$cntJor." - Configurar Jornada Siguiente</option>";
+	}
 			//echo "<option value=''>".$cntJor."</option>";
 			echo "</select>";
 }
@@ -401,7 +388,7 @@ function cargarNoticiasRG($maxelem){ //Método para cargar las noticias y los me
 				$consultaNick = $conect->query("SELECT nick FROM users WHERE id_user='$idUsuarioNoti'; ");
 				$registroUser = mysqli_fetch_assoc($consultaNick);
 				echo "<hr style='border-top-color: black;'>";
-				echo "<h2>".$registroNoti['titulo']."</h2>";
+				echo "<h2 id='tituloNoti' value='".$registroNoti['id_noticia']."'>".$registroNoti['titulo']."</h2>";
                	echo "<p class='lead'>by ".$registroUser['nick']."</p>";
 				//<!-- Date/Time -->
                 echo "<p><span class='glyphicon glyphicon-time'></span> ".$registroNoti['fec_publicado']."</p>";
@@ -481,7 +468,7 @@ function cargarMensajesNotiRG(){ //LO CARGAMOS EN LA MISMA FUNCION QUE LAS NOTIC
 
 }
 
-function cargarPaginacion($maxelemp){
+function cargarPaginacionNotiRG($maxelemp){
 	if(!isset($_GET['npag'])){ //Sirve para posicionar la consulta a la bbdd para que envie los registros de la paginación correspondiente.
 		$pagActual = 1;
 	}else{
@@ -506,6 +493,136 @@ function cargarPaginacion($maxelemp){
 			echo '<li class="disabled"><a>'.$cnt.'<span class="sr-only">'.$cnt.'</span></a></li>';
 		}else{
 			echo '<li><a href="realGalobo.php?npag='.$cnt.'">'.$cnt.'</a></li>';
+		}
+
+	}
+			echo '</ul>';
+			echo '</div>';
+}
+
+function cargarPostBlogGA($maxelem){ //DE MOMENTO CODIGO DEL CARGADO DE NOTICIAS DE PG "realGalobo.php"//Método para cargar las noticias y los mensajes relacionados, mas el código para insertar mensajes con relación a esa noticia.
+	if(!isset($_GET['npag'])){//Sirve para posicionar la consulta a la bbdd para que envie los registros de la paginación correspondiente.
+		$pagina = 1;
+	}else{
+		$pagina = addslashes(strip_tags($_GET['npag']));
+	}
+	$posicion = ($pagina - 1) * $maxelem;
+
+	$conect = conectarDB01();
+	$resultconf = $conect->query("SET NAMES 'utf8'");
+	$consulta = $conect->query("SELECT * FROM noticiasga ORDER BY fec_publicado DESC LIMIT $posicion, $maxelem; ");
+	if($consulta){
+		if($consulta->num_rows != 0){
+			while($registroNoti = mysqli_fetch_assoc($consulta)){
+				$idUsuarioNoti = $registroNoti['idfk_user'];
+				$consultaNick = $conect->query("SELECT nick FROM users WHERE id_user='$idUsuarioNoti'; ");
+				$registroUser = mysqli_fetch_assoc($consultaNick);
+				echo "<hr style='border-top-color: black;'>";
+				echo "<h2 id='tituloNoti' value='".$registroNoti['id_noticia']."'>".$registroNoti['titulo']."</h2>";
+               	echo "<p class='lead'>by ".$registroUser['nick']."</p>";
+				//<!-- Date/Time -->
+                echo "<p><span class='glyphicon glyphicon-time'></span> ".$registroNoti['fec_publicado']."</p>";
+                echo "<hr style='border-top-color: black;'>";
+				//<!-- Preview Image -->
+				if($registroNoti['img_link'] != ''){
+                echo "<img class='img-responsive' src=".$registroNoti['img_link']." alt=''>";
+                echo "<hr style='border-top-color: black;'>";
+            	}
+                //<!-- Post Content -->
+                echo "<p class='lead'>".$registroNoti['contenido']."</p>";
+                if($registroNoti['ext_link'] != ''){
+                echo "<a class='media' href='".$registroNoti['ext_link']."'>Ir al Link.</a>";
+            	}
+                echo "<hr style='border-top-color: black;'>";
+                //<!-- Comments Form -->
+                //echo "<div class='small well'>";
+                //ASI FUNCIONA SI SOLO MOSTRAMOS UNA NOTICIA POR PAGINA..
+                echo " <form role='form' id='formCom' class='well' value='".$registroNoti['id_noticia']."'>";
+                echo "  <h4>Commentario:</h4>";
+                echo "   <div class='form-group'>";
+                echo "      <textarea id='textComent' class='form-control' rows='2' maxlength='100'></textarea>";
+                echo "   </div>";
+                echo "   <button type='button' id='btnFormMens' class='btn btn-primary'>Commenta</button>";
+                echo "   <div id='alertMens'></div>";
+                echo " </form>";
+                // CON ESTO REFERENCIAS Y LE DAS UN IDENTIFICADOR ÚNICO A LOS ELEMENTOS GENERADOS DINÁMICAMENTE,CONCATENANDOLE EL ID DE LA NOTICIA.
+                // EL PROBLEMA QUE NO TENGO NI PUTA IDEA DE COMO SABER EN JQUERY Q ELEMENTO GENERADO DINAMICAMENTE SE PULSADO O "EVENTUA"
+                /*echo " <form role='form' id='formCom".$registroNoti['id_noticia']."' class='well' value='".$registroNoti['id_noticia']."'>";
+                echo "  <h4>Commentario:</h4>";
+                echo "   <div class='form-group'>";
+                echo "      <textarea id='textComent".$registroNoti['id_noticia']."' class='form-control' rows='2' maxlength='100'></textarea>";
+                echo "   </div>";
+                echo "   <button type='button' id='btnFormMens".$registroNoti['id_noticia']."' class='btn btn-primary'>Commenta</button>";
+                echo "   <div id='alertMens'></div>";
+                echo " </form>";*/
+                //echo "</div>";
+				//echo "<hr style='border-top-color: black;'>";
+
+				$idNoticia = $registroNoti['id_noticia'];
+				$consultaMensajes = $conect->query("SELECT * FROM mensajesga WHERE idfk_noticia='$idNoticia'; ");
+				if($consultaMensajes){
+					if($consultaMensajes->num_rows != 0){
+						while($registroMens = mysqli_fetch_assoc($consultaMensajes)){
+							$idUsuarioMensa = $registroMens['idfk_user'];
+							$consultaNick = $conect->query("SELECT nick FROM users WHERE id_user='$idUsuarioMensa'; ");
+							$registroUser = mysqli_fetch_assoc($consultaNick);
+							echo "<div class='media'>";
+		                  //echo "	<a class='pull-left' href='#'>";
+		                  //echo "    <img class='media-object' src='http://placehold.it/64x64' alt=''>";
+		                  //echo "  </a>";
+		                    echo " <div class='media-body'>";
+		                    echo "    <h4 class='media-heading'><span class='glyphicon glyphicon-time'></span><small> ".$registroMens['fec_publicado']." by:</small> ".$registroUser['nick']."</h4>";
+		                    echo $registroMens['mensaje']; 
+		                    echo " </div>";
+		                    echo "</div>";
+		                    echo "<hr style='border-top-color: black;'>";
+		                 } //final 2ºwhile.
+		                 	echo "<hr style='border-top-color: black;'>";
+					}else{
+						cargarAlerts('warning','','No Hay ningun Comentario Publicado..se tu el primero_O');
+					}
+				}else{
+					cargarAlerts('danger','','Error en Base de datos(db)');
+				}
+			} //final 1ºWhile
+		}else{
+			cargarAlerts('warning','','No Hay ningun post Publicado..se tu el primero_O');
+		}
+	}else{
+		cargarAlerts('danger','','Error en Base de datos(db)');
+	}
+	desconectarDB01($conect);
+}
+
+function cargarMensajesBolgGA(){ //LO CARGAMOS EN LA MISMA FUNCION QUE LAS NOTICIAS..
+
+}
+
+function cargarPaginacionBlogGA($maxelemp){ //PAGINACION ADAPTADA ALA PG BLOGA, PERO CON LOS DATOS DE LAS NOTICIAS DE "realGalobo.php"
+	if(!isset($_GET['npag'])){ //Sirve para posicionar la consulta a la bbdd para que envie los registros de la paginación correspondiente.
+		$pagActual = 1;
+	}else{
+		$pagActual = addslashes(strip_tags($_GET['npag']));
+	}
+
+
+	$conexion = conectarDB01();
+	$configDatos = $conexion->query("SET NAMES 'utf8';");
+	$consulta = $conexion->query("SELECT COUNT(*) as total FROM noticiasga; "); //esta consulta devuelve un registro con un dato, con el número de resultados que ha recuperado.
+	//$registro = mysqli_fetch_assoc($consulta); //
+	$registroNoti = $consulta->fetch_assoc();
+	desconectarDB01($conexion);
+	$totalRegistros = $registroNoti['total']; //cálculo del num de páginas a partir del num de registros recuperados.
+	
+	$paginas = ceil($totalRegistros / $maxelemp);
+
+			echo '<div class="row text-center">'; //pintamos el bloque de botones para la paginación.
+			echo '<ul class="pagination">';
+	for($cnt = 1; $cnt <= $paginas; $cnt++){
+		if($cnt == $pagActual){ //Pintamos los botones de paginación, e inhabilitamos el botón del num de páginación en la que nos encontramos.
+			echo '<li class="disabled"><a>'.$cnt.'<span class="sr-only">'.$cnt.'</span></a></li>';
+		}else{
+			echo '<li><a href="indexga.php?npag='.$cnt.'">'.$cnt.'</a></li>';
 		}
 
 	}

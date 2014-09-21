@@ -12,15 +12,44 @@ if(!isset($_SESSION['id'])){
     }
 }
 //echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';
-cargarCabecera('Hola! Galob@!',3);
+cargarCabecera('Hola! Galob@!',3); //3 significa q es la pagi desarrollada num "3".
+
 ?>
    <br>		
    <div class="container">
 
             <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
-
-                <!-- Blog Post -->
+            <br>
+            <div class="col-lg-8 well">
+<?php
+$maxelempag = 1; //Número de elementos por pagina, POR EL MOMENTO FALLA CON MAS DE 2, A LA HORA DE GUARDAR LOS COMENTARIOS EN LA NOTICIA CORRECTA.
+cargarPostBlogGA($maxelempag); //carga las noticias posteadas, y sus mensajes relacionados.
+cargarPaginacionBlogGA($maxelempag);
+?>
+             <div class="well">
+                    <h3><strong>Postear Noticia:</strong></h3>
+                    <form role="form" id="formNoticiaRG">
+                        <div class="form-group">
+                            <label for="" class="control-label">Título de la Noticia:</label>
+                            <input type="text" class="form-control" id="titulo" maxlength="80" required></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">Redactar Noticia:</label>
+                            <textarea class="form-control" rows="4" id="contenido" maxlength="700" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">link de imagen:</label>
+                            <input type="text" class="form-control" id="linkimg" maxlength="250"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">link enlace externo:</label>
+                            <input type="text" class="form-control" id="linkEnla" maxlength="250"></input>
+                        </div>
+                        <button type="submit" id="btnFormNoti" class="btn btn-primary">Postealó!</button>
+                        <div id="alertNoti"></div>
+                    </form>
+                </div>
+               <!-- Blog Post -->
 
                 <!-- Title -->
                 <h1>Blog Post Title</h1>
@@ -110,7 +139,7 @@ cargarCabecera('Hola! Galob@!',3);
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
-            <br>
+            
             <div class="col-md-4">
 
                 <!-- Blog Search Well -->

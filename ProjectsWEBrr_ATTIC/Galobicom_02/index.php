@@ -14,8 +14,8 @@ cargarCabecera('Inicio',1);
 ?>
 	<div class="navbar-inverse jumbotron" style="border-radius: 10px;">
 	  <h1 style="color: #777;">Crea tu cuenta en Galobicom</h1>
-	  <p style="color: #777;">Regístrate y hazte Galobic@ digital, una vez dentro tendrás acceso al contenido y las utilidades para enriquecer
-	  	este espacio, dedicado a la comunidad Galobiana.</p>
+	  <p style="color: #777;">Regístrate y hazte Galobic@ digital, una vez dentro, tendrás acceso al contenido, y a las utilidades necesarias para entrenerte
+	  	y a la vez enriquecer, dulce/ácida/picante-mente este espacio dedicado a la comunidad, y sentimiento Galobianista.</p>
 	  <p><a class="btn btn-success btn-lg" role="button" href="formRegistro.php">Crear Cuenta!</a></p>
 	</div>
 <?php
@@ -33,7 +33,7 @@ cargarCabecera('Inicio',1);
 ?>
 	<div class="navbar-inverse jumbotron" style="border-radius: 10px;">
 	  <h1 style="color: #777;">Real Galobo C.F.</h1>
-	  <p style="color: #777;">La joya de la corona. Sección dedicada al Real Galobo F.C., equipo de fútbol que representa el sentimiento y los valores
+	  <p style="color: #777;">La joya de la corona. Sección dedicada al Real Galobo C.F., equipo de fútbol que representa el sentimiento y los valores
 	   de la cultura GAlobianista.Aquí te informaremos de partidos, resultados, clasificación, fichajes, bajas, 3ºs tiempos..y más.</p>
 	  <p><a class="btn btn-success btn-lg" role="button" href="realGalobo.php" disabled>Ir..</a></p>
 	</div>

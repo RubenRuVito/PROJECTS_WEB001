@@ -1,5 +1,6 @@
 <?php
 //Funciones y métodos útiles.
+require_once 'funciones.php';
 require_once ("class/class.phpmailer.php");
 require_once('class/class.smtp.php');
 
@@ -74,5 +75,51 @@ function generarCodigoAlta($long,$esp){//Metodo para generar el código de alta.
     }
     // devolvemos la clave
     return $clave;
+}
+
+function updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB,$quiniela){ //Método para informar la tabla equipos, partiendo de  
+    $conect=conectarDB01();                                                //la acción click, para aceptar Un partido Completo.
+    //echo "<p>idEquiA: ".$idEquipoA."idEquiB: ".$idEquipoB."</p>";
+    $arayIdEquipos[] = $idEquipoA;
+    array_push($arayIdEquipos,$idEquipoB);
+    $flagActualizado=0;
+    for($cnt=0; $cnt<count($arayIdEquipos);$cnt++){
+        //echo "<p>idEqui: ".$arayIdEquipos[$cnt]."</p>";
+        $idEquipo = $arayIdEquipos[$cnt];
+        $consEqui = $conect->query("SELECT puntos,jugados,ganados,empatados,perdidos,gol_favor,gol_contra FROM equipos WHERE id_equipo='$idEquipo'; ");
+        $regEquipo = mysqli_fetch_assoc($consEqui);
+        $editJug = $regEquipo['jugados']+1;
+        $editGolA = $regEquipo['gol_favor']+$golA;
+        $editGolB = $regEquipo['gol_favor']+$golB;
+        if($quiniela==0){
+            $editPunt = $regEquipo['puntos']+1;
+            $editEmp = $regEquipo['empatados']+1;
+            $updateEqui = $conect->query("UPDATE equipos SET puntos='$editPunt',jugados='$editJug',empatados='$editEmp',gol_favor='$editGolA',gol_contra='$editGolB' WHERE id_equipo='$idEquipo'; ");
+        }elseif($quiniela==1){
+            if($flagActualizado == 0){
+                $editPunt = $regEquipo['puntos']+3;
+                $editGan = $regEquipo['ganados']+1;
+                $updateEqui = $conect->query("UPDATE equipos SET puntos='$editPunt',jugados='$editJug',ganados='$editGan',gol_favor='$editGolA',gol_contra='$editGolB' WHERE id_equipo='$idEquipo'; ");
+                $flagActualizado++;//El siguiente update el flujo se dirija al else para hacer el update(perdedor) al equipo visitante.
+            }else{
+                $editPerd = $regEquipo['perdidos']+1;
+                $updateEqui = $conect->query("UPDATE equipos SET jugados='$editJug',perdidos='$editPerd',gol_favor='$editGolB',gol_contra='$editGolA' WHERE id_equipo='$idEquipo'; ");
+            }
+        }else{
+            if($flagActualizado == 0){
+                $editPerd = $regEquipo['perdidos']+1;
+                $updateEqui = $conect->query("UPDATE equipos SET jugados='$editJug',perdidos='$editPerd',gol_favor='$editGolA',gol_contra='$editGolB' WHERE id_equipo='$idEquipo'; ");
+                $flagActualizado++;//El siguiente update el flujo se dirija al else para hacer el update(Ganador) Al equipo Visitante.  
+            }else{
+                $editPunt = $regEquipo['puntos']+3;
+                $editGan = $regEquipo['ganados']+1;
+                $updateEqui = $conect->query("UPDATE equipos SET puntos='$editPunt',jugados='$editJug',ganados='$editGan',gol_favor='$editGolB',gol_contra='$editGolA' WHERE id_equipo='$idEquipo'; ");
+               
+            }
+        }
+        if($consEqui && $updateEqui){    
+            //actualizado registro o equipo correctamente
+        }
+    }
 }
 ?>
