@@ -461,18 +461,18 @@ function informarFechaHora($idEquipoA,$idEquipoB){ //Método para informar la fe
 
 function registrarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHora){  //Método para insertar o actualizar los registros de la
 	//echo "<p>GolA:".$golA." GolB:".$golB."</p>";									  // tabla "resultados".
-	$quiniela=NULL;
+	$quiniela='';
 	if($golA!='' && $golB!=''){  //Sacar el valor de quiniela 1-x-2.
 		if($golA == $golB){
-			$quiniela = 0;
-		}else if($golA < $golB){
+			$quiniela = 'x'; //lo ponemos a X xq a "0" daba problemas con Jquery y AJAX..el valos de la quiniela lo 
+		}else if($golA < $golB){ // calculamos en donde sea necesario a partir de los goles.
 			$quiniela = 2;
 		}else{
 			$quiniela = 1;
 		}
 	}else{
-		$golA = NULL; //si no se saben los resultados, aplazamientos o configurando la jornada siguiente..
-		$golB = NULL;
+		$golA = ''; //si no se saben los resultados, aplazamientos o configurando la jornada siguiente..
+		$golB = '';
 	}
 	//echo "<p>GolA:".$golA." GolB:".$golB." Quini: ".$quiniela."</p>";
 	$conex = conectarDB01();
@@ -493,7 +493,7 @@ function registrarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHo
 			}
 
 		}else{
-			if($golA == NULL && $golB == NULL){
+			if($golA == '' && $golB == ''){ //Significa que los valores de Goles y quiniela los insertamos a NULL.
 				$insert = $conex->query("INSERT INTO resultados (id_resultado,idfk_equipoA,idfk_equipoB,gol_A,gol_B,jornada,fec_hora,quiniela) VALUES ('','$idEquipoA','$idEquipoB',NULL,NULL,'$numJornada','$fecHora',NULL); ");
 			}else{
 				$insert = $conex->query("INSERT INTO resultados (id_resultado,idfk_equipoA,idfk_equipoB,gol_A,gol_B,jornada,fec_hora,quiniela) VALUES ('','$idEquipoA','$idEquipoB','$golA','$golB','$numJornada','$fecHora','$quiniela'); ");
@@ -510,9 +510,9 @@ function registrarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHo
 	desconectarDB01($conex);
 	//echo "<p>idEquiA: ".$idEquipoA."idEquiB: ".$idEquipoB."</p>";    //DEBUG CASERO..
 	//echo "<p>GolA:".$golA." GolB:".$golB." Quini: ".$quiniela."</p>";
-	if($quiniela!=NULL || $quiniela==0){ //EL 0 Q ES UN POSIBLE VALOR REAL DE QUINIELA PHP LO INTERPRETA TB COMO NULL..O ESO PARECE.
+	if($quiniela!='' || $quiniela==='x'){ //EL 0 Q ES UN POSIBLE VALOR REAL DE QUINIELA PHP LO INTERPRETA TB COMO NULL..O ESO PARECE.
 		//echo "<p>GolA:".$golA." GolB:".$golB." Quini: ".$quiniela."</p>";
-		updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB,$quiniela);
+		updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB);
 	}
 }	
 

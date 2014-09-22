@@ -77,9 +77,16 @@ function generarCodigoAlta($long,$esp){//Metodo para generar el código de alta.
     return $clave;
 }
 
-function updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB,$quiniela){ //Método para informar la tabla equipos, partiendo de  
+function updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB){ //Método para informar la tabla equipos, partiendo de  
     $conect=conectarDB01();                                                //la acción click, para aceptar Un partido Completo.
     //echo "<p>idEquiA: ".$idEquipoA."idEquiB: ".$idEquipoB."</p>";
+    if($golA == $golB){
+            $quiniela = 0;
+        }else if($golA < $golB){
+            $quiniela = 2;
+        }else{
+            $quiniela = 1;
+        }
     $arayIdEquipos[] = $idEquipoA;
     array_push($arayIdEquipos,$idEquipoB);
     $flagActualizado=0;
