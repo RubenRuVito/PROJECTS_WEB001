@@ -4,6 +4,8 @@
 //Y A SUVEZ LLAMAR A ESTE FICHERO MEDIANTE AJAX Y CON LA OPCION DE FUNCION Q SE REQUIERE EJECUTAR Y
 //LOS VARIABLES NECESARIAS.
 
+// PÁGINA "realGalobo.php".
+
 require_once 'funciones.php';
 
 $queFuncion = addslashes(strip_tags($_POST['funcion']));

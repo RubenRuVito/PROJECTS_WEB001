@@ -7,6 +7,8 @@
 require_once 'funciones.php';
 //session_start();
 
+/* INICIO MÉTODOS COMUNES PARA PINTAR EN PAGINAS DE "GALOBICOM". */
+
 function cargarCabecera($titulo,$pag){ //Método que recoge el título y la pagina en donde se encuentra la Barra NAVBAR
 ?>
 	<!-- código Html para visualizar en navegador -->
@@ -168,6 +170,9 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 <?php
 }
 
+/* FIN. */
+/* INICIO PÁGINA "formRegistro.php". */
+
 function cargarFormRegistro(){//formulario de registro de usuario.
 ?>
 	<br>
@@ -236,6 +241,9 @@ function cargarFormRegistro(){//formulario de registro de usuario.
 
 <?php
 }
+
+/* FIN. */
+/* INICIO PAGINA "realGalobo.php". */
 
 function cargarTablaClasificacion(){
 	$conect = conectarDB01();
@@ -630,6 +638,85 @@ function cargarPaginacionBlogGA($maxelemp){ //PAGINACION ADAPTADA ALA PG BLOGA, 
 			echo '</div>';
 }
 
+/* FIN PAGINA "realGalobo.php". */
+/* INICIO PAGINA "quinielaGa.php". */
 
+function cargarClasificacionQuiniGa(){ //Tabla "puntos_quiniela" donde estan los puntos totales de los usuarios.
+/*	$con = conectarDB01();
+	$configDatos = $con->query("SET NAMES 'utf8';");
+	$consTablaQuini = $con->query("SELECT * FROM puntos_quiniela; ");
+	if($consTablaQuini){ */
+?>
+		<br><br>
+		<div class="row">
+			
+			<div class="col-md-12 navbar-white well" style="border-radius: 10px;">
+				<h2 class="text-top text-center" style="font-family: cusrsive; color: black">Clasificación Quiniela</h2>
+			</div>
+		</div>
+<?php
+}
 
+function cargarPaginacionQunielaGa(){ //Paginacion para la tabla "puntos_quiniela".
+
+}
+
+function generaComboJornadasQuinielaGa(){ //combo del form "Registrar Resultados Jornada",para las jornadas que estan sin completar y la nueva jornada.
+	$conect = conectarDB01();
+	$resultconf = $conect->query("SET NAMES 'utf8'");
+	$consulta = $conect->query("SELECT count(DISTINCT jornada) as JornadasJugadas FROM resultados; ");
+	$registroCountJorJgadas = mysqli_fetch_assoc($consulta);
+	$numJornadasJugadas = $registroCountJorJgadas['JornadasJugadas'];
+	$consRegPartiPorJor = $conect->query("SELECT count(jornada) as partidosRegist FROM resultados WHERE jornada='$numJornadasJugadas'; ");
+	$registroCountPartPorJor = mysqli_fetch_assoc($consRegPartiPorJor);
+	$numPartiRegPorJor = $registroCountPartPorJor['partidosRegist'];
+			echo "<select id='combJorQuini' class='form-control' onchange='' required>";
+			echo "<option value='' disabled>Elige Jornada :</option>";
+		
+		/*	echo "<option value=''>".$numJornadasJugadas."</option>"; //DEBUG CASERO
+			echo "<option value=''>".$numPartiRegPorJor."</option>";  */
+	if($numJornadasJugadas != 0){
+	 for($cntJor=1; $cntJor <= $numJornadasJugadas; $cntJor++){
+		$consultaResultados = $conect->query("SELECT * FROM resultados WHERE jornada='$cntJor'; ");
+		if($consultaResultados && $consulta){
+			$cntPartCompletados = 0; $cntPartiRegistrados = 0;	
+		   	while($regResultado = mysqli_fetch_assoc($consultaResultados)){
+				if($regResultado['gol_A'] != NULL && $regResultado['gol_B'] != NULL){
+					$cntPartCompletados++; //Suma los partidos que estan completados golA y golb distintos de NULL.
+				}
+				$cntPartiRegistrados++;
+			}
+			if($cntPartCompletados == 3){
+				echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
+			}else{
+				if($cntJor == $numJornadasJugadas && $cntPartiRegistrados == 3){
+					echo "<option value='".$cntJor."'>".$cntJor." - Realizar Quiniela (jornada configurada).</option>";
+				}else{
+					if($cntPartiRegistrados<3){
+						echo "<option value='".$cntJor."' disabled>".$cntJor." - Jornada Siguiente Sin Configurar</option>";
+					}else{
+						echo "<option value='".$cntJor."' disabled>".$cntJor." - incompleta (Informar Resultados)</option>";
+					}
+				}
+			}
+		}else{
+			/*echo "<option value='0'>"<?php cargarAlerts('warning','sm','Error en Base de datos(db)'); ?>"</option>";*/
+			//cargarAlerts('warning','sm','Error en Base de datos(db)');
+				echo "<option value='' style='background: red;'>Error en Base de datos</option>";
+		}
+	 }	//el cntador sale con numero de jornadas mas 1, x lo que hay q restarle 1 para hacer la siguiente comparacion..
+		//echo "<option value=''>".$cntJor."</option>";				//DEBUG CASERO
+		//echo "<option value=''>".$numPartiRegPorJor."</option>";
+		$cntJor--;
+		if($cntJor == $numJornadasJugadas &&  $numPartiRegPorJor == 3){
+			$cntJor++;
+			echo "<option value='".$cntJor."' disabled>".$cntJor." - Configurar Jornada Siguiente</option>";
+		}
+	}else{
+		$cntJor=1; //LA tabla resultados de la base de datos, esta vacia.
+		echo "<option value='".$cntJor."' disabled>".$cntJor." - Configurar Jornada Siguiente</option>";
+	}
+			//echo "<option value=''>".$cntJor."</option>";
+			echo "</select>";
+}
 ?>
