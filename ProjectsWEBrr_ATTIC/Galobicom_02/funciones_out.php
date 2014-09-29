@@ -101,16 +101,16 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	        <li class="dropdown">
 	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Zonas <span class="caret"></a>
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
-	        		<li><a style="color: #777;" href="indexga.php?p=<?php echo $pag; ?>">BloGA <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="realGalobo.php?p=<?php echo $pag; ?>">Real Galobo F.C. <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li class="dropdown-submenu"><a style="color: #777;" href="">Juegos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a>
+	        		<li><a style="color: #777;" href="indexga.php?p=<?php echo $pag; ?>">BloGA <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="realGalobo.php?p=<?php echo $pag; ?>">Real Galobo F.C. <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li class="dropdown-submenu"><a style="color: #777;" href="">Juegos GA! <small><span class=""></span></small></a>
 	        			<ul class="dropdown-menu navbar-inverse">		
-	        				<li><a style="color: #777;" href="#menu03">Quiniela <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        				<li><a style="color: #777;" href="#menu03">Quiniela <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        			</ul>
 	        		</li>
-	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        	</ul>
 	        </li>
 	        <!-- reglas en el css "miestilo.css" -->

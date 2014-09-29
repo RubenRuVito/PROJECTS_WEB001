@@ -47,6 +47,32 @@ cargarClasificacionQuiniGa();
                 });
             }
   });
+
+$("#btnGuardarQuini").click(function(){
+
+            var funPost = 1;
+            var radioPart01 = $("#titulo").val();
+            var radioPart02 = $("#contenido").val();
+            var radioPart03 = $("#linkimg").val();
+
+            var lenla = $("#linkEnla").val();
+
+            if(tit != "" && cont != ""){
+                $.ajax({
+                    type: "post",
+                    url: "funciones_out2.php",
+                    data: {funcion: funPost, titulo: tit, contenido: cont, linkimg: limg, linkEnla: lenla},
+                    success: function(mensaje){
+                        $("#alertNoti").html(mensaje);
+                        
+                    },
+                    error: function(){
+                        alert("Error AJAX, al retornar datos..");
+                    }
+                });
+                window.location = "realGalobo.php"; //Posteas una Noticia recarga la pagina, y aparece tu noticia.
+            }
+ });
  });
 </script>
 
@@ -68,17 +94,20 @@ cargarClasificacionQuiniGa();
                         </tbody>
                     </table>
                   </div>
-                  <div class="form-group">
+                  <div class="col-md-6 form-group">
                         <label for="" class="">Elige Tus posibles Goleadores:</label>
                                     <select id="jugador1" class="form-control" disabled> <!-- Select dinámico, x jquery -->
                                         <option value=''>Selecciona Jugador1</option>
                                     </select>
+                                    <br>
                                     <select id="jugador2" class="form-control" disabled> <!-- Select dinámico, x jquery -->
                                         <option value=''>Selecciona Jugador2</option>
                                     </select>
+                                    <br>
                                     <select id="jugador3" class="form-control" disabled> <!-- Select dinámico, x jquery -->
                                         <option value=''>Selecciona Jugador3</option>
                                     </select>
+                                    <br>
                         <div class="col-sm-3">
                         	<button type="submit" id="btnGuardarQuini" class="btn btn-info">Aceptar</button>
                         </div>

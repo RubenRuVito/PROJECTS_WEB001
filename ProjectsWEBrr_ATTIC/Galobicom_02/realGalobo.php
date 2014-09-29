@@ -20,8 +20,12 @@ cargarCabecera('Hola! Galob@!',4);
    <div class="container-left"> 
             
                 <div class="well" style="background: #A00303;">
-                    <h1 class="text-center" style="color: black; font-size: 110px; font-family: Cursive;"><img src="img/ball_small.jpg"><strong>Real Galobo C.F.</strong><img src="img/ball_small.jpg"></h1>
+                    <h1 class="text-center" style="color: black; font-size: 720%; font-family: Cursive;"><img src="img/ball_small.jpg"><strong>Real Galobo C.F.</strong><img src="img/ball_small.jpg"></h1>
                 </div>
+                <script type="text/javascript">
+                    //document.writeln("<p>"+screen.width+" x "+screen.height+"</p>");// Resolución del Navegador y personalizamos el Canvas.
+                    //document.writeln("<canvas class='row container' id='theMatrix' width="+screen.width+" height='+200+'></canvas>");
+                </script>
             
             <!-- Blog Post Content Column -->
             <div id="TablonNoti" class="col-md-4 well">
