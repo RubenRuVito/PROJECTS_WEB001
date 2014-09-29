@@ -1,4 +1,4 @@
-<?php
+	<?php
 //FUNCIONES PARA CREAR LA PARTE VISUAL DE LA WEB(por partes)(para no escribir el mismo código varias
 //veces, como en el caso de las cabeceras y pies de página).
 //variable $pag --> indica en que ventana se encuentra el usuario y en su caso la barra fija NAVBAR.
@@ -105,11 +105,43 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	        		<li><a style="color: #777;" href="realGalobo.php?p=<?php echo $pag; ?>">Real Galobo F.C. <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu04">Juegos GA!<small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        		<li class="dropdown-submenu"><a style="color: #777;" href="">Juegos GA! <small><span class="glyphicon glyphicon-arrow-right"></span></small></a>
+	        			<ul class="dropdown-menu navbar-inverse">		
+	        				<li><a style="color: #777;" href="#menu03">Quiniela <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
+	        			</ul>
+	        		</li>
 	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-arrow-right"></span></small></a></li>
 	        	</ul>
 	        </li>
+	        <!-- reglas en el css "miestilo.css" -->
+	        <li class="dropdown">
+	        	<a id="dLabel" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                Dropdown <span class="caret"></span></a>
+	    		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+	              <li><a href="#">Some action</a></li>
+	              <li><a href="#">Some other action</a></li>
+	              <li class="divider"></li>
+	              <li class="dropdown-submenu">
+	                <a tabindex="-1" href="#">Hover me for more options</a>
+	                <ul class="dropdown-menu">
+	                  <li><a tabindex="-1" href="#">Second level</a></li>
+	                  <li class="dropdown-submenu">
+	                    <a href="#">Even More..</a>
+	                    <ul class="dropdown-menu">
+	                        <li><a href="#">3rd level</a></li>
+	                    	<li><a href="#">3rd level</a></li>
+	                    </ul>
+	                  </li>
+	                  <li><a href="#">Second level</a></li>
+	                  <li><a href="#">Second level</a></li>
+	                </ul>
+	              </li>
+	            </ul>
+        	
+	        </li>
 	      </ul>
+          
+
 	      <ul class="nav navbar-nav navbar-right">
 	      	<?php 
 	      		if(isset($_SESSION['id'])){
