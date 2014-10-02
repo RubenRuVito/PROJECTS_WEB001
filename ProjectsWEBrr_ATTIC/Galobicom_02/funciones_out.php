@@ -33,8 +33,8 @@ function cargarCabecera($titulo,$pag){ //Método que recoge el título y la pagi
 		  <!--<canvas id="theMatrix" width="1150" height="200"></canvas> -->
 
 <?php
-cargarBarraNav($pag); //poniendola aqui, no la tendrias que invocar en el fichero index.php
-}
+cargarBarraNav($pag); //poniendola aqui, no la tendrias que invocar en el fichero index.php o en cularquier
+}					  //fichero que pinte la barra NAV, ya que es parte de la cabecera.
 
 function cargarAlerts($tipo,$tam,$mensaje){
 	if($tam != ''){
@@ -107,7 +107,7 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        		<li class="dropdown-submenu"><a style="color: #777;" href="">Juegos GA! <small><span class=""></span></small></a>
 	        			<ul class="dropdown-menu navbar-inverse">		
-	        				<li><a style="color: #777;" href="#menu03">Quiniela <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        				<li><a style="color: #777;" href="quinielaGa.php?p=<?php echo $pag; ?>">Quiniela <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        			</ul>
 	        		</li>
 	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
@@ -722,6 +722,8 @@ function generaComboJornadasQuinielaGa(){ //combo del form "Registrar Resultados
 				echo "<option value='".$cntJor."' disabled>".$cntJor." - completada</option>"; 
 			}else{
 				if($cntJor == $numJornadasJugadas && $cntPartiRegistrados == 3){
+					//COMPROBAR SI EL USUARIO HA REALIZADO LA QUINIELA DE LAS JORNADAS DISPONIBLES,
+					//PARA PINTAR UNA COSA U OTRA EN EL COMBO DE "QUINIELA DE LA JORNADA..".
 					echo "<option value='".$cntJor."'>".$cntJor." - Realizar Quiniela (jornada configurada).</option>";
 				}else{
 					if($cntPartiRegistrados<3){
