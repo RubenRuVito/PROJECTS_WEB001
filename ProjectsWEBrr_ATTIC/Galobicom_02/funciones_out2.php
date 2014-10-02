@@ -54,6 +54,8 @@ switch($queFuncion){
 			//$quini = addslashes(strip_tags($_POST['linkEnla'])); LE PONEMOS EL VALOR APARTIR DE LOS GOLES DE CADA EQUIPO.
 			registrarPartidoRG($numJor,$idA,$idB,$golA,$golB,$fecHora);//insert en la "tabla resultados".
 			break;
+	case 8: cargarComboJugadoresRG();
+			break;
 }
 
 function cargarTablaResultPorJornada($opcCom){
@@ -515,6 +517,23 @@ function registrarPartidoRG($numJornada,$idEquipoA,$idEquipoB,$golA,$golB,$fecHo
 	if($quiniela!='' || $quiniela==='x'){ //EL 0 Q ES UN POSIBLE VALOR REAL DE QUINIELA PHP LO INTERPRETA TB COMO NULL..O ESO PARECE.
 		//echo "<p>GolA:".$golA." GolB:".$golB." Quini: ".$quiniela."</p>";
 		updatesTablaEquipos($idEquipoA,$idEquipoB,$golA,$golB);
+	}
+}
+
+function cargarComboJugadoresRG(){
+	$con = conectarDB01();
+	$resultconf = $con->query("SET NAMES 'utf8'");
+	$consJugadores = $con->query("SELECT id_jugador,nom_camiseta FROM jugadoresga; ");
+	if($consJugadores){
+			echo "<label for='' class=''>Jugador con MOJO:</label>";
+            echo "<select id='selJugadores' class='form-control' required>";
+			echo "<option value=''>Selecciona al jugador que ha mojado.</option>";
+		while($regisJugador = mysqli_fetch_assoc($consJugadores)){
+			echo "<option value='".$regisJugador['id_jugador']."'>".$regisJugador['nom_camiseta']."</option>";
+		}
+	}else{
+		echo '<br>';
+		cargarAlerts('danger','','Error en Base de datos(DB_ruvio01).Intentelo más tarde');
 	}
 }	
 

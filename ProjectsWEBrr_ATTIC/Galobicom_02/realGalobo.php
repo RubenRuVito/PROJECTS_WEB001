@@ -229,14 +229,30 @@ $("#btnFormNoti").click(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un atributo.
-    var codigoHtmlPintarA = "<label for='' class=''>Goles equipo Local:</label>"
+    var codigoHtmlPintarA = "<label for='' class=''>Goles equipo Local:</label>";
         codigoHtmlPintarA += "<select id='golA' class='form-control' disabled>";
         codigoHtmlPintarA += "<option value=''>Selecciona número de goles</option>";
         codigoHtmlPintarA += "</select>";
-    var codigoHtmlPintarB = "<label for='' class=''>Goles equipo Visitante:</label>"
+    var codigoHtmlPintarB = "<label for='' class=''>Goles equipo Visitante:</label>";
         codigoHtmlPintarB += "<select id='golB' class='form-control' disabled>";
         codigoHtmlPintarB += "<option value=''>Selecciona número de goles</option>";
         codigoHtmlPintarB += "</select>";
+
+    var codigoHtmlPaintDisableJugadoresComb = "<label for='' class=''>Jugador con MOJO:</label>";
+        codigoHtmlPaintDisableJugadoresComb += "<select id='selJugadores' class='form-control' disabled>";
+        codigoHtmlPaintDisableJugadoresComb += "<option value=''>Selecciona al jugador que ha mojado</option>";
+        codigoHtmlPaintDisableJugadoresComb += "</select>";
+
+    var codigoHtmlPintarGolJugador = "<label for='' class=''>Número de goles:</label><select id='golJugador' class='form-control' required>";
+        codigoHtmlPintarGolJugador += "<option value=''>Selecciona número de goles.</option><option value='1'>1</option><option value='2'>2</option>";
+        codigoHtmlPintarGolJugador += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
+        codigoHtmlPintarGolJugador += "<option value='6'>6</option><option value='7'>7</option><option value='8'>8</option>";
+        codigoHtmlPintarGolJugador += "<option value='9'>9</option><option value='10'>10</option><option value='11'>11</option>";
+        codigoHtmlPintarGolJugador += "</select>";
+    var codigoHtmlPintarGolJugadorKO = "<label for='' class=''>Número de goles:</label><select id='golJugador' class='form-control' disabled>";
+        codigoHtmlPintarGolJugadorKO += "<option value=''>Selecciona número de goles.</option>";
+        codigoHtmlPintarGolJugadorKO += "</select>";
+
  $("#combJorGuardar").change(function(){
         var fun = 4;
         var valJorGuar = $("#combJorGuardar").val();
@@ -300,7 +316,7 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
         var idEquiA = $("#combEquiAguar").val();
         var numJortext = $("#combJorGuardar option:selected").text(); //recuperas el texto del option seleccionado.
         alert(numJortext);
-        if(idEquiB != '' && numJortext.indexOf('Configurar') == -1){ // queremos q se vaya al else si contiene la cadena siguiente (Jornada siguiente).
+        if(idEquiB != '' && numJortext.indexOf('Configurar') == -1){ // queremos q se vaya al else si contiene la cadena "Configurar" (Configurar siguiente...).
             var codigoHtmlPintarOKA = "<label for='' class=''>Goles equipo Local:</label><select id='golA' class='form-control' required>";
                 codigoHtmlPintarOKA += "<option value=''>Selecciona número de goles.</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option>";
                 codigoHtmlPintarOKA += "<option value='3'>3</option><option value='4'>4</option><option value='5'>5</option>";
@@ -337,6 +353,8 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
  });
 
  $("#divGolA").change(function(){      //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+        var idEquiA = $("#combEquiAguar").val();
+        var idEquiB = $("#combEquiBguar").val();
         var a = $("#golA").val();
         var b = $("#golB").val();
         if(a!='' && b!=''){
@@ -348,10 +366,31 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                 $("#quiniela").html("<h2>  [1]</h2>");
             }
         }
-        
+        if(a!='' && a!=0 && idEquiA==1 ){ //id del Real galobo en la tabla equipos. 
+            var funcion = 8; //CArgamos el div de goleadores con los nombres de los jugadores en un select + un campo num goles..
+            $.ajax({
+                type: "post",
+                datatype: "html",
+                url: "funciones_out2.php",
+                data: {funcion: funcion},
+                success: function(datosJugadores){
+                      $("#divJugadores").html(datosJugadores);
+                },
+                error: function(){
+                    alert("Error AJAX, al retornar datos..");
+                }
+            }); 
+            $("#divGoles").html(codigoHtmlPintarGolJugadorKO); 
+        }else if(idEquiB!=1){
+            $("#divJugadores").html(codigoHtmlPaintDisableJugadoresComb);
+            $("#divGoles").html(codigoHtmlPintarGolJugadorKO);
+        }
+
  });
 
  $("#divGolB").change(function(){ //Hacer calculo para que aparezca el valos de la quiniela 1,x,2.
+        var idEquiA = $("#combEquiAguar").val();
+        var idEquiB = $("#combEquiBguar").val();
         var a = $("#golA").val();
         var b = $("#golB").val();
         if(a!='' && b!=''){
@@ -363,9 +402,36 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr�
                 $("#quiniela").html("<h2>  [1]</h2>");
             }
         }
+        if(b!='' && b!=0 && idEquiB==1 ){ //id del Real galobo en la tabla equipos. 
+            var funcion = 8; //CArgamos el div de goleadores con los nombres de los jugadores en un select + un campo num goles..
+            $.ajax({
+                type: "post",
+                datatype: "html",
+                url: "funciones_out2.php",
+                data: {funcion: funcion},
+                success: function(datosJugadores){
+                      $("#divJugadores").html(datosJugadores);
+                },
+                error: function(){
+                    alert("Error AJAX, al retornar datos..");
+                }
+            });  
+            $("#divGoles").html(codigoHtmlPintarGolJugadorKO);
+        }else if(idEquiA!=1){
+            $("#divJugadores").html(codigoHtmlPaintDisableJugadoresComb);
+            $("#divGoles").html(codigoHtmlPintarGolJugadorKO);
+        }
         
  });
 
+ $("#divJugadores").change(function(){ //método para que pinte el selec de num de goles x jugador, solo cuando en el partido
+        var idJugador = $("#selJugadores").val(); // uno de los equipos sea el realgalobo o id=1.
+        if(idJugador!=''){
+            $("#divGoles").html(codigoHtmlPintarGolJugador); 
+        }else{
+            $("#divGoles").html(codigoHtmlPintarGolJugadorKO);
+        }
+ });
 
  $("#btnGuardarRes").click(function(){ //hacer funcion en archivo php para guardar
         var jor = $("#combJorGuardar").val();
@@ -493,6 +559,22 @@ function recogerValidarInfoPartido(){
                                     </select>
                                 </div>
                             </div>
+<!-- DESARROLLANDING -->
+                            <div class="form-group">
+                                <div id="divJugadores" class="col-sm-6">
+                                    <label for="" class="">Jugador con MOJO:</label>
+                                    <select id="selJugadores" class="form-control" disabled> <!-- Select dinámico, x jquery -->
+                                        <option value=''>Selecciona al jugador que ha mojado</option>
+                                    </select>
+                                </div>
+                                <div id="divGoles" class="col-sm-6">
+                                    <label for="" class="">Número de goles:</label>
+                                    <select id="goles" class="form-control" disabled> <!-- Select dinámico, x jquery -->
+                                        <option value=''>Selecciona número de goles</option> 
+                                    </select>
+                                </div>
+                            </div>
+<!-- fin desarro.. -->
                             <div class="form-group">
                                 <div id="divFecHora" class="col-sm-6">
                                     <label class="">Fecha y hora del Encuentro:</label>

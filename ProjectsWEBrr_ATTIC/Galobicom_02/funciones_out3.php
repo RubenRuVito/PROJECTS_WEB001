@@ -21,6 +21,7 @@ function cargarQuinielaGa($opcJor){ //valor de una jornada futura "jornada confi
 	$resultconf = $conex->query("SET NAMES 'utf8'");
 	$consJorConfig = $conex->query("SELECT * FROM resultados WHERE jornada='$opcJor'; ");
 	if($consJorConfig){
+		$i=1; // Contador para identificar que radiobutton se a pulsado en cada partido de la tabla.
 		while($registro = mysqli_fetch_assoc($consJorConfig)){
 			$id_partido = $registro['id_resultado']; //id del partido jugado ( identifica un partido unico de la tabla resultados).
 			$id_equipoA = $registro['idfk_equipoA'];
@@ -30,13 +31,14 @@ function cargarQuinielaGa($opcJor){ //valor de una jornada futura "jornada confi
 			$consultaB = $conex->query("SELECT nom_equipo FROM equipos WHERE id_equipo='$id_equipoB'; ");
 			$registroB = mysqli_fetch_assoc($consultaB);
 			echo "<tr>";
-			echo "<td class='text-center'>".$id_partido."</td>";
+			echo "<td id='idPart' class='text-center'>".$id_partido."</td>";
 			echo "<td class='text-center'>".$opcJor."</td>";
 			echo "<td class='text-center'>".$registroA['nom_equipo']."</td>";
 			echo "<td class='text-center'>".$registroB['nom_equipo']."</td>";
-			echo "<td id='".$id_partido."' class='text-center'> <input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='1'> ";
-			echo "<input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='0' checked> <input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='2'></td>";
+			echo "<td id='".$id_partido."' class='text-center'> <input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='1' onclick='valorQuiniPartido0".$i."(this)'> ";
+			echo "<input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='0' onclick='valorQuiniPartido0".$i."(this)'> <input type='radio' name='quini".$id_partido."' id='quini".$id_partido."' value='2' onclick='valorQuiniPartido0".$i."(this)'></td>";
 			echo "</tr>";
+			$i++;
 		}
 	}else{
 		cargarAlerts('warning','sm','Error en Base de datos(db)');

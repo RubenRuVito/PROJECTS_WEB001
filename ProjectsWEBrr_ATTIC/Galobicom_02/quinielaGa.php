@@ -13,7 +13,7 @@ cargarClasificacionQuiniGa();
                     <div class="col-sm-10">
                       	<label for="" class="control-label">Jornadas Configuradas [sin Resultados]:</label>
                     </div>
-                    <div id="" class="col-sm-6">
+                    <div id="" class="col-sm-8">
 
 <?php generaComboJornadasQuinielaGa(); // ubi: "funciones_out.php"?>
                                     
@@ -24,6 +24,19 @@ cargarClasificacionQuiniGa();
             		POSIBILIDAD DE AÑADIR COMBO CON LOS NOMBRES DE LOS JUGADORES Y ELEGIR 3 POSIBLES MARCADORES CON SU PUNTUACION --> 
 
 <script type="text/javascript">
+
+var QuiniParti01;  //código xa recoger los valores seleccionados en cada grupo de 3 radiobuttons.
+var QuiniParti02;
+var QuiniParti03;
+function valorQuiniPartido01(valor){
+    QuiniParti01 = valor.value;
+}
+function valorQuiniPartido02(valor){
+    QuiniParti02 = valor.value;  
+}
+function valorQuiniPartido03(valor){
+    QuiniParti03 = valor.value;
+}
  
  $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables trás un evento de un elemento.
   $("#combJorQuini").change(function(){   
@@ -48,19 +61,30 @@ cargarClasificacionQuiniGa();
             }
   });
 
+
 $("#btnGuardarQuini").click(function(){
 
             var funPost = 1;
+            var idPrimerPartiTabla = $("#idPart").text(); // consigo traer el id del primer partido,los siguientes son consecutivos(siempre..en principio SI!)
+            var radioPart01 = $("input:radio[name=quini]:checked").val();
+
+            alert(funPost);
+            alert(idPrimerPartiTabla);
+            alert('RAdio1: '+QuiniParti01+' Radio2: '+QuiniParti02+' Radio3: '+QuiniParti03);
+            /*
             var radioPart01 = $("#titulo").val();
             var radioPart02 = $("#contenido").val();
             var radioPart03 = $("#linkimg").val();
+            var jug01 = $("#jugador1").val();
+            var jug02 = $("#jugador2").val();
+            var jug03 = $("#jugador3").val();
 
             var lenla = $("#linkEnla").val();
 
             if(tit != "" && cont != ""){
                 $.ajax({
                     type: "post",
-                    url: "funciones_out2.php",
+                    url: "funciones_out3.php",
                     data: {funcion: funPost, titulo: tit, contenido: cont, linkimg: limg, linkEnla: lenla},
                     success: function(mensaje){
                         $("#alertNoti").html(mensaje);
@@ -71,7 +95,7 @@ $("#btnGuardarQuini").click(function(){
                     }
                 });
                 window.location = "realGalobo.php"; //Posteas una Noticia recarga la pagina, y aparece tu noticia.
-            }
+            }*/
  });
  });
 </script>
