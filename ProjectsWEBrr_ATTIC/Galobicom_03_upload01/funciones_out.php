@@ -152,10 +152,13 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	      <ul class="nav navbar-nav navbar-right">
 	      	<?php 
 	      		if(isset($_SESSION['id'])){
+	      			if($_SESSION['nivAcceso']==1){
+	      				$elegido = '[ES EL ELEGIDO]';
+	      			}
 	      	?>
 	      	<!-- <li><br><p style="color: #777;"><?php echo 'Hola!' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></p></li> -->
 	      	<!-- <li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nom'] . ' ' . $_SESSION['ape'] . '.';?></a></li> -->
-	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nic'];?></a></li>
+	      	<li><a class="navbar-brand"><?php echo 'Hola! ' . $_SESSION['nic'].' '.$elegido; ?></a></li>
 	      	<li><a href="logout.php">Cerrar Sesión</a></li>
 	      	
 	      	<?php
@@ -559,7 +562,7 @@ function cargarPostBlogGA($maxelem){ //DE MOMENTO CODIGO DEL CARGADO DE NOTICIAS
 	$resultconf = $conect->query("SET NAMES 'utf8'");
 	if(isset($_GET['cat'])){
 		$cat=addslashes(strip_tags($_GET['cat']));
-		 echo "<p>Categoria: ".$cat."</p>";
+		echo "<p>Categoria: ".$cat."</p>";
 		$consulta = $conect->query("SELECT * FROM blog WHERE categoria='$cat' ORDER BY fec_publicado  DESC LIMIT $posicion, $maxelem; ");
 		echo "<p>Numregistros: ".count($consulta)."</p>";
 	}else{
@@ -756,8 +759,6 @@ function cargarClasificacionQuiniGa($maxelem){ //Tabla "puntos_quiniela" donde e
 ?>            
                   </tbody>
                 </table>
-			
-		
 <?php
 
    }else{

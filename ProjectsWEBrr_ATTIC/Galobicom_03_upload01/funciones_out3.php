@@ -196,11 +196,11 @@ function guardarPostBlogGa($titulo,$contenido,$linkimg,$linkEnla,$categoria){
 	$fecHora = date('Y-m-d H:i:s'); //Recogemos la fecha y la hora,(PREGUNTAR POR SI POSTEAN DESDE OTRO PAIS O EL SERVIDOR ESTA EN OTRO PAIS???)
 	$mesActual = date('m');
 
-	echo "<p>titulo: ".$titulo."</p>";
-	echo "<p>Contenido: ".$contenido."</p>";
+	/*echo "<p>titulo: ".$titulo."</p>";
+	echo "<p>Contenido: ".$contenido."</p>";  //DEBUG CASERO.
 	echo "<p>linkimg: ".$linkimg."</p>";
 	echo "<p>linkEnla: ".$linkEnla."</p>";
-	echo "<p>Categoria: ".$categoria."</p>";
+	echo "<p>Categoria: ".$categoria."</p>";*/
 
 	if($linkimg != ''){
 		if(!strstr($linkimg, 'http://')){//comprobación de si la url contien 'http://',sino se lo agregamos delante.
@@ -233,6 +233,7 @@ function guardarPostBlogGa($titulo,$contenido,$linkimg,$linkEnla,$categoria){
 		}
 	}else{
 		cargarAlerts('danger','','Has llegado al máximo de Post creados por ti, para este mes..sorry!');
+		//sleep(5);
 	}
 }
 
@@ -243,7 +244,7 @@ function guardarComentarioBlog($mensaje,$idBlog){
 
 	$conex = conectarDB01();
 	$resultconf = $conex->query("SET NAMES 'utf8'");
-	$consComent = $conex->query("SELECT count(idfk_user) as numComents FROM mensajesblog WHERE month(fec_publicado)='$mesActual' AND idfk_user='$idUsuario'; ");
+	$consComent = $conex->query("SELECT count(idfk_user) as numComents FROM mensajesblog WHERE month(fec_publicado)='$mesActual' AND idfk_user='$idUsuario' AND idfk_blog='$idBlog'; ");
 	$regisNumComents = mysqli_fetch_assoc($consComent);
 	$numComentsUserMes = $regisNumComents['numComents']; //numero de comentarios de un usuario en un post.
 	if($numComentsUserMes < 5){

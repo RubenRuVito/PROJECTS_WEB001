@@ -46,7 +46,7 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                     data: {funcion: funPost, titulo: tit, contenido: cont, linkimg: limg, linkEnla: lenla, categoria: categ},
                     success: function(mensaje){
                         $("#alertBlog").html(mensaje);
-                        
+                        //sleep(5000);
                     },
                     error: function(){
                         alert("Error AJAX, al retornar datos..");
@@ -71,12 +71,13 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                     success: function(mensaje){
                         $("#alertMensPost").html(mensaje);
                         //$("#TablonNoti").html();
+                        //sleep(5000);
                     },
                     error: function(){
                         alert("Error al retornar datos..");
                     }
                 });
-                window.location = "indexGa.php?npag=<?php $npag=1; if(isset($_GET['npag'])){ echo $_GET['npag'];}else{ echo $npag; } ?>";
+                window.location = "indexGa.php?npag=<?php $npag=1; if(isset($_GET['npag'])){ echo $_GET['npag'];}else{ echo $npag; } if(isset($_GET['cat'])){ echo '&cat='.$_GET['cat']; } ?>";
             }else{
                 //alert("comentario vacio.");
                 var mensComeVacio = "<div class='alert-sm alert-warning alert-dismissible' role='alert'>";
@@ -87,17 +88,23 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
             }
   });
  });
+
+function sleep(millisegundos) {
+    var inicio = new Date().getTime();
+    while ((new Date().getTime() - inicio) < millisegundos){};
+}
+
 </script>
              <div class="well">
-                    <h3><strong>Postear Noticia:</strong></h3>
+                    <h3><strong>Postear Post:</strong></h3>
                     <form role="form" id="formBlogGa">
                         <div class="form-group">
-                            <label for="" class="control-label">T√≠tulo de la Noticia:</label>
+                            <label for="" class="control-label">T√≠tulo del Post:</label>
                             <input type="text" class="form-control" id="tituloPost" maxlength="80" required></input>
                         </div>
                         <div class="form-group">
-                            <label for="" class="control-label">Redactar Noticia:</label>
-                            <textarea class="form-control" rows="4" id="contenidoPost" maxlength="5000" required></textarea>
+                            <label for="" class="control-label">Redactar Texto del Post:</label>
+                            <textarea class="form-control" rows="10" id="contenidoPost" maxlength="5000" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label">link de imagen:</label>
@@ -109,11 +116,12 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                         </div>
                         <div class="form-group">
                             
-                                <label for="" class="control-label">Categor√≠a:</label>
+                                <label for="" class="control-label">Categor√≠a del Post:</label>
                                 <select id="categoriaPost" class="form-control" required>
                                     <option value=''>Elege Categor√≠a:</option>
                                     <option value='musica'>M√∫sica.</option>
                                     <option value='cine'>Cine.</option>
+                                    <option value='libros'>Libros.</option>
                                     <option value='aireLibre'>Aire Libre.</option>
                                     <option value='humor'>Humor.</option>
                                     <option value='actualidad'>Actualidad.</option>
@@ -121,13 +129,16 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                                     <option value='rico'>Muy Rico!.</option>
                                     <option value='ga'>Muy GA!.</option>
                                     <option value='galobos'>Galob@s.</option>
+                                    <option value='galobosWorld'>Galob@s por el Mundo.</option>
                                 </select>
                         </div>
                          <div class="form-group">
                                 <button type="submit" id="btnFormPost" class="btn btn-primary">Posteal√≥!</button>
                         </div>
                         <!-- <button type="submit" id="btnFormPost" class="btn btn-primary">Posteal√≥!</button> -->
-                        <div id="alertBlog"></div>
+                        <div id="alertBlog">
+<!-- <script type="text/javascript"> sleep(5000); </script> -->
+                        </div>
                     </form>
                 </div>
                
@@ -163,6 +174,8 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                                 </li>
                                 <li><a href="indexga.php?cat=cine">Cine</a>
                                 </li>
+                                <li><a href="indexga.php?cat=libros">Libros</a>
+                                </li>
                                 <li><a href="indexga.php?cat=airelibre">Aire Libre</a>
                                 </li>
                                 <li><a href="indexga.php?cat=humor">Humor</a>
@@ -180,6 +193,8 @@ $(document).ready(function(){ //Sistema Jquery y Ajax para recoger variables tr√
                                 <li><a href="indexga.php?cat=ga">Muy GA!</a>
                                 </li>
                                 <li><a href="indexga.php?cat=galobos">Galob@s</a>
+                                </li>
+                                <li><a href="indexga.php?cat=galobosWorld">Galob@s por el Mundo</a>
                                 </li>
                             </ul>
                         </div>
