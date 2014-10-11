@@ -221,7 +221,7 @@ function recogerValidarInfoQuiniela(){
                  </div>   
                   <div class="row col-sm-12">
                     <div id="mensajeValida" >
-                           <p>dsaaaaaaaaaaaaaafffffffffansdfknadsñfnñasdfñasdngadksñgn</p>          
+                                  
                     </div>
                  </div>
             	

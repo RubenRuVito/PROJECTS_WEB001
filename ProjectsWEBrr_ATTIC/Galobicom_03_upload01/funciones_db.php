@@ -5,7 +5,7 @@ require_once 'funciones.php';
 function conectarDB01(){
 	//$conexion = new mysqli('localhost','root_ruben01','ruben01','db_ruvio01');
 	//$conexion = new mysqli('localhost','root_ruben01','ruben01','db_ruvio01_pruebas');
-	$conexion = new mysqli('localhost','root_ruben01','ruben01','db_ruvio01_pruebas');
+	$conexion = new mysqli('localhost','root_ruben01','ruben01','db_ruvio02');
 	if (mysqli_connect_errno()) {
 	    echo 'Falló la conexión: '.mysqli_connect_error();
 	    exit();

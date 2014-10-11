@@ -166,6 +166,7 @@ function cargarTablaQuinielaUser($numJor){
 		$arayIdsGoleadores = explode(",",$cadIdsGoleadores);
 			//echo "<p>idsGoleadores: " .count($arayIdsGoleadores)."</p>";
 				echo "<div class='text-center form-group'>";
+				echo "<div class='well'>";
 				echo "<h3>Tus Killer para esta Jornada Son:</h3>";
 				echo "<hr style='border-top-color: black;'>";
 		for($cnt=0;$cnt<count($arayIdsGoleadores);$cnt++){
@@ -181,11 +182,14 @@ function cargarTablaQuinielaUser($numJor){
 				}else{
 					$puntos =50;
 				}
+				echo "<div class='well'>";
 				echo "<h4>killer [".$cnt."]:</h4>";
 				echo "<h4>Dorsal:<strong> ".$regisJugador['id_jugador']."</strong> Nombre: <strong>".$regisJugador['nom_camiseta']."</strong></h4>";
 				echo "<h4>Posición:<strong> ".$regisJugador['posicion']."</strong> Puntuación:<strong> ".$puntos."</strong></h4>"; 
-				echo "<hr style='border-top-color: black;'>";
+				echo "</div>";
+				//echo "<hr style='border-top-color: black;'>";
 		}
+				echo "</div>";
 				echo "</div>";
 	}
 
