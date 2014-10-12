@@ -20,7 +20,7 @@ cargarCabecera('Hola! Galob@!',4);
    <div class="container-left"> 
             
                 <div class="well" style="background: #A00303;">
-                    <h1 class="text-center" style="color: black; font-size: 720%; font-family: Cursive;"><img src="img/ball_small.jpg"><strong>Real Galobo C.F.</strong><img src="img/ball_small.jpg"></h1>
+                    <h1 class="text-center" style="color: black; font-size: 720%; font-family: Cursive;"><img src="img/escudoRGrr02.jpg"><strong>Real Galobo C.F.</strong><img src="img/escudoRGrr02.jpg"></h1>
                 </div>
                 <script type="text/javascript">
                     //document.writeln("<p>"+screen.width+" x "+screen.height+"</p>");// Resolución del Navegador y personalizamos el Canvas.
@@ -101,7 +101,7 @@ $(document).ready(function(){
 
            <!-- <div class="table-responsive well"> -->
                 <div class="table-responsive well">
-                    <label for="" class="control-label">Resultados por jornadas:</label>
+                    <label for="" class="control-label">Resultados y próximos encuentros por jornadas:</label>
 
 <?php generaComboJornadas(); ?>  
 
@@ -138,10 +138,11 @@ $(document).ready(function(){
                         <thead>    
                          <tr>
                             <th class="text-center">Jornada</th>
-                            <th class="text-center">Equipo A</th>
-                            <th class="text-center">Equipo B</th>
+                            <th class="text-center">Equipo Local</th>
+                            <th class="text-center">Equipo Visit.</th>
                             <th class="text-center">Resultado</th>
                             <th class="text-center">Fecha y Hora</th>
+                            <th class="text-center">Terreno de Juego</th>
                          </tr>
                         </thead> 
                         <tbody id="tablaResultadosJor">  
@@ -213,8 +214,8 @@ $("#btnFormNoti").click(function(){
                         <thead>
                          <tr>
                             <th class="text-center">Jornada</th>
-                            <th class="text-center">Equipo A</th>
-                            <th class="text-center">Equipo B</th>
+                            <th class="text-center">Equipo Local</th>
+                            <th class="text-center">Equipo Visit.</th>
                             <th class="text-center">Resultado</th>
                          </tr>
                         </thead>
@@ -736,18 +737,18 @@ function sleep(millisegundos) {
                 </div>
                 <div class="row well">
                     <h4>Zona Real Galobo C.F.:</h4>
-                    <p>Espacio en el que podras consultar los datos más significativos, de la liga donde juegan nuestro equipo de fútbol, y con la 
-                    posibilidad de informar de cualquier Noticia relacionada o no con el mundo del fútbol Mundial, Continental, Occidental, Nacional y como 
-                    no Municipal.</p>
-                    <p>Funcionamiento muy intuitivo y dinámico, con la posibilidad de participar al juego de la quiniela que es muy ga! y tiene un
-                        añadido parecido al comunio, donde a parte de puntuar por los partidos de la jornada acertados en con el 1-X-2 de toda la vida,
+                    <p>Espacio en el que podrás consultar los datos más significativos, de la liga donde juegan nuestro equipo de fútbol, 
+                        con la posibilidad de informar de cualquier noticia relacionada o no con el mundo del fútbol Mundial, Continental, 
+                        Occidental, Nacional y como no, Municipal.</p>
+                    <p>Funcionamiento muy intuitivo y dinámico, con el añadido de poder participar al juego de la quiniela que es muy ga! con una
+                        particularidad, que a parte de puntuar por los partidos de la jornada acertados en el 1-X-2 de toda la vida,
                         podrás seleccionar los jugadores de nuestro equipo que crees que harán diana cada jornada.</p>
                 </div>
                 <div class="row well">
-                    <h4>Formulario De Noticia:</h4>
+                    <h4>Formulario de Noticia:</h4>
                     <p>- Imagenes: tienen que ser tipo Link, es decir imagenes que tengais por ejemplo en una cuenta pública tipo Instagram,flicker.. 
                      o subidas por otros usuarios y tengan un acceso público, seleccionando y copiando la "url" en el espacio habilitado para las imagenes.</p>
-                    <p>- Links Externos: si quieres referenciar un artículo o sitio web externo debes informar el campo habilitado para ello, con la "url.</p>
+                    <p>- Links Externos: si quieres referenciar un artículo o sitio web externo debes informar el campo habilitado para ello, con la "url".</p>
                 </div>
 
                 <!-- Blog Search Well 

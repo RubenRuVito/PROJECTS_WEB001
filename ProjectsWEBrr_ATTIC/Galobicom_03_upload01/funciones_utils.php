@@ -205,4 +205,31 @@ function updateTablaPuntosQuiniela($idPartidoRes,$numJornada,$quiniela,$arayIdJu
             }
         }
 }
-?>
+
+function categoriasBlog($catdb){
+    $catMod;
+    if($catdb=='musica'){
+        $catMod='Musica';
+    }else if($catdb=='cineyseries'){
+            $catMod='Cine & Series';
+        }else if($catdb=='libros'){
+                $catMod='Libros';
+            }else if($catdb=='aireLibre'){
+                    $catMod='Aire libre';
+                }else if($catdb=='humor'){
+                        $catMod='Humor';
+                    }else if($catdb=='actualidad'){
+                            $catMod='Actualidad';
+                        }else if($catdb=='gastronomia'){
+                                $catMod='Gastronomía';
+                            }else if($catdb=='rico'){
+                                    $catMod='Muy rico';
+                                }else if($catdb=='ga'){
+                                        $catMod='Muy GA!';
+                                    }else if($catdb=='galobos'){
+                                            $catMod='Galob@s';
+                                        }else if($catdb=='galobosWorld'){
+                                                $catMod='Galob@s por el Mundo';
+                                            }
+return $catMod;
+}

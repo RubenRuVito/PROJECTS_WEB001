@@ -96,7 +96,7 @@ function sleep(millisegundos) {
 
 </script>
              <div class="well">
-                    <h3><strong>Postear Post:</strong></h3>
+                    <h3><strong>Formulario de Post:</strong></h3>
                     <form role="form" id="formBlogGa">
                         <div class="form-group">
                             <label for="" class="control-label">Título del Post:</label>
@@ -118,9 +118,9 @@ function sleep(millisegundos) {
                             
                                 <label for="" class="control-label">Categoría del Post:</label>
                                 <select id="categoriaPost" class="form-control" required>
-                                    <option value=''>Elege Categoría:</option>
+                                    <option value=''>Elige Categoría:</option>
                                     <option value='musica'>Música.</option>
-                                    <option value='cine'>Cine.</option>
+                                    <option value='cineyseries'>Cine & Series.</option>
                                     <option value='libros'>Libros.</option>
                                     <option value='aireLibre'>Aire Libre.</option>
                                     <option value='humor'>Humor.</option>
@@ -164,7 +164,7 @@ function sleep(millisegundos) {
 
                 <!-- Blog Categories Well -->
                 <div class="well">
-                    <h4>Categorias Blog:</h4>
+                    <h4>Categorias del Blog:</h4>
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
@@ -172,7 +172,7 @@ function sleep(millisegundos) {
                                 </li>
                                 <li><a href="indexga.php?cat=musica">Música</a>
                                 </li>
-                                <li><a href="indexga.php?cat=cine">Cine</a>
+                                <li><a href="indexga.php?cat=cineyseries">Cine & Series</a>
                                 </li>
                                 <li><a href="indexga.php?cat=libros">Libros</a>
                                 </li>
@@ -204,14 +204,14 @@ function sleep(millisegundos) {
 
                 <!-- Side Widget Well -->
                 <div class="well">
-                    <h4>Blog con TAraS Ups!!</h4>
+                    <h4>Blog con "taras" Ups!!</h4>
                     <p>Zona Blog en la que podéis Postear en las diferentes categorías, con un máximo de 5 post por mes
                     y 5 comentarios por post y mes también, de hay lo de las Taras..sorry! pero es lo que hay. Espero
-                    que os divirtáis como yo lo e hecho al crearlo, y pensando a la vez en los post mágicos, gigantes y maravillosos
+                    que os divirtáis como yo lo he hecho al crearlo, e imaginandome a la vez (bastante dificil xcierto.), los post mágicos, gigantes y maravillosos
                     que van a salir de mentes como las vuestras. Adelante Postéate Algo! si te atreves..o_O!!</p>
                 </div>
                 <div class="well">
-                    <h4>Formulario De Post:</h4>
+                    <h4>Formulario de Post:</h4>
                     <p>- Imagenes: tienen que ser tipo Link, es decir imagenes que tengais por ejemplo en una cuenta pública tipo Instagram,flicker.. 
                      o subidas por otros usuarios y tengan un acceso público, seleccionando y copiando la "url" en el espacio habilitado para las imagenes.</p>
                     <p>- Links Externos: si quieres referenciar un artículo o sitio web externo debes informar el campo habilitado para ello con la "url.</p>

@@ -10,10 +10,10 @@ if(!isset($_SESSION['id'])){
     }
 }
 
-cargarCabecera('Galobicom - Quiniela GA!',5); // ubi: "funciones_out.php".
+cargarCabecera('Quiniela GA!',5); // ubi: "funciones_out.php".
 $maxelempag = 2;
 cargarClasificacionQuiniGa($maxelempag);
-cargarPaginacionQunielaGa($maxelempag);
+//cargarPaginacionQunielaGa($maxelempag);
 
 ?>
 	<div class="row">

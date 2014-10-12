@@ -110,14 +110,14 @@ function cargarBarraNav($pag){ //Barra tipica de las pg Web en la parte superior
 	        	<ul class="dropdown-menu navbar-inverse" role="menu" style="border-radius: 10px;">
 	        		<li><a style="color: #777;" href="indexga.php?p=<?php echo $pag; ?>">BloGA <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        		<li><a style="color: #777;" href="realGalobo.php?p=<?php echo $pag; ?>">Real Galobo F.C. <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu02">Eventos GA! <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
-	        		<li><a style="color: #777;" href="#menu03">Por el Mundo <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu02" disabled>Eventos GA! <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="indexga.php?p=<?php echo $pag; ?>&cat=galobosWorld">Por el Mundo <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        		<li class="dropdown-submenu"><a style="color: #777;" href="">Juegos GA! <small><span class=""></span></small></a>
 	        			<ul class="dropdown-menu navbar-inverse">		
 	        				<li><a style="color: #777;" href="quinielaGa.php?p=<?php echo $pag; ?>">Quiniela <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        			</ul>
 	        		</li>
-	        		<li><a style="color: #777;" href="#menu05">Galobas <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
+	        		<li><a style="color: #777;" href="#menu05" disabled>Galobas <small><span class="glyphicon glyphicon-eye-open"></span></small></a></li>
 	        	</ul>
 	        </li>
 	        <!-- reglas en el css "miestilo.css" -->
@@ -571,14 +571,15 @@ function cargarPostBlogGA($maxelem){ //DE MOMENTO CODIGO DEL CARGADO DE NOTICIAS
 	if($consulta){
 		if($consulta->num_rows != 0){
 			while($registroPost = mysqli_fetch_assoc($consulta)){
+				$categoria = categoriasBlog($registroPost['categoria']);
 				$idUsuarioPost = $registroPost['idfk_user'];
 				$consultaNick = $conect->query("SELECT nick FROM users WHERE id_user='$idUsuarioPost'; ");
 				$registroUser = mysqli_fetch_assoc($consultaNick);
 				echo "<hr style='border-top-color: black;'>";
 				echo "<h2 id='tituloNoti' value='".$registroPost['id_blog']."'>".$registroPost['titulo']."</h2>";
-               	echo "<p class='lead'>by: <strong>".$registroUser['nick']."</strong> Categoría: <strong>".$registroPost['categoria']."</strong></p>";
+               	echo "<p class='lead'>by: <strong>".$registroUser['nick']."</strong> Categoría: <strong>".$categoria."</strong></p>";
 				//<!-- Date/Time -->
-                echo "<p><span class='glyphicon glyphicon-time'></span> ".$registroPost['fec_publicado']."</p>";
+                echo "<p><span class='glyphicon glyphicon-time'></span> Fecha y hora: ".$registroPost['fec_publicado']."</p>";
                 echo "<hr style='border-top-color: black;'>";
 				//<!-- Preview Image -->
 				if($registroPost['img_link'] != ''){
@@ -760,12 +761,37 @@ function cargarClasificacionQuiniGa($maxelem){ //Tabla "puntos_quiniela" donde e
                   </tbody>
                 </table>
 <?php
-
+cargarPaginacionQunielaGa($maxelem);
    }else{
    	 	cargarAlerts('warning','sm','Error en Base de datos(db)');
    }
  }else{
- 	cargarAlerts('warning','','No existen Datos de Puntuaciones para el Juego Quiniela GA! (experar resultados 1ªJornada');
+ ?>
+ 	<br><br>
+		<div class="row">
+			
+			<div class="table-responsive col-md-12 navbar-white well" style="border-radius: 10px;">
+				<h2 class="text-top text-center" style="font-family: cusrsive; color: black">Clasificación Quiniela</h2>
+				<table id="" class="table table-striped table-bordered table-hover well" style="" border="" width="">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Posición</th>
+                      <th class="text-center">NICK (user)</th>
+                      <th class="text-center">Puntuación</th>
+                      <th class="text-center">Jornadas Realizadas</th>
+                      <th class="text-center">%P.A.% Partidos</th>
+                      <th class="text-center">%P.A.% Killers</th>
+                      <th class="text-center">Efectividad Estratégica</th>
+                    </tr>
+                  </thead> 
+                  <tbody></tbody>
+                </table>
+            
+
+<?php
+ 	cargarAlerts('warning','','No existen Datos de Puntuaciones para el Juego Quiniela GA! (esperar resultados 1ªJornada)');
+ 	echo "</div>";
+ 	echo "</div>";
  }
 }
 

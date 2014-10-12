@@ -55,7 +55,7 @@ cargarCabecera('Inicio',$pag);
 	      <div class="caption">
 	        <h3>Eventos!!</h3>
 	        <p>Quieres juntar a la camadería Galobica??, este es el lugar indicado.</p>
-	        <p><a href="#events" class="btn btn-success" role="button">Ir..</a></p>
+	        <p><a href="#events" class="btn btn-success" role="button" disabled>Ir..</a></p>
 	      </div>
 	    </div>
 	  </div>
@@ -66,7 +66,17 @@ cargarCabecera('Inicio',$pag);
 	        <h3 style="color: #777;">Galobic@s around the World!!</h3>
 	        <p style="color: #777;">Si estás conquistando el mundo, y quieres contarnoslo, aqui tienes un epacio en el que informar
 	        	a la comunidad Galobica, de tus hazañas y anécdotas más locuelieskas..!!</p>
-	        <p><a href="#trip" class="btn btn-primary" role="button">Ir..</a></p>
+<?php
+	if(!isset($_SESSION['id'])){
+?>
+	  <p><a href="indexga.php?cat=galobosWorld" class="btn btn-primary" role="button" disabled>Ir..</a></p>
+<?php
+	}else{
+?>	
+	<p><a href="indexga.php?cat=galobosWorld" class="btn btn-primary" role="button">Ir..</a></p>
+<?php
+	}
+?>
 	      </div>
 	    </div>
 	  </div>
@@ -77,7 +87,7 @@ cargarCabecera('Inicio',$pag);
 	        <h3>Galobas!!</h3>
 	        <p>Exquisita Zona restringida, de calidad y para los más exigentes; a la que solo podrás acceder cuando alcances 
 	        	el nivel de Mr.GA! que quiere decir Galán al Acecho. Registraté y enterate de como alcanzar tales niveles de privilegios y empezar a gozar</p>
-	        <p><a href="#galobas" class="btn btn-danger" role="button">Ir..</a></p>
+	        <p><a href="#galobas" class="btn btn-danger" role="button" disabled>Ir..</a></p>
 	      </div>
 	    </div>
 	  </div>
@@ -87,7 +97,17 @@ cargarCabecera('Inicio',$pag);
 	      <div class="caption">
 	        <h3 style="color: #777;">Juegos!!</h3>
 	        <p style="color: #777;">Espacio dedicado a la mente, su entretenimiento y entrenamiento en el arte del azar, la destreza, la estrategía, la agilidad y habilidades</p>
-	        <p><a href="#galobas" class="btn btn-warning" role="button">Ir..</a></p>
+<?php
+	if(!isset($_SESSION['id'])){
+?>
+	  <p><a href="quinielaGa.php?p=<?php echo $pag; ?>" class="btn btn-warning" role="button" disabled>Quiniela GA!</a></p>
+<?php
+	}else{
+?>	
+	<p><a href="quinielaGa.php?p=<?php echo $pag; ?>" class="btn btn-warning" role="button">Quiniela GA!</a></p>
+<?php
+	}
+?>
 	      </div>
 	    </div>
 	  </div>
