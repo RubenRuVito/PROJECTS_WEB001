@@ -1,0 +1,25 @@
+Guía paso a paso para solucionar el problema de los acentos y eñes
+Cotejamiento
+Al crear la base de datos MySQL, asegúrate que los campos string y demás esten en utf8_spanish_ci y el cotejamiento de las tablas en utf_unicode_ci (más tarde en Operations > Collation de phpMyAdmin se puede cambiar)
+Content type HTML
+Pon en el <head> de todos los archivos HTML:
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+Content type PHP
+Y en los puramente PHP (que muestran XML, llamadas de AJAX, APIs…) pon el código:
+header("Content-Type: text/html;charset=utf-8");
+Set names
+Al crear la conexión de PHP con MySQL, envía esta consulta justo tras la conexión:
+mysql_query("SET NAMES 'utf8'");
+(Para MySQLi escribe $acentos = $db->query("SET NAMES 'utf8'"); gracias Fernando)
+Convertir codificado a UTF-8
+Convierte todo lo que esté codificado de latin1 a UTF-8 (gracias Guillermo)
+SELECT convert(cast(convert(content using latin1) as binary) using utf8) AS content
+Apache
+Quita el DefaultCharset del Apache o modifícalo
+htmlentities
+Como última y desesperada opción, quita todos los htmlentities(); y sustitúyelo por otro parser para ‘sanitizar’ los datos.
+Haciendo estos pasos se solucionará cualquier problema de codificación de caracteres. Si te ha servido este artículo, ahorra la frustración a otros programadores compartiendo el artículo en Twitter, Facebook o Google+ con los botones de abajo.
+
+Si estás empezando con PHP/MySQL te recomiendo utilizar el código que tengo publicado aquí que es seguro, fácil de usar y funciona muy bien. También está la versión en PDO utilizando named parameters que es incluso más sencilla.
+
+Y si estás buscando un framework PHP te recomiendo Fat-Free-Framework (también conocido como F3), es de código abierto y rapidísimo de aprender y utilizar.

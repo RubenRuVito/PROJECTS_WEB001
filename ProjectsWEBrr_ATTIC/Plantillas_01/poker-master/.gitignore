@@ -1,0 +1,22 @@
+# Created by http://gitignore.io
+
+### Linux ###
+.*
+!.gitignore
+!.git*
+*~
+
+
+### Dart ###
+.DS_Store
+packages
+.project
+*.orig
+
+### Unsure about the following ###
+build/*
+
+###intelliJ###
+*.iml
+.idea/*
+atlassian-ide-plugin.xml

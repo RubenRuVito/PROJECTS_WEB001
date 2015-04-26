@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blind Supervision</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="poker.css">
+
+
+      <!-- used for paper_elements -->
+      <script src="packages/web_components/platform.js"></script>
+      <script src="packages/web_components/dart_support.js"></script>
+
+      <link rel="import" href="packages/paper_elements/paper_button.html">
+      <link rel="import" href="packages/paper_elements/paper_shadow.html">
+      <link rel="import" href="packages/paper_elements/paper_input.html">
+      <link rel="import" href="packages/paper_elements/roboto.html">
+
+  </head>
+  <body ng-app>
+    <div ng-hide="true">Please hold while we connect you with one of our operators...</div>
+
+    <div class="clearfix" id="blindSupervision" poker-controller ng-cloak>
+        <audio id="timer-alert" src="audio/Alarm-Positive.wav" preload="auto"></audio>
+
+
+        <div ng-hide="controller.editMode">
+
+
+            <!-- current level -->
+            <level blind="controller.currentBlind"
+                   identifier="controller.currentLevelIdentifier"
+                   start-time="controller.currentCountdownLength"
+                   is-sudden-death="controller.isSuddenDeath"
+                   on-break="controller.onBreak"
+                   is-running="controller.isRunning"
+                   is-current-level="true">
+            </level>
+
+
+            <!-- next level -->
+            <level blind="controller.nextBlind"
+                   identifier="controller.nextLevelIdentifier"
+                   start-time="controller.nextCountdownLength"
+                   on-break="controller.breakIsNext"
+                   is-current-level="false"
+
+                   ng-unless="controller.isLastLevel"
+                   >
+            </level>
+
+
+          <!-- controls -->
+          <div ng-unless="controller.isSuddenDeath">
+              <paper-button raisedbutton="true" class="colored paperButton mainButton" tabindex="1"
+                            label="{{ controller.controlText }}"
+                            ng-click=" controller.toggleTimer() "
+                            style="width:125px;"></paper-button>
+              <paper-button raisedbutton="true" class="colored paperButton mainButton" tabindex="2"
+                            label="Reset"
+                            ng-click=" controller.resetLevel() "></paper-button>
+              <paper-button raisedbutton="true" class="colored paperButton mainButton" tabindex="3"
+                            label="Skip"
+                            ng-click=" controller.skipLevel() "></paper-button>
+          </div>
+
+
+
+          <!-- chips -->
+          <div class="chipsWrapper clearfix">
+            <paper-shadow z="1"></paper-shadow>
+            <chip chips="controller.chips"></chip>
+          </div>
+
+      </div>
+
+      <poker-admin></poker-admin>
+      <br /><br />
+      <div id="title">Blind Supervision</div> <next-break></next-break>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+
+    <script type="application/dart" src="poker.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

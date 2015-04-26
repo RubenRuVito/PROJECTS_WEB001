@@ -1,0 +1,94 @@
+#chips {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100%;
+}
+
+.chipValue {
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.chipValue.white {
+    color: black;
+}
+
+.pokerchip{
+    font-size:1.5em;
+    position:relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    width:5em;
+    height:5em;
+    background:#555;
+    border-radius:50%;
+    border:.5em dashed white;
+    transition:all .5s ease;
+    backface-visibility:hidden;
+}
+
+.pokerchip.ng-move, .pokerchip.ng-enter, .pokerchip.ng-leave {
+    -webkit-transition:all ease 1.3s;
+    transition:all ease 1.3s;
+}
+
+.pokerchip.ng-leave.ng-leave-active,
+.pokerchip.ng-move,
+.pokerchip.ng-enter {
+    margin-left: -1000px;
+    margin-right: 1000px;
+    transform:rotate(-390deg);
+}
+
+.pokerchip.ng-leave,
+.pokerchip.ng-move.ng-move-active,
+.pokerchip.ng-enter.ng-enter-active {
+    margin-left: 0;
+    margin-right: 0;
+    transform:rotate(90deg);
+}
+
+
+
+.pokerchip.white {
+    border:.5em dashed black;
+}
+
+.pokerchip.flat{
+    box-shadow:0 0 0 .2em #fff;
+}
+
+.pokerchip.iso{
+    transform: perspective(3000px) rotateX(55deg) rotateZ(-40deg);
+    box-shadow:
+    -1px 1px 0 #555,
+    -2px 2px 0 #555,
+    -3px 3px 0 #555,
+    -4px 4px 0 #555,
+    -5px 5px 0 #555,
+    -6px 6px 10px #555;
+}
+
+.pokerchip.flat:hover{
+    transform:rotate(90deg);
+}
+
+.pokerchip.iso:hover{
+    transform: perspective(3000px) rotateX(55deg) rotateZ(-40deg) translateZ(.5em);
+}
+
+.antiCricle {
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    left: -20px;
+    right: -20px;
+    z-index: 50;
+    opacity: .93;
+}
