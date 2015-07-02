@@ -1,0 +1,1 @@
+[26-Oct-2014 15:22:44 UTC] PHP Warning:  mysqli::close() [<a href='mysqli.close'>mysqli.close</a>]: Couldn't fetch mysqli in /home/u199747581/public_html/funciones_db.php on line 16
