@@ -29,6 +29,7 @@ if(!isset($_SESSION['id'])){
 
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +42,7 @@ if(!isset($_SESSION['id'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BeetleDroneXXX</title>
+    <title>BeetleXXXXX</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -79,7 +80,7 @@ if(!isset($_SESSION['id'])){
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand page-scroll" href="#page-top">BeetleDrone</a>
+                <a class="navbar-brand page-scroll" href="#page-top">BeetleXXXXX</a>
                 <img src="img/logos/icon-quadcopter.png" class="img-responsive" alt="" width="80" height="">
 
             </div>
@@ -96,9 +97,9 @@ if(!isset($_SESSION['id'])){
                     <li>
                         <a class="page-scroll" href="#portfolio">Portfolio</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a class="page-scroll" href="#about">Historia</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a class="page-scroll" href="#team">Equipo</a>
                     </li>
@@ -121,7 +122,7 @@ if(!isset($_SESSION['id'])){
                 <div class="intro-heading-btn01">
                     <a href="#services" class="page-scroll btn btn-x2">Tell Me More</a>
                 </div>-->
-                <div class="intro-lead-in">Bienvenido a nuestro estudio de grabación aerea.</div>
+                <div class="intro-lead-in">Bienvenido a nuestro estudio de grabación aérea.</div>
                 <div class="intro-heading">"Complementamos tus proyectos audio-Visuales."</div>
                 <div class="intro-heading-btn01">
                     <a href="#services" class="page-scroll btn btn-x2">¿Que ofrecemos?</a>
@@ -137,37 +138,59 @@ if(!isset($_SESSION['id'])){
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Servicios</h2>
-                    <h3 class="section-subheading text-muted">Imágenes aéreas para incluir en tus proyectos.</h3>
+                    <h3 class="section-subheading text-muted">Imágenes aéreas para incluir en tus proyectos o eventos.</h3>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
 
-                    <span class="fa-stack fa-4x image-responsive">
+                    <span class="img-responsive">
                         <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>-->
                         <img src="img/beetles/drone-beetle-1-data.jpg" class="" alt="" width="150" height="">
                     </span>
+                    <span class="img-responsive">
+                        <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>-->
+                        <img src="img/beetles/logos/103844-200.png" class="" alt="" width="150" height="">
+                    </span>
                     <h4 class="service-heading">Grabación Aérea</h4>
-                    <p class="text-muted">Hacemos grabaciones de planos que normalmente no se pueden realizar con los recursos habituales, utilizando cámaras de alta resolución y nuestros "escarabajos cyborg", para captar imagenes aéreas que puedas añadir a tus proyectos audio-visuales.</p>
+                    <p class="text-muted">Realizamos grabaciones de planos que normalmente no se pueden ejecutar con 
+                        los recursos habituales, utilizando cámaras de alta resolución y nuestros "escarabajos 
+                        cyborg", para captar imagenes aéreas que puedas añadir a tus proyectos audio-visuales, de 
+                        cualquier ámbito.</p>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x img-responsive">
+                    <span class="img-responsive">
                         <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>-->
                         <img src="img/beetles/03f986716b035dbf943e007d1b2f9fc6.png" class="" alt="" width="150" height="">
                     </span>
-                    <h4 class="service-heading">Montaje del Video</h4>
-                    <p class="text-muted">Con el material grabado por nuestros "bichos", y el que tu tengas grabado, te montamos un video espectacular.</p>
+                    <span class="image-responsive">
+                        <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>-->
+                        <img src="img/beetles/logos/unload_drone-512.png" class="" alt="" width="150" height="">
+                    </span>
+                    <h4 class="service-heading">Edición de Video</h4>
+                    <p class="text-muted">Con el material digital obtenido por nuestros "bichos electronicos", y el que tu 
+                        tengas grabado, te montamos un video espectacular.</p>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x img-responsive">
+                    <span class="img-responsive">
                         <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>-->
                         <img src="img/beetles/miles-kelly-Bugs-poster-Goliath-Beetle.jpg" class="" alt="" width="150" height="">
                     </span>
+                     <span class="image-responsive">
+                        <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>-->
+                        <img src="img/beetles/logos/pv_590.jpg" class="" alt="" width="150" height="">
+                    </span>
                     <h4 class="service-heading">Grabación Terrestre</h4>
-                    <p class="text-muted">Si lo que necesitas es el pack completo, según la idea que tengas en mente, la adaptamos dentro de la posibilidades técnicas y humanas para realizar las grabaciones tanto aereas como terrestres, y editar un video que refeleje ese momento que has querido inmortalizar con nuestra ayuda.</p>
+                    <p class="text-muted">Si lo que necesitas es el pack completo, según la idea que tengas en 
+                        mente, la adaptamos dentro de las posibilidades técnicas y humanas, para realizar las 
+                        grabaciones tanto aereas como terrestres, y editar un video que refeleje ese momento que 
+                        has querido inmortalizar con nuestra ayuda.</p>
                 </div>
             </div>
         </div>
@@ -204,7 +227,7 @@ if(!isset($_SESSION['id'])){
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
+                        <img src="https://i.vimeocdn.com/video/503623510.webp?mw=960&mh=540);" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
                         <h4>Startup Framework</h4>
@@ -272,6 +295,7 @@ if(!isset($_SESSION['id'])){
     </section>
 
     <!-- About Section -->
+    <!--
     <section id="about">
         <div class="container">
             <div class="row">
@@ -351,6 +375,7 @@ if(!isset($_SESSION['id'])){
             </div>
         </div>
     </section>
+    -->
 
     <!-- Team Section -->
     <section id="team" class="bg-light-gray">
@@ -530,14 +555,14 @@ if(!isset($_SESSION['id'])){
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <!--<div class="col-lg-8 col-lg-offset-2">-->
                         <div class="modal-body">
                             <!-- Project Details Go Here -->
                             <h2>Project Name</h2>
                             <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                             <!--<img class="img-responsive" src="img/portfolio/roundicons-free.png" alt="">
                             <iframe class="youtube-player" type="text/html" width="640" height="385" src="https://www.youtube.com/watch?v=c_nnFnUCAkg" frameborder="0"></iframe>-->
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/c_nnFnUCAkg" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="660" height="415" src="https://www.youtube.com/embed/c_nnFnUCAkg" frameborder="0" allowfullscreen></iframe>
                             <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
                             <p>
                                 <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>
@@ -548,7 +573,7 @@ if(!isset($_SESSION['id'])){
                             </ul>
                             <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
                         </div>
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -565,16 +590,18 @@ if(!isset($_SESSION['id'])){
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    
                         <div class="modal-body">
                             <h2>Project Heading</h2>
                             <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/startup-framework-preview.png" alt="">
+                            <!--<img class="img-responsive img-centered" src="img/portfolio/startup-framework-preview.png" alt="">-->
+                            <iframe class="" src="https://player.vimeo.com/video/117037366" width="860" height="440" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/117037366">Welcome to Fontainebleau</a> from <a href="https://vimeo.com/user36202241">Laura Jover</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
                             <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website builder for professionals. Startup Framework contains components and complex blocks (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost any design. All of these components are made in the same style, and can easily be integrated into projects, allowing you to create hundreds of solutions for your future projects.</p>
                             <p>You can preview Startup Framework <a href="http://designmodo.com/startup/?u=787">here</a>.</p>
                             <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
                         </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
